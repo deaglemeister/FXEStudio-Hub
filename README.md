@@ -6,4 +6,5 @@ FXEdition это более новая версия DevelNext, данное пр
 3) Новый Splash экран
 4) Быструю загрузку проекта и самой среды
 5) И много, много вкусняшек которые публикуются у нас в Telegram канале -> t.me/fxedition17
+
 ![image](https://github.com/deaglemeister/FXEdition/assets/82234313/b56f6bd5-1249-4197-9f15-88082d0681b2)
