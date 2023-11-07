@@ -18,7 +18,7 @@ FXEdition — это простая среда в использовании к�
 
 | Windows 8.1+ Zip 
 | :---: 
-| [x64](https://t.me/fxedition17/46) |  |
+| [x64](https://github.com/deaglemeister/FXEdition/releases/download/1.3/DevelNext.rar) |  |
 
 #### Предупреждение ⚠️
 У FXEdition нету авто обновление программы:
