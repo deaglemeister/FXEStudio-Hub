@@ -69,13 +69,13 @@ class Notifications
         return self::show($title, $message, 'SUCCESS');
     }
 
- 
+
 
 
     public static function showExecuteUnableStop()
     {
         static::show('Проблемы с запуском', 'Мы не смогли корректно остановить программу, возможно она еще запущена.', 'WARNING');
-
+    }
 
     public static function errorDeleteFile($file)
     {
