@@ -1,4 +1,4 @@
-# FXEdition 17 | Сборка для DevelNext 16.7.0
+# FXEdition 17 | Сборка для DevelNext 16.7.0 [![Support Ukraine](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://opensource.fb.com/support-ukraine)
 <p align="center">
   <img alt="FXEdition White" src="https://github.com/deaglemeister/FXEdition/assets/82234313/09efd85b-bab6-4214-935d-5407f063353e"  width="400">
 
@@ -49,5 +49,3 @@ FXEdition — это простая среда в использовании к�
 ```sh
 Изменённые время "Timer" на открытие проекта, на прогрузку "Splash Screen".
 ```
-## Остальные версии можно найти у нас в релизах 💿
- [**Релизы среды DevelNext**](https://github.com/deaglemeister/FXEdition/releases).
