@@ -1,4 +1,4 @@
-# FXEdition 17 | Сборка для DevelNext 16.7.0 [![Support Ukraine](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://opensource.fb.com/support-ukraine)
+# FXEdition 17 | Сборка для DevelNext 16.7.0 
 <p align="center">
   <img alt="FXEdition White" src="https://github.com/deaglemeister/FXEdition/assets/82234313/09efd85b-bab6-4214-935d-5407f063353e"  width="400">
 
