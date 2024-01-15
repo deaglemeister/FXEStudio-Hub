@@ -1,0 +1,44 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Compile And Run",
+			"dependsOn": [
+				"Compile",
+				"Debug"
+			]
+		},
+		{
+			"label": "Compile",
+			"type": "shell",
+			"command": "jar -cMf ..\\lib\\FXE.jar ./.data ./.dn ./.forms ./.game ./.system ./ide ./JPHP-INF ./META-INF ./vendor ./LICENSE",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": [],
+			"options": {
+				"cwd": ".\\src"
+			}
+		},
+		{
+			"label": "Debug",
+			"type": "shell",
+			"command": "echo not supported",
+			"windows": {
+				"command": ".\\DevelNext-debug.exe",
+				"options": {
+					"cwd": ".\\",
+					"env": {}
+				}
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
+		}
+	]
+}
