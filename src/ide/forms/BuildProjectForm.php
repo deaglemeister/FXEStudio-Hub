@@ -58,7 +58,7 @@ class BuildProjectForm extends AbstractIdeForm
                 $box->spacing = 0;
 
                 if ($item->getConfigForm()) {
-                    $settingsLink = new UXHyperlink('(настройки)');
+                    $settingsLink = new UXHyperlink('(Настройки)');
                     $settingsLink->padding = [0, 5];
                     $settingsLink->style = UiUtils::fontSizeStyle() . ";";
                     $settingsLink->on('action', function () use ($item) {

@@ -21,7 +21,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label text="Мастер для генерации скриптов в контексте выделенного элемента DevelNext" textFill="#757575" />
+                        <Label text="Мастер для генерации скриптов в контексте выделенного элемента FXEdition" textFill="#757575" />
                      </children>
                   </VBox>
                </children>

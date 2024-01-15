@@ -191,7 +191,7 @@ class DefaultGuiProjectTemplate extends AbstractProjectTemplate
             FileUtils::copyFile($styleFile, $project->getFile('src/.theme/style.fx.css'));
             fs::delete($styleFile);
         } else {
-            FileUtils::put($project->getFile('src/.theme/style.fx.css'), "/* JavaFX CSS Style with -fx- prefix */\n\n");
+            FileUtils::put($project->getFile('src/.theme/style.fx.css'), "/* Стиль CSS JavaFX с префиксом -fx- */\n\n");
         }
 
         fs::delete($project->getFile('src/.theme/style-ide.css'));
@@ -230,10 +230,7 @@ class DefaultGuiProjectTemplate extends AbstractProjectTemplate
             $php->setImportType('package');
 
             $bundle->addBundle(Project::ENV_ALL, UIDesktopBundle::class, false);
-            //$bundle->addBundle(Project::ENV_ALL, ControlFXBundle::class);
-            //$bundle->addBundle(Project::ENV_ALL, Game2DBundle::class);
 
-            //$project->makeDirectory('src/.theme/img');
             $styleFile = $project->getFile('src/.theme/style.fx.css');
 
             $rules = [

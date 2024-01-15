@@ -95,7 +95,7 @@ class BehaviourCreateForm extends AbstractIdeForm
 
             if ($this->alreadyAddedBehaviours[get_class($spec)]) {
                 $titleName->style .= '-fx-text-fill: gray';
-                $titleName->text .= ' (уже добавлено)';
+                $titleName->text .= ' (Уже добавлено)';
             }
 
             $titleDescription = new UXLabel($spec->getDescription());

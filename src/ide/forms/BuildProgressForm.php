@@ -96,7 +96,6 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
 
         UXVBox::setVgrow($scrollPane, 'ALWAYS');
 
-        //$this->consoleList->hide();
         $this->consoleList->parent->children->replace($this->consoleList, $scrollPane);
 
         $this->message->on('click', function () {

@@ -53,14 +53,9 @@ class AbstractIdeForm extends AbstractForm
         parent::init();
     
         $l10n = Ide::get()->getL10n();
-    
-        // Локализация заголовка формы
+
         $this->title = $l10n->translate($this->title);
     
-        // Локализация макета (если $this->layout это строка)
-        // $this->layout = $l10n->translateNode($this->layout); // Предположим, что это возвращает строку
-    
-        // Локализация макета (если $this->layout это объект, который требуется обработать)
         $l10n->translateNode($this->layout);
     }
 }

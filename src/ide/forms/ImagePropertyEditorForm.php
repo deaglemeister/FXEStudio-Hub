@@ -36,7 +36,7 @@ use php\lib\fs;
 use php\lib\Items;
 use php\lib\Str;
 use php\util\Flow;
-
+use ide\forms\malboro\Toasts;
 
 use php\lib\str;
 use script\TimerScript;
@@ -71,7 +71,6 @@ class ImagePropertyEditorForm extends AbstractIdeForm
     /** @var UXFileChooser */
     protected $dialog;
 
-    public $toasts;
     /**
      * @var FlowListViewDecorator
      */
@@ -86,7 +85,7 @@ class ImagePropertyEditorForm extends AbstractIdeForm
         $this->projectGallery->replaceInParent();
 
         $this->projectGallery->on('beforeRemove', function (array $nodes) {
-            if (!MessageBoxForm::confirmDelete('выделенные изображения', $this)) {
+            if (!MessageBoxForm::confirmDelete('Выделенные изображения', $this)) {
                 return true;
             }
 
@@ -223,59 +222,6 @@ class ImagePropertyEditorForm extends AbstractIdeForm
         }
     }
 
-    public function show_tc($param) {
-          
-        # Контейнер
-        $this->content = new UXVBox;
-        $this->content->classes->add('toast');
-        $this->content->opacity = 0;
-        $this->content->on('click', function() {
-            $this->content->free();
-        });
-        
-        # Вставляем в окно
-        $mainForm = app()->form("MainForm")->toasts->toFront();
-        $mainForm = app()->form("MainForm")->toasts->add($this->content);
-        
-        # Заголовок
-        if ($param['title']) {
-            $title = new UXLabel($param['title']);
-            $title->classes->addAll(['title', 'font-bold']);
-            $this->content->add($title);
-        }
-        
-        # Сообщение
-        if ($param['message']) {
-            $message = new UXLabel($param['message']);
-            $message->wrapText = true;
-            $message->textAlignment = "LEFT";
-            $message->classes->addAll(['message']);
-            $this->content->add($message);
-        }
-        
-        # Цвет
-        if ($param['color']) {
-            $this->content->classes->add($param['color']);
-        }
-        
-        # Показываем toast
-        #Logger::info($param['message']);
-        Animation::fadeIn($this->content, 130, function () {
-          $timer = Timer::after(9000, function () {
-              Animation::fadeOut($this->content, 130, function() {
-                  $this->content->free();
-              });
-          });
-      });
-        
-    }
-
-   public function toasts_container() {
-        $this->toasts = new UXVBox;
-        $this->toasts->classes->add('toasts');
-        $this->toasts->anchors = ['bottom' => 10, 'right' => 10];
-        $mainForm = app()->form("MainForm")->add($this->toasts);
-    }
     /**
      * @event addToGalleryButton.action
      */
@@ -289,8 +235,8 @@ class ImagePropertyEditorForm extends AbstractIdeForm
             foreach ($files as $file) {
                 if ($project->findDuplicatedFiles($file)) {
                     if (!$showed) {
-                        $this->toasts_container();
-                        $this->show_tc(['message' => "Изображение уже есть в проекте", 'color' => 'red']);
+                        $class = new Toasts;
+                        $class->showToast("Изображение", "Данная картинка уже есть в проекте", "#FF4F44");
                         $showed = true;
                     }
                 } else {

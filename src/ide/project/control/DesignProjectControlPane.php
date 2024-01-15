@@ -36,6 +36,7 @@ use php\lib\fs;
 use php\lib\str;
 use php\util\Configuration;
 use php\util\Regex;
+use ide\forms\malboro\Toasts;
 
 /**
  * @package ide\project\control
@@ -121,7 +122,9 @@ class DesignProjectControlPane extends AbstractProjectControlPane
                     $ideLibrary->updateCategory('skins');
 
                     if (fs::isFile($skinFile)) {
-                        Ide::toast('Скин успешно сохранен в библиотеке скинов');
+                        #Ide::toast('Скин успешно сохранен в библиотеке скинов');
+                        $class = new Toasts;
+                        $class->showToast("Скины", "Скин успешно сохранен в библиотеке скинов", "#FF4F44");
                     } else {
                         MessageBoxForm::warning('Ошибка сохранения скина');
                     }

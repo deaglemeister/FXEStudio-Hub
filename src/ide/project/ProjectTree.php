@@ -284,7 +284,7 @@ class ProjectTree
                                     break;
 
                                 default:
-                                    if (MessageBoxForm::confirm("Файл невозможно открыть в DevelNext, открыть его через системный редактор?")) {
+                                    if (MessageBoxForm::confirm("Файл невозможно открыть, открыть его через системный редактор?")) {
                                         $desktop = new UXDesktop();
                                         $desktop->open($file);
                                     }

@@ -707,7 +707,6 @@ class ActionConstructorForm extends AbstractIdeForm
 
         $tab->data('vbox')->add($btn);
 
-        // ---
 
         $smallBtn = new UXButton();
         $smallBtn->tooltipText = $btn->tooltipText;

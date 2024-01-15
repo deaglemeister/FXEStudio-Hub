@@ -45,11 +45,9 @@ class SetMainFormForm extends AbstractIdeForm
     /**
      * @event show
      */
-    public function doShow()
-    {
-        ///dd
+    public function doShow(){
         $formList = new FormListEditor();
-        $formList->setEmptyItemText('[Нет]');
+        $formList->setEmptyItemText('[Выбрать]');
         $formList->build();
         
         $this->list->items->clear();

@@ -28,6 +28,7 @@ use php\lang\Thread;
 use php\lib\fs;
 use php\lib\reflect;
 use php\lib\str;
+use ide\forms\malboro\Toasts;
 
 /**
  * Class BundleCheckListForm
@@ -160,7 +161,8 @@ class BundleDetailInfoForm extends AbstractIdeForm
         if ($this->displayResource) {
            // if (MessageBoxForm::confirmDelete('пакет расширения ' . $this->displayResource->getName())) {
                 $this->behaviour->removeBundle($this->displayResource->getBundle());
-                //$this->toast('Пакет расширения отключен от проекта');
+                $class = new Toasts;
+                $class->showToast("Пакеты", "Пакет расширения отключен от проекта", "#FF4F44");
                 $this->update();
             //}
         }
@@ -171,7 +173,7 @@ class BundleDetailInfoForm extends AbstractIdeForm
      */
     public function deleteBundle()
     {
-        if (MessageBoxForm::confirmDelete('пакет расширений ' . $this->displayResource->getName(), $this)) {
+        if (MessageBoxForm::confirmDelete('Пакет расширений ' . $this->displayResource->getName(), $this)) {
             Ide::get()->getLibrary()->delete($this->displayResource);
             $this->hide();
         }
