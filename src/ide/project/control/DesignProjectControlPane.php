@@ -25,6 +25,8 @@ use php\gui\designer\UXSyntaxTextArea;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXVBox;
 use php\gui\text\UXFont;
+use ide\forms\malboro\Toasts;
+use ide\forms\malboro\Modals;
 use php\gui\UXApplication;
 use php\gui\UXFileChooser;
 use php\gui\UXLabel;
@@ -36,7 +38,7 @@ use php\lib\fs;
 use php\lib\str;
 use php\util\Configuration;
 use php\util\Regex;
-use ide\forms\malboro\Toasts;
+
 
 /**
  * @package ide\project\control
@@ -274,11 +276,26 @@ class DesignProjectControlPane_SkinConvertToTheme extends AbstractMenuCommand
 
     public function onExecute($e = null, AbstractEditor $editor = null)
     {
-        if (MessageBoxForm::confirm('Все стили проекта будут заменены стилями скина, Вы уверены?')) {
-            $gui = GuiFrameworkProjectBehaviour::get();
-            $gui->convertSkinToTheme();
-            $this->pane->refresh();
-        }
+            # Параметры модального окна
+             $modal = [
+                    'fitToWidth' => true, # Во всю длину
+                    'fitToHeight' => true, # Во всю ширину
+                    'blur' => $this->flowPane, # Объект для размытия
+                    'title' => 'Все стили проекта будут заменены стилями скина, Вы уверены?', # Заголовок окна
+                    'message' => 'Тогда не забудьте, сохранить ваш проект.', # Сообщение
+                    'close_overlay' => true, # Закрывать при клике мыши на overlay
+                    'buttons' => [['text' => 'Заменить', 'style' => 'button-red'], ['text' => 'Отмена', 'style' => 'button-accent', 'close' => true]]
+                    ];
+                # Отображаем окно      
+            $modalClass = new Modals;
+            $MainFormZ = app()->form('MainForm');
+            $modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
+                    if ($e == 'Заменить') {
+                        $gui = GuiFrameworkProjectBehaviour::get();
+                        $gui->convertSkinToTheme();
+                        $this->pane->refresh();
+                    }
+                });
     }
 
     public function onBeforeShow($item, AbstractEditor $editor = null)
