@@ -5,6 +5,7 @@
 	"tasks": [
 		{
 			"label": "Compile And Run",
+			"dependsOrder": "sequence",
 			"dependsOn": [
 				"Compile",
 				"Debug"
@@ -14,7 +15,7 @@
 		{
 			"label": "Compile",
 			"type": "shell",
-			"command": "jar -cMf ..\\lib\\FXE.jar ./.data ./.dn ./.forms ./.game ./.system ./ide ./JPHP-INF ./META-INF ./vendor ./LICENSE",
+			"command": "jar -cMf ..\\lib\\FXE.jar ./.data ./.dn ./.forms ./.system ./ide ./JPHP-INF ./META-INF ./vendor ./LICENSE",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated"
