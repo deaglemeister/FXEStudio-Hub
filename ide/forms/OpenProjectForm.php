@@ -1,8 +1,6 @@
 <?php
 namespace ide\forms;
 
-use ide\account\api\ServiceResponse;
-use ide\account\ui\NeedAuthPane;
 use ide\forms\mixins\DialogFormMixin;
 use ide\forms\mixins\SavableFormMixin;
 use ide\Ide;
@@ -36,6 +34,8 @@ use php\gui\UXForm;
 use php\gui\UXHyperlink;
 use php\gui\UXImageView;
 use php\gui\UXLabel;
+use UXTextArea;
+use php\gui\UXTextArea;
 use php\gui\UXListCell;
 use php\gui\UXListView;
 use php\gui\UXTabPane;
@@ -47,6 +47,13 @@ use php\lib\fs;
 use php\lib\Items;
 use php\lib\Str;
 use php\time\Time;
+use php\time\Timer;
+use php\time\UXTimer;
+use php\gui\framework\Timer;
+use php\lang\IllegalStateException;
+use timer\AccurateTimer;
+use frameworkd; 
+use script\TimerScript;
 
 /**
  *
@@ -147,18 +154,20 @@ class OpenProjectForm extends AbstractIdeForm
         $this->embeddedLibraryList->setCellFactory($cellFactory);
         $this->libraryList->setCellFactory($cellFactory);
 
-
+       
         $this->projectListHelper = new FlowListViewDecorator($this->projectList->content);
         $this->projectListHelper->setEmptyListText(_('project.open.empty.list'));
         $this->projectListHelper->setMultipleSelection(true);
         $this->projectListHelper->on('remove', [$this, 'doRemove']);
         $this->projectListHelper->on('beforeRemove', function ($nodes) {
-            $what = [];
             foreach ($nodes as $node) {
+               
                 $file = $node->data('file');
+            
 
                 if ($file && $file->exists())  {
                     $what[] = $node->data('name');
+                   
                 }
             }
 
@@ -333,7 +342,6 @@ class OpenProjectForm extends AbstractIdeForm
                 $this->libraryList->selectedIndex = 0;
             });
         });
-        
         $th->start();
     }
 
@@ -345,7 +353,7 @@ class OpenProjectForm extends AbstractIdeForm
     /**
      * @event showing
      */
-    public function doShowing(int $timeoutMs = 1000)
+    public function doShowing(int $timeoutMs = 100)
     {
         $this->update($this->projectQueryField->text);
         $this->updateLibrary();
@@ -409,35 +417,28 @@ class OpenProjectForm extends AbstractIdeForm
      */
     public function doProjectListClick(UXMouseEvent $e)
     {
-        if ($e->clickCount == 1) {
+        if ($e->clickCount > 1) {
             $node = $this->projectListHelper->getSelectionNode();
             $file = $node ? $node->data('file') : null;
-        
-            // Показываем preloader сразу при нажатии
-            $this->showPreloader(_('Ожидайте, открываем проект'));
-        
-            waitAsync(100, function () use ($file) {
-                if ($file && $file->exists()) {
+
+            if ($file && $file->exists()) {
+                $this->showPreloader(_('project.open.wait'));
+
+                waitAsync(100, function () use ($file) {
                     try {
-                        // Открываем проект
                         ProjectSystem::open($file);
-                        $this->hide(); // Скрываем текущее окно (если это нужно)
-                    } catch (Exception $e) {
-                        // В случае ошибки при открытии проекта, показываем сообщение об ошибке
-                        UXDialog::show(_('project.open.error'), 'ERROR');
+                        $this->hide();
                     } finally {
-                        // В любом случае скрываем preloader
                         $this->hidePreloader();
                     }
-                } else {
-                    // Если файл не существует, показываем сообщение об ошибке и скрываем preloader
-                    UXDialog::show(_('project.open.error'), 'ERROR');
-                    $this->hidePreloader();
-                }
-            });
+                });
+            } else {
+                UXDialog::show(_('project.open.error'), 'ERROR');
+            }
         }
     }
-
+    
+    
     /**
      * @event pathButton.click
      */
@@ -467,20 +468,19 @@ class OpenProjectForm extends AbstractIdeForm
         $selected = $listView->selectedItem;
 
         if ($selected) {
-            $path = File::of($this->pathField->text);
+            $pathFieldText = $this->pathField->text;
+            $path = File::of($pathFieldText);
 
-            if (!$path->isDirectory()) {
-                if (!$path->mkdirs()) {
-                    UXDialog::show(_('project.open.fail.create.directory'), 'ERROR');
-                    return;
-                }
+            if (!$path->isDirectory() && !$path->mkdirs()) {
+                UXDialog::show(_('project.open.fail.create.directory'), 'ERROR');
+                return;
             }
 
             $name = FileUtils::stripExtension(File::of($selected->getPath())->getName());
 
             $this->showPreloader(_('project.open.wait'));
 
-            waitAsync(100, function () use ($path, $name, $selected) {
+            waitAsync(0, function () use ($path, $name, $selected) {
                 try {
                     ProjectSystem::import($selected->getPath(), "$path/$name", $name, [$this, 'hide']);
                     $this->hide();
@@ -491,17 +491,18 @@ class OpenProjectForm extends AbstractIdeForm
         }
     }
 
+
+
     public function doDelete(UXEvent $e)
     {
         /** @var UXListView $listView */
         $listView = $e->sender;
 
         /** @var IdeLibraryProjectResource $selected */
-        $selected = $listView->selectedItem;
-
-        if ($selected) {
+        if ($selected = $listView->selectedItem) {
             if (MessageBoxForm::confirmDelete($selected->getName(), $this)) {
-                Ide::get()->getLibrary()->delete($selected);
+                $library = Ide::get()->getLibrary();
+                $library->delete($selected);
                 $this->updateLibrary();
                 $listView->selectedIndex = -1;
             }

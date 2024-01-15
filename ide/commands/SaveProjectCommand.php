@@ -45,11 +45,6 @@ class SaveProjectCommand extends AbstractProjectCommand
 
         if ($project) {
             $project->save();
-
-            /*$marker = new ArrowPointMarker(new CurrentEditorMarkerTarget());
-            $marker->tooltipText = "Нажмите на это поле, \nчтобы добавить выделенный компонент!";
-            $marker->show();*/
-
             Ide::get()->getMainForm()->toast(_('toast.project.save.done'));
         }
     }

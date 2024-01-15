@@ -41,9 +41,60 @@ use php\io\Stream;
 use php\lang\Thread;
 use php\lib\fs;
 use php\lib\str;
+use php\gui\designer\UXDesigner;
+use php\gui\designer\UXDirectoryTreeValue;
+use php\gui\designer\UXDirectoryTreeView;
+use php\gui\designer\UXFileDirectoryTreeSource;
+use php\gui\dock\UXDockNode;
+use php\gui\dock\UXDockPane;
+use php\gui\event\UXEvent;
+use php\gui\event\UXKeyboardManager;
+use php\gui\event\UXKeyEvent;
+use php\gui\event\UXMouseEvent;
+use php\gui\framework\AbstractForm;
+use php\gui\framework\Preloader;
+use php\gui\layout\UXAnchorPane;
+use php\gui\layout\UXHBox;
+use php\gui\layout\UXVBox;
+use php\gui\UXAlert;
+use php\gui\UXApplication;
+use php\gui\UXButton;
+use php\gui\UXForm;
+use php\gui\UXImage;
+use php\gui\UXImageView;
+use php\gui\UXLabel;
+use php\gui\UXMenu;
+use php\gui\UXMenuBar;
+use php\gui\UXMenuItem;
+use php\gui\UXNode;
+use php\gui\UXScreen;
+use php\gui\UXSplitPane;
+use php\gui\UXTab;
+use php\gui\UXTabPane;
+use php\gui\UXTextArea;
+use php\gui\UXTreeView;
+use php\io\File;
+use php\lang\System;
+use php\lib\fs;
+use php\lib\str;
+use script\TimerScript;
+use php\time\Timer;
+use std;
+use action\Animation;
+
+use ide\forms\malboro\Modals;
+
+use ide\forms\malboro\Toasts;
+
+use httpclient;
+use php\io\IOException;
+use php\framework\Logger;
+use facade\Json;
+use bundle\http\HttpClient;
 
 class BundlesProjectControlPane extends AbstractProjectControlPane
 {
+
     /**
      * @var array
      */
@@ -181,17 +232,20 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
                         $editor->open();
                         $editor->refresh();
                     }
-
                     Ide::toast("Пакет расширения '{$resource->getName()}' подключен к проекту");
+                    #$class = new Toasts;
+                    #$class->showToast("Пакет расширения", "{$resource->getName()} подключен к проекту", "#6667AB");
                 });
             });
         });
 
-        $label = new UXLabel("Доступные пакеты:");
+
+        $label = new UXLabel("Текущие пакеты расширения:");
         $label->font->bold = true;
 
-        $label2 = new UXLabel("Пакеты проекта:");
+        $label2 = new UXLabel("Подключенные пакеты расширения:");
         $label2->font->bold = true;
+
 
         $vbox = new UXVBox([$label2, $pane, new UXSeparator(), $label, $this->makeActionPaneUi(), $this->availableBundleListPane->getPane()], 10);
         UXVBox::setVgrow($this->availableBundleListPane->getPane(), 'ALWAYS');
@@ -200,6 +254,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         return $vbox;
     }
 
+
     private function makeActionPaneUi()
     {
         $box = new UXHBox([], 10);
@@ -207,7 +262,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $box->minHeight = 32;
 
         $searchField = new UXTextField();
-        $searchField->promptText = 'поиск пакета ...';
+        $searchField->promptText = 'Поиск расширения';
         $searchField->width = 220;
         $searchField->maxHeight = 999;
 
@@ -240,6 +295,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $addUrlToLibrary->maxHeight = 999;
         $addUrlToLibrary->on('action', [$this, 'addBundleUrl']);
         $box->add($addUrlToLibrary);
+
 
         return $box;
     }
@@ -398,7 +454,8 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
                                 $msg = new MessageBoxForm('Для корректного завершения установки пакета перезапустите DevelNext!', ['Перезапустить', 'Позже']);
 
                                 if ($msg->showWarningDialog() && $msg->getResultIndex() == 0) {
-                                    Ide::get()->restart();
+                                    Execute("DevelNext.exe"); // Даем команду на запуск приложения
+                                    Exit(); // Закрываем приложение
                                 }
 
                                 /** @var IdeLibraryBundleResource $resource */

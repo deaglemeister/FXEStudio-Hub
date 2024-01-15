@@ -124,7 +124,7 @@ class DebugClassLoader extends ClassLoader
                 $t = Time::millis() - $t;
                 $this->allTime += $t;
 
-                echo "[DEBUG] load cached '$filename', $t ms\n";
+               // echo "[DEBUG] load cached '$filename', $t ms\n";
                 return;
             }
         }
@@ -150,7 +150,7 @@ class DebugClassLoader extends ClassLoader
 
             echo "[DEBUG] load '$filename', $t ms\n";
         } catch (IOException $e) {
-            ;
+            
         }
         // echo "[DEBUG] require '$filename', $t ms ($this->allTime ms)\n";
     }

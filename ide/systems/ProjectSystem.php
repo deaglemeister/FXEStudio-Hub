@@ -250,7 +250,7 @@ class ProjectSystem
 
         try {
            
-            Ide::get()->getMainForm()->showPreloader('Открытие проекта ...');
+            $loaderId = Ide::get()->getMainForm()->showPreloader('Открытие проекта ...');
 
             static::clear();
             static::close(false);

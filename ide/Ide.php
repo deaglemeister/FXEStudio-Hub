@@ -208,6 +208,7 @@ class Ide extends Application
                 #Logger::reset();
                 #Logger::info("Start IDE, mode = $this->mode, os = $this->OS, version = {$this->getVersion()}");
                 #Logger::info(str::format("Commands Args = [%s]", str::join((array)$GLOBALS['argv'], ', ')));
+                app()->form('NewSplashForm')->status->text = 'Start ide.php';
 				
                 restore_exception_handler();
 
@@ -1590,19 +1591,19 @@ class Ide extends Application
                 sleep(1);
             }
 
-            Logger::warn("System halt 0\n");
+            Logger::warn("Остановка системы 0\n");
             System::halt(0);
         }));
 
-        $shutdownTh->setName("FXEdition Shutdown");
+        $shutdownTh->setName("FXEdition выключение");
         $shutdownTh->start();
 
-        Logger::info("Start IDE shutdown ...");
+        Logger::info("Начало закрытие IDE ");
 
         $this->trigger(__FUNCTION__);
 
         (new Thread(function () {
-            Logger::info("Shutdown asyncThreadPool");
+            Logger::info("Завершение работы asyncThreadPool");
             $this->asyncThreadPool->shutdown();
         }))->start();
 
@@ -1721,7 +1722,7 @@ class Ide extends Application
      */
     public function disableOpenLastProject()
     {
-        $this->disableOpenLastProject = true;
+        $this->disableOpenLastProject = false;
     }
 
     /**

@@ -12,99 +12,78 @@ use php\time\Time;
 
 class Cache
 {
-    protected static $cacheImage = [];
-    protected static $cacheImageView = [];
-
+    protected static $cachedImages = [];
+    protected static $cachedImageViews = [];
+    
     public static function clear()
     {
-        self::$cacheImageView = [];
-        self::$cacheImage = [];
+        self::$cachedImageViews = [];
+        self::$cachedImages = [];
     }
-
-    /**
-     * @param $path
-     * @param array|null $size
-     * @return UXImageView
-     */
-    public static function getResourceImageView($path, array $size = null)
+    
+    public static function getResourceImageView($path, ?array $size = null): UXImageView
     {
-        $key = $path;
-
-        if ($size) {
-            $key .= '_' . str::join($size, '_');
+        $key = $path . '_' . str::join($size ?? [], '_');
+    
+        if (isset(self::$cachedImageViews[$key])) {
+            return self::$cachedImageViews[$key];
         }
-
-        if ($view = self::$cacheImageView[$key]) {
-            return $view;
-        }
-
+    
         $image = self::getResourceImage($path);
         $view = new UXImageView();
         $view->image = $image;
-
+    
         if ($size) {
             $view->size = $size;
             $view->preserveRatio = true;
         }
-
-        self::$cacheImageView[$key] = $view;
+    
+        self::$cachedImageViews[$key] = $view;
         return $view;
     }
-
-    /**
-     * @param $path
-     * @return LazyImage|UXImage
-     */
-    public static function getResourceImage($path)
+    
+    public static function getResourceImage($path): ?UXImage
     {
         if (!str::startsWith($path, 'res://')) {
             $path = "res://$path";
         }
-
-        list($image, $time) = self::$cacheImage[$path];
-
-        if ($image) {
-            return $image;
+    
+        if (isset(self::$cachedImages[$path])) {
+            return self::$cachedImages[$path];
         }
-
+    
         if (!UXApplication::isUiThread()) {
             return new LazyImage($path);
         }
-
+    
         $image = new UXImage($path);
-        self::$cacheImage[$path] = [$image, Time::millis()];
-
+        self::$cachedImages[$path] = $image;
+    
         return $image;
     }
-
-    /**
-     * @param string $file
-     * @return UXImage|LazyImage|null
-     */
-    public static function getImage($file)
+    
+    public static function getImage(string $filePath): ?UXImage
     {
-        $file = new File($file);
-
+        $file = new File($filePath);
+    
         if (!$file->exists()) {
             return null;
         }
-
+    
         try {
             $hash = FileUtils::hashName($file);
-
-            list($image, $time) = self::$cacheImage[$hash];
-
-            if ($image && $time && $time == $file->lastModified()) {
-                return $image;
+    
+            if (isset(self::$cachedImages[$hash]) && isset(self::$cachedImages[$hash][0]) && isset(self::$cachedImages[$hash][1]) && self::$cachedImages[$hash][1] === $file->lastModified()) {
+                return self::$cachedImages[$hash][0];
             }
-
+    
             if (!UXApplication::isUiThread()) {
                 return new LazyImage($file);
             }
-
+    
             $image = new UXImage($file);
-            self::$cacheImage[$hash] = [$image, $file->lastModified()];
-
+            self::$cachedImages[$hash] = [$image, $file->lastModified()];
+    
             return $image;
         } catch (\Exception $e) {
             return null;

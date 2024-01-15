@@ -29,10 +29,10 @@ class SaveProjectForLibraryCommand extends AbstractProjectCommand
         return true;
     }
 
-    /*public function getCategory()
+    public function getCategory()
     {
         return 'library';
-    }*/
+    }
 
     public function onExecute($e = null, AbstractEditor $editor = null)
     {
@@ -49,7 +49,7 @@ class SaveProjectForLibraryCommand extends AbstractProjectCommand
 
             $dialog = new SaveProjectForLibraryForm($resource);
 
-            retry:
+           
             $dialog->setResult($project);
 
             if ($dialog->showDialog()) {
@@ -67,7 +67,7 @@ class SaveProjectForLibraryCommand extends AbstractProjectCommand
 
                     if ($msg->showDialog()) {
                         if ($msg->getResultIndex() == 1) {
-                            goto retry;
+                            #goto retry;
                         }
 
                         $resource = Ide::get()->getLibrary()->makeResource('projects', $result['name'] . ".zip", true);

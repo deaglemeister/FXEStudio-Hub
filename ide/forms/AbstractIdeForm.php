@@ -21,41 +21,46 @@ use php\util\Regex;
  */
 class AbstractIdeForm extends AbstractForm
 {
-    public function __construct(UXForm $origin = null)
+    public function __construct(?UXForm $origin = null)
     {
         parent::__construct($origin);
-
-        if (Ide::isCreated()) {
-            $this->owner = Ide::get()->getMainForm();
+    
+        $ideInstance = Ide::get();
+    
+        if ($ideInstance->isCreated()) {
+            $this->owner = $ideInstance->getMainForm();
         }
-
-        Logger::info("Create form " . get_class($this));
-
-        $this->on('show', function () {
-            $formName = get_class($this);
-
-            Logger::info("Show form '$formName' ..");
-
-            Ide::get()->trigger('showForm', [$this]);
-        }, __CLASS__);
-
-        $this->on('hide', function () {
-            $formName = get_class($this);
-
-            Logger::info("Hide form '$formName' ..");
-
-            Ide::get()->trigger('hideForm', [$this]);
-        }, __CLASS__);
+    
+        $formName = get_called_class();
+        Logger::info("Create form '{$formName}'");
+    
+        $showFormCallback = function () use ($formName, $ideInstance) {
+            Logger::info("Show form '{$formName}' ..");
+            $ideInstance->trigger('showForm', [$this]);
+        };
+    
+        $hideFormCallback = function () use ($formName, $ideInstance) {
+            Logger::info("Hide form '{$formName}' ..");
+            $ideInstance->trigger('hideForm', [$this]);
+        };
+    
+        $this->on('show', $showFormCallback, static::class);
+        $this->on('hide', $hideFormCallback, static::class);
     }
-
+    
     protected function init()
     {
         parent::init();
-
+    
         $l10n = Ide::get()->getL10n();
-
+    
+        // Локализация заголовка формы
         $this->title = $l10n->translate($this->title);
+    
+        // Локализация макета (если $this->layout это строка)
+        // $this->layout = $l10n->translateNode($this->layout); // Предположим, что это возвращает строку
+    
+        // Локализация макета (если $this->layout это объект, который требуется обработать)
         $l10n->translateNode($this->layout);
     }
-
 }

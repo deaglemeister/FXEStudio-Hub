@@ -44,38 +44,28 @@ use php\time\Time;
 use php\time\Timer;
 use php\util\Configuration;
 use php\util\Scanner;
+use php\gui\UXNode;
 
 
-$cache = true;
-
-if (System::getProperty('develnext.noCodeCache')) {
-    $cache = false;
-}
-
-$loader = new IdeClassLoader($cache, IdeSystem::getOwnLibVersion());
+$develnextCodeCache = !System::getProperty('develnext.noCodeCache');
+$loader = new IdeClassLoader($develnextCodeCache, IdeSystem::getOwnLibVersion());
 $loader->register(true);
-
 IdeSystem::setLoader($loader);
 
 if (!IdeSystem::isDevelopment()) {
     Logger::setLevel(Logger::LEVEL_INFO);
-}
-	$INI = new IniStorage;
-	$INI->path = "theme/style.ini";
-    $THEME = $INI->get('theme');
-    if ($THEME = $THEME) {
-    $INI->set('theme', $THEME);   
-    $app = new Ide();
-    $app->addStyle("theme/$THEME.css");
-    $app->launch();
-    } else {
-    $INI->set('error', 'не найдена темная тема');
-    $INI->set('theme', 'white');
-    $app = new Ide();
-    $app->addStyle("theme/white.css");
-    $app->launch();
+ 
 }
 
+
+$THEME = file_get_contents('theme\style.ini');
+$THEME = json_decode($THEME, true);
+
+$THEME = $THEME['Style'];
+$app = new Ide();
+$app->addStyle("theme/$THEME");
+$app->launch();
+$app->form('NewSplashForm')->hide();
 
 function _($code, ...$args) {
     static $l10n;
@@ -87,16 +77,10 @@ function _($code, ...$args) {
     return $l10n->get($code, ...$args);
 }
 
-function dump($arg)
-{
+function dump($arg) {
     ob_start();
-
-        var_dump($arg);
-		
-        $str = ob_get_contents();
-
-    ob_end_clean();
-
+    //var_dump($arg);
+    $str = ob_get_clean();
     UXDialog::showAndWait($str);
 }
 
@@ -104,7 +88,6 @@ function dump($arg)
  * @param $name
  * @return \php\gui\UXImageView
  */
-function ico($name)
-{
+function ico($name) {
     return Ide::get()->getImage("icons/$name.png");
 }

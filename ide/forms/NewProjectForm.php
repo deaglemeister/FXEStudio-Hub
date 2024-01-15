@@ -62,64 +62,123 @@ class NewProjectForm extends AbstractIdeForm
     {
         parent::init();
 
-        $this->contextMenu = new ContextMenu();
-
-        $this->contextMenu->addCommand(AbstractCommand::make('Удалить', 'icons/delete16.png', function () {
-            $resource = Items::first($this->templateList->selectedItems);
-
-            if ($resource instanceof IdeLibraryResource) {
-                $msg = new MessageBoxForm("Вы уверены, что хотите удалить проект {$resource->getName()} из библиотеки?", ['Да, удалить', 'Нет'], $this);
-
-                if ($msg->showDialog() && $msg->getResultIndex() == 0) {
-                    Ide::get()->getLibrary()->delete($resource);
-                    $this->doShow();
-                }
-            }
-        }));
-
+        $this->initializeContextMenu();
+        
         $this->directoryChooser = new UXDirectoryChooser();
+        
+        $this->configureIcon();
+        $this->configureModalityAndTitle();
+        $this->configurePathField();
+        
+        $this->configureTemplateList();
+    }
+    private function initializeContextMenu()
+{
+    $this->contextMenu = new ContextMenu();
 
+    $this->contextMenu->addCommand(
+        AbstractCommand::make('Удалить', 'icons/delete16.png', function () {
+            $this->handleDeleteCommand();
+        })
+    );
+}
+
+    private function handleDeleteCommand()
+    {
+        $resource = Items::first($this->templateList->selectedItems);
+
+        if ($resource instanceof IdeLibraryResource) {
+            $this->showDeleteConfirmation($resource);
+        }
+    }
+
+    private function showDeleteConfirmation(IdeLibraryResource $resource)
+    {
+        $msg = new MessageBoxForm("Вы уверены, что хотите удалить проект {$resource->getName()} из библиотеки?", ['Да, удалить', 'Нет'], $this);
+
+        if ($msg->showDialog() && $msg->getResultIndex() == 0) {
+            Ide::get()->getLibrary()->delete($resource);
+            $this->doShow();
+        }
+    }
+
+    private function configureIcon()
+    {
         $this->icon->image = Ide::get()->getImage('icons/newproect16.png')->image;
-        $width = 16; // Новая ширина
-        $height = 16; // Новая высота
+    }
+
+    private function configureModalityAndTitle()
+    {
         $this->modality = 'APPLICATION_MODAL';
-        $this->title = 'Cоздание нового проекта';
+        $this->title = 'Создание нового проекта';
+    }
 
-        $this->pathField->text = $projectDir = Ide::get()->getUserConfigValue('projectDirectory');
+    private function configurePathField()
+    {
+        $projectDir = Ide::get()->getUserConfigValue('projectDirectory');
+        $this->pathField->text = $projectDir;
+    }
 
+    private function configureTemplateList()
+    {
         $this->templateList->setCellFactory(function (UXListCell $cell, $template = null) {
-            if ($template) {
-                if (is_string($template)) {
-                    $cell->text = $template . ":";
-                    $cell->textColor = UXColor::of('gray');
-                    $cell->padding = [5, 10];
-                    $cell->paddingTop = 10;
-                    $cell->style = '-fx-font-style: italic;';
-                    $cell->graphic = null;
-                } else {
-                    $titleName = new UXLabel($template->getName());
-                    $titleName->style = '-fx-font-weight: bold;'.UiUtils::fontSizeStyle();
-
-                    $titleDescription = new UXLabel($template->getDescription());
-                    $titleDescription->style = '-fx-text-fill: gray;'.UiUtils::fontSizeStyle();
-
-                    if (!$titleDescription->text && $template instanceof IdeLibraryResource) {
-                        $titleDescription->text = 'Шаблонный проект без описания';
-                    }
-
-                    $title = new UXVBox([$titleName, $titleDescription]);
-                    $title->spacing = 0;
-
-                    $line = new UXHBox([$template instanceof AbstractProjectTemplate ? Ide::get()->getImage($template->getIcon32()) : ico('programEx32'), $title]);
-                    $line->spacing = 7;
-                    $line->padding = 5;
-
-                    $cell->text = null;
-                    $cell->graphic = $line;
-                    $cell->style = '';
-                }
-            }
+            $this->configureTemplateListCell($cell, $template);
         });
+    }
+
+    private function configureTemplateListCell(UXListCell $cell, $template)
+    {
+        if ($template) {
+            if (is_string($template)) {
+                $this->configureStringTemplateListCell($cell, $template);
+            } else {
+                $this->configureObjectTemplateListCell($cell, $template);
+            }
+        }
+    }
+
+    private function configureStringTemplateListCell(UXListCell $cell, $template)
+    {
+        $cell->text = $template . ":";
+        $cell->textColor = UXColor::of('gray');
+        $cell->padding = [5, 10];
+        $cell->paddingTop = 10;
+        $cell->style = '-fx-font-style: italic;';
+        $cell->graphic = null;
+    }
+
+    private function configureObjectTemplateListCell(UXListCell $cell, $template)
+    {
+        $titleName = new UXLabel($template->getName());
+        $titleName->style = '-fx-font-weight: bold;' . UiUtils::fontSizeStyle();
+
+        $titleDescription = new UXLabel($template->getDescription());
+        $titleDescription->style = '-fx-text-fill: gray;' . UiUtils::fontSizeStyle();
+
+        $this->configureTitleDescription($titleDescription, $template);
+
+        $title = new UXVBox([$titleName, $titleDescription]);
+        $title->spacing = 0;
+
+        $line = new UXHBox([$this->getTemplateIcon($template), $title]);
+        $line->spacing = 7;
+        $line->padding = 5;
+
+        $cell->text = null;
+        $cell->graphic = $line;
+        $cell->style = '';
+    }
+
+    private function configureTitleDescription(UXLabel $titleDescription, $template)
+    {
+        if (!$titleDescription->text && $template instanceof IdeLibraryResource) {
+            $titleDescription->text = 'Шаблонный проект без описания';
+        }
+    }
+
+    private function getTemplateIcon($template)
+    {
+        return $template instanceof AbstractProjectTemplate ? Ide::get()->getImage($template->getIcon32()) : ico('programEx32');
     }
 
     /**
@@ -127,27 +186,13 @@ class NewProjectForm extends AbstractIdeForm
      */
     public function doShow()
     {
-        $templates = Ide::get()->getProjectTemplates();
-        $this->templates = Items::toArray($templates);
-
-        $this->templateList->items->clear();
-
-        foreach ($templates as $template) {
-            $this->templateList->items->add($template);
-        }
-
-        /*$libraryResources = Ide::get()->getLibrary()->getResources('projects');
-
-        if ($libraryResources) {
-            $this->templateList->items->add('Библиотека проектов');
-        }
-
-        $this->templateList->items->addAll($libraryResources);  */
-
-        if ($templates) {
+        $this->templates = Items::toArray(Ide::get()->getProjectTemplates());
+        $this->templateList->items->setAll($this->templates ?: []);
+        
+        if ($this->templates) {
             $this->templateList->selectedIndexes = [0];
         }
-
+        
         $this->nameField->requestFocus();
     }
 

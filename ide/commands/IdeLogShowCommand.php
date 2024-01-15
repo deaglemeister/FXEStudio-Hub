@@ -55,5 +55,10 @@ class IdeLogShowCommand extends AbstractCommand
         return true;
     }
 
+    
+    public function getAccelerator()
+    {
+        return 'F2';
+    }
 
 }

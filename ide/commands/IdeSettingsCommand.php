@@ -39,8 +39,8 @@ class IdeSettingsCommand extends AbstractCommand
         return true;
     }
 
-    /*public function makeUiForHead()
+    public function makeUiForHead()
     {
         return [new UXSeparator('VERTICAL'), $this->makeGlyphButton()];
-    }*/
+    }
 }

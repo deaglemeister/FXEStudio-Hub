@@ -50,7 +50,7 @@ class OpenProjectCommand extends AbstractCommand
         $split->items->add($openItem);
 
         $openUrlItem = new UXMenuItem('Открыть проект по ссылке', ico('hyperlink16'));
-        //$split->items->add($openUrlItem);
+        $split->items->add($openUrlItem);
 
         $split->items->add(UXMenuItem::createSeparator());
 

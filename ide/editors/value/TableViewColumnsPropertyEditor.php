@@ -21,7 +21,7 @@ class TableViewColumnsPropertyEditor extends TextPropertyEditor
 
         $this->editorForm = new TableViewColumnsEditorForm();
 
-        $this->textField->promptText = 'редактировать';
+        $this->textField->promptText = 'Редактировать';
         $this->textField->editable = false;
         $this->textField->on('click', function (UXMouseEvent $e) {
             $this->getEditorForm()->setConstrainedResizePolicy($this->designProperties->target->constrainedResizePolicy);

@@ -180,54 +180,89 @@ class BundleDetailInfoForm extends AbstractIdeForm
     public function display(IdeLibraryBundleResource $resource = null)
     {
         $this->displayResource = $resource;
-
+    
         if ($resource) {
-            $this->titleLabel->text = $resource->getName() . ' (' . $resource->getVersion() . ')';
-            $this->descriptionLabel->text = $resource->getDescription();
-
-            $icon = Ide::get()->getImage($resource->getIcon());
-            $this->iconImage->image = $icon ? $icon->image : null;
-
-            $description = $resource->getFullDescription();
-
-            if (!$description) $description = '<span style="color:gray">Информации о содержимом нет.</span>';
-
-            $description = "<style>* {line-height: 19px;} h3 { margin: 0; padding: 0; padding-bottom: 5px; } i { font-style: italic !important; } ul { margin: 0; padding: 0; padding-left: 0; margin-left: 10px; } li {  color: gray; }</style><h3>Пакет содержит</h3> $description";
-
-            $description .= "<br><h3>Свойства</h3>
-                        <div>Автор: {$resource->getAuthor()}<br>
-                        Версия: {$resource->getVersion()}<br>
-                        Класс: <code>" . reflect::typeOf($resource->getBundle()) . "</code></div>";
-
-            $description = "<div style='font: 12px Tahoma;'>$description</div>";
-
-            $this->fullDescription->engine->loadContent($description, 'text/html');
-
-            if ($installed = $this->behaviour->hasBundleInAnyEnvironment($resource->getBundle())) {
-                $this->addButton->hide();
-                $this->addButton->managed = false;
-
-                $this->installedLabel->show();
-                $this->installedLabel->managed = true;
-
-                $this->excludePane->show();
-                $this->excludePane->managed = true;
-            } else {
-                $this->addButton->show();
-                $this->addButton->managed = true;
-
-                $this->installedLabel->hide();
-                $this->installedLabel->managed = false;
-
-                $this->excludePane->hide();
-                $this->excludePane->managed = false;
-            }
-
-            $this->deleteBundle->managed = ($this->deleteBundle->visible = !$resource->isEmbedded() && !$installed);
-
-            $this->content->show();
+            $this->updateLabels($resource);
+            $this->updateIcon($resource);
+            $this->updateFullDescription($resource);
+            $this->updateButtons($resource);
+            $this->updateVisibility();
         } else {
             $this->content->hide();
         }
     }
+    
+    protected function updateLabels(IdeLibraryBundleResource $resource)
+    {
+        $this->titleLabel->text = $resource->getName() . ' (' . $resource->getVersion() . ')';
+        $this->descriptionLabel->text = $resource->getDescription();
+    }
+    
+    protected function updateIcon(IdeLibraryBundleResource $resource)
+    {
+        $icon = Ide::get()->getImage($resource->getIcon());
+        $this->iconImage->image = $icon ? $icon->image : null;
+    }
+    
+    protected function updateFullDescription(IdeLibraryBundleResource $resource)
+    {
+        $description = $resource->getFullDescription() ?: '<span style="color:gray">Информации о содержимом нет.</span>';
+        $description = "<style>* {line-height: 19px;} h3 { margin: 0; padding: 0; padding-bottom: 5px; } i { font-style: italic !important; } ul { margin: 0; padding: 0; padding-left: 0; margin-left: 10px; } li {  color: gray; }</style><h3>Пакет содержит</h3> $description";
+        $description .= "<br><h3>Свойства</h3>
+                        <div>Автор пакета: {$resource->getAuthor()}<br>
+                        Версия: {$resource->getVersion()}<br>
+                        Класс: <code>" . reflect::typeOf($resource->getBundle()) . "</code></div>";
+        $description = "<div style='font: 12px Tahoma;'>$description</div>";
+        $this->fullDescription->engine->loadContent($description, 'text/html');
+    }
+    
+    protected function updateButtons(IdeLibraryBundleResource $resource)
+    {
+        $installed = $this->behaviour->hasBundleInAnyEnvironment($resource->getBundle());
+    
+        if ($installed) {
+            $this->hideAddButton();
+            $this->showInstalledLabelAndExcludePane();
+        } else {
+            $this->showAddButton();
+            $this->hideInstalledLabelAndExcludePane();
+        }
+    
+        $this->deleteBundle->managed = ($this->deleteBundle->visible = !$resource->isEmbedded() && !$installed);
+    }
+    
+        protected function updateVisibility()
+        {
+            $this->content->show();
+        }
+        
+        protected function hideAddButton()
+        {
+            $this->addButton->hide();
+            $this->addButton->managed = false;
+        }
+        
+        protected function showAddButton()
+        {
+            $this->addButton->show();
+            $this->addButton->managed = true;
+        }
+        
+        protected function showInstalledLabelAndExcludePane()
+        {
+            $this->installedLabel->show();
+            $this->installedLabel->managed = true;
+        
+            $this->excludePane->show();
+            $this->excludePane->managed = true;
+        }
+        
+        protected function hideInstalledLabelAndExcludePane()
+        {
+            $this->installedLabel->hide();
+            $this->installedLabel->managed = false;
+        
+            $this->excludePane->hide();
+            $this->excludePane->managed = false;
+        }
 }

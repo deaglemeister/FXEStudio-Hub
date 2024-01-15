@@ -1811,7 +1811,7 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
         } else {
             $this->markerNode = $this->layout;
 
-            $this->layout->style = '-fx-border-width: 0px; -fx-border-style: none; -fx-border-color: silver;';
+            $this->layout->style = '-fx-border-width: 0px; -fx-border-style: none; -fx-border-color: transperet;';
             $this->layout->backgroundColor = '#F7F7F7';
 
             uiLater(function () use ($area, $viewer) {
@@ -2408,9 +2408,10 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
             $this->leftPaneUi->hideBehaviourPane();
             $this->leftPaneUi->hideEventListPane();
 
-            $invalidLabel = new UXLabel('Нерабочий компонент');
-            $invalidLabel->textColor = 'gray';
-            $invalidLabel->graphic = ico('invalid16');
+            $invalidLabel = new UXLabel('Данное свойство компонента не найдено.');
+            #$invalidLabel->textColor = 'gray';
+            $invalidLabel->classes->add('component-no-found');
+            $invalidLabel->graphic = ico('component_no_found16');
 
             $this->leftPaneUi->setPropertiesNode($invalidLabel);
         }
@@ -2498,7 +2499,7 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
             $dialog = new MessageBoxForm('Какой использовать редактор для редактирования событий?', $buttons);
 
             UXApplication::runLater(function () use ($dialog) {
-                $dialog->toast('Используйте "Конструктор" если вы новичок!');
+                $dialog->toast('Используйте "Конструктор" если вы тут первый раз!');
             });
 
             if ($dialog->showDialogWithFlag()) {

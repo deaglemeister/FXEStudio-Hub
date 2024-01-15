@@ -68,8 +68,8 @@ class FragmentFormElement extends AbstractFormElement
         parent::refreshNode($node, $designer);
 
         $node->alignment = 'CENTER';
-        $node->backgroundColor = 'white';
-        $node->style = '-fx-border-color: black; -fx-border-width: 1;';
+        $node->classes->add('fragment_form');
+        #$node->style = '-fx-border-color: black; -fx-border-width: 0;';
 
         if (!$node->children->count || !($node->children[0] instanceof UXLabel)) {
             $label = new UXLabel();

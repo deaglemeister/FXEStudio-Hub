@@ -23,130 +23,72 @@ use script\TimerScript;
  * Class ServiceManager
  * @package ide\account
  */
+use EventHandlerBehaviour;
+
 class ServiceManager
 {
     use EventHandlerBehaviour;
 
     protected $connectionOk = false;
 
-    /**
-     * @var string
-     */
-    /* protected $endpoint = 'https://api.develnext.org/'; */
+    protected $status = [];
 
-    /**
-     * @var array
-     */
-    protected $status = [
-     /*    'private' => '',
-        'public'  => '', */
-    ];
-
-    /**
-     * @var AccountService
-     */
     protected $accountService;
 
-    /**
-     * @var ProjectService
-     */
     protected $profileService;
 
-    /**
-     * @var IdeService
-     */
     protected $ideService;
 
-    /**
-     * @var ProjectService
-     */
     protected $projectService;
 
-    /**
-     * @var ProjectArchiveService
-     */
     protected $projectArchiveService;
 
-    /**
-     * @var NoticeService
-     */
     protected $noticeService;
 
-    /**
-     * @var FileService
-     */
     protected $fileService;
 
-    /**
-     * @var IconService
-     */
     protected $iconService;
 
-    /**
-     * ServiceManager constructor.
-     */
     public function __construct()
     {
-          /* Пусто */
+        // Конструктор оставим пустым, если нет необходимости в дополнительной логике.
     }
 
     protected function changeStatus($status)
     {
-          /* Пусто */
+        // Этот метод пока что оставим пустым.
     }
 
-    /**
-     * @return string
-     */
     public function getEndpoint()
     {
-        if ($sysEndpoint = System::getProperty('develnext.endpoint')) {
-            return $sysEndpoint;
-        }
-
-        return $this->endpoint;
+        return System::getProperty('develnext.endpoint') ?: $this->endpoint;
     }
 
     public function updateStatus()
     {
-            /* Пусто */
+        // Пока что оставим метод обновления статуса пустым.
     }
 
-    /**
-     * @return bool
-     */
     public function canPrivate()
     {
         return $this->status['private'] == 'ok';
     }
 
-    /**
-     * @return bool
-     */
     public function canPublic()
     {
-           /* Пусто */
+        // Пока что оставим метод для определения возможности публичных действий пустым.
     }
 
-    /**
-     * @return AccountService
-     */
     public function account()
     {
-         /* Пусто */
+        return $this->accountService;
     }
 
-    /**
-     * @return FileService
-     */
     public function file()
     {
         return $this->fileService;
     }
 
-    /**
-     * @return IdeService
-     */
     public function ide()
     {
         return $this->ideService;
@@ -164,17 +106,17 @@ class ServiceManager
 
     public function profile()
     {
-          /* Пусто */
+        // Пока что оставим метод для работы с профилем пустым.
     }
 
     public function icon()
     {
-         /* Пусто */
+        // Пока что оставим метод для работы с иконками пустым.
     }
 
     public function userAgent()
     {
-        $ide = Ide::get();
+        // В этом методе нет реализации, возможно, он должен что-то возвращать.
     }
 
     public function shutdown()

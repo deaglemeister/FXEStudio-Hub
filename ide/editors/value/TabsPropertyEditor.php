@@ -37,7 +37,7 @@ class TabsPropertyEditor extends TextPropertyEditor
         /*$this->editorForm = new ListPropertyEditorForm();
         $this->editorForm->setAsTabs();   */
 
-        $this->textField->promptText = 'нажмите для редактирования';
+        $this->textField->promptText = 'Нажмите для редактирования';
         $this->textField->editable = false;
         $this->textField->on('click', function (UXMouseEvent $e) {
             $this->showDialog($e->screenX, $e->screenY);

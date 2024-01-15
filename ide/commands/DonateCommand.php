@@ -3,13 +3,15 @@ namespace ide\commands;
 
 use ide\editors\AbstractEditor;
 use ide\misc\AbstractCommand;
+use php\gui\UXApplication;
 use php\gui\UXDesktop;
+use ide\forms\SettingsForm;
 
 class DonateCommand extends AbstractCommand
 {
     public function getName()
     {
-        return _('menu.donate');
+        return _('menu.settings');
     }
 
     public function isAlways()
@@ -24,12 +26,14 @@ class DonateCommand extends AbstractCommand
 
     public function getIcon()
     {
-        return 'icons/donat16.png';
+        return 'icons/settings16.png';
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)
     {
-        $desk = new UXDesktop();
-        $desk->browse('https://www.donationalerts.com/r/fxedition');
+        UXApplication::runLater(function () use ($response) {
+            $dialog = new SettingsForm();
+            $dialog->tryShow(true);
+        });
     }
 }

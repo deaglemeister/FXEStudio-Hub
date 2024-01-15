@@ -25,6 +25,7 @@ class ImageViewFormElementTag extends AbstractFormElementTag
     public function writeAttributes($node, DomElement $element)
     {
         /** @var UXImageArea $node */
+        #pre($node);
         $element->setAttribute('autoSize', $node->autoSize ? 'true' : 'false');
         $element->setAttribute('proportional', $node->proportional ? 'true' : 'false');
         $element->setAttribute('stretch', $node->stretch ? 'true' : 'false');

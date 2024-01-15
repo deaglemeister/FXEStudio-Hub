@@ -58,22 +58,21 @@ class IdeClassLoader extends ClassLoader
      */
     public function __construct($cache = true, $version = null)
     {
-        $this->cacheBytecodeDir = $cacheBytecodeDir = IdeSystem::getByteCodeCacheDir();
-        $versionFile = new File($cacheBytecodeDir, "/version");
-
+        $this->cacheBytecodeDir = IdeSystem::getByteCodeCacheDir();
+        $versionFile = new File($this->cacheBytecodeDir, "/version");
+    
         try {
             $cacheVersion = Stream::getContents($versionFile);
         } catch (IOException $e) {
             $cacheVersion = false;
         }
-
+    
         $this->cache = $cache;
         $this->version = $version;
-
-
+    
         if ($this->cache) {
-            $lockFile = new File($cacheBytecodeDir, "/ide.lock");
-
+            $lockFile = new File($this->cacheBytecodeDir, "/ide.lock");
+    
             $updateLockFile = function () use ($lockFile) {
                 if (class_exists(Ide::class, false)) {
                     if (!Ide::isCreated() || !Ide::get()->isIdle()) {
@@ -86,9 +85,9 @@ class IdeClassLoader extends ClassLoader
                     }
                 }
             };
-
+    
             Timer::after('1s', $updateLockFile);
-
+    
             Timer::every('7s', function (Timer $self) use ($updateLockFile) {
                 if (Ide::get()->isShutdown()) {
                     $self->cancel();
@@ -96,21 +95,22 @@ class IdeClassLoader extends ClassLoader
                     $updateLockFile();
                 }
             });
-
+            
+            #app()->form('NewSplashForm')->status-> text = 'Подгружаем ресурсы';
             echo "LOADER cached version = $cacheVersion\n\nLOADER new version    = $version", "\n";
         }
-
+    
         if ($this->version != $cacheVersion || !$cacheVersion) {
             $this->reloadCache = true;
             echo "LOADER reloading ...\n";
-            fs::clean($cacheBytecodeDir);
-            fs::makeDir($cacheBytecodeDir);
-
+            fs::clean($this->cacheBytecodeDir);
+            fs::makeDir($this->cacheBytecodeDir);
+    
             try {
                 Stream::putContents($versionFile, $this->version);
             } catch (IOException $e) {
                 $this->cache = false;
-                ; // nop.
+                // nop.
             }
         }
     }

@@ -33,7 +33,7 @@ class IdeSandboxShowCommand extends AbstractCommand
 
     public function getCategory()
     {
-        return 'help';
+        return 'library';
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

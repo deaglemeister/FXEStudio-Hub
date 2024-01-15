@@ -96,7 +96,7 @@ class CommonProjectControlPane extends AbstractProjectControlPane
      */
     public function addSettingsPane(UXNode $node, $prepend = true)
     {
-        Logger::debug("Add settings pane ...");
+        //Logger::debug("Add settings pane ...");
 
         if (property_exists($node, 'padding')) {
             $node->padding = 10;

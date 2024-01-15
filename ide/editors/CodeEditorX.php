@@ -341,53 +341,32 @@ class CodeEditorX extends AbstractEditor
 
     protected function _findSearchText(AbstractIdeForm $dialog, $text, array $options, $silent = false)
     {
-        $len = $pos = 0;
-
-        Logger::debug("Find search text '$text', from {$this->findDialogLastIndex}");
-
-        $case = $options['case'];
-        $method = str::class . '::' . ($case ? 'pos' : 'posIgnoreCase');
-
-        if ($options['wholeText']) {
-            $words = [$text];
-        } else {
-            $words = str::split($text, ' ');
-        }
-
-        foreach ($words as $word) {
-            $pos = $method($this->textArea->text, $word, $this->findDialogLastIndex);
-            $len = str::length($word);
-
-            if ($pos > -1) {
-                break;
-            }
-        }
-
-        if ($pos == -1) {
-            if ($this->findDialogLastIndex == 0) {
+        $pos = str::posIgnoreCase($this->textArea->text, $text, $this->findDialogLastIndex);
+        $len = str::length($text);
+    
+        if ($pos === false) {
+            if ($this->findDialogLastIndex === 0) {
                 if (!$silent) {
                     UXDialog::showAndWait('Ничего не найдено.');
                     $dialog->show();
                 }
-
+    
                 return null;
             }
-
+    
             if (!$silent && MessageBoxForm::confirm('Больше ничего не найдено, начать сначала?')) {
                 $this->findDialogLastIndex = 0;
                 $dialog->show();
                 $this->_findSearchText($dialog, $text, $options);
             }
-
+    
             return null;
         }
-
+    
         $this->findDialogLastIndex = $pos + 1;
         $this->textArea->caretPosition = $pos;
         $this->textArea->select($pos, $pos + $len);
-
-        Logger::debug("Find select [$pos, $len]");
-
+    
         return [$pos, $len];
     }
 

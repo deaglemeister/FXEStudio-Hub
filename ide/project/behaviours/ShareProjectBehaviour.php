@@ -104,22 +104,22 @@ class ShareProjectBehaviour extends AbstractProjectBehaviour
     {
 		
 
-		//dd
+	/* 	//dd
         $title = new UXLabel('Dev: Alexander Fitchers and Andrey Guschin');
         $title->font = $title->font->withBold();
 
         $colon = new UXLabel(': ');
         $colon->font = $colon->font->withBold();
 
-       /*  $url = new URL(Ide::service()->getEndpoint());
+       $url = new URL(Ide::service()->getEndpoint());
 
         $link = new UXHyperlink('FXEdition: 1.0 | NextApp');
         $link->on('action', function () use ($url) {
             browse('https://hub.develnext.org');
 			
-        }); */
+        }); 
 
-      /*   $titleFlow = new UXHBox([$title, $link, $colon]);
+        $titleFlow = new UXHBox([$title, $link, $colon]);
 
         $this->uiAuthPane = $authPane = new NeedAuthPane();
         $authPane->setTitle('DevelNext FXEdition 2024');
@@ -135,8 +135,8 @@ class ShareProjectBehaviour extends AbstractProjectBehaviour
         $ui->spacing = 5;
 
         $pane = $editor->addSettingsPane($ui);
-        $pane->backgroundColor = 'white'; */
+        $pane->backgroundColor = 'white'; 
 
-        $this->uiSettings = $ui;
+        $this->uiSettings = $ui;*/
     }
 }

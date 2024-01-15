@@ -14,12 +14,8 @@ use php\gui\layout\UXVBox;
 use php\gui\UXButton;
 use php\gui\UXDialog;
 use php\gui\UXNode;
-use php\gui\UXForm;
 use php\gui\UXSeparator;
-use script\storage\IniStorage;
 use php\lib\fs;
-use php\gui\GUI;
-
 
 class AbstractEditorsProjectControlPaneEditCommand extends AbstractMenuCommand
 {
@@ -267,8 +263,6 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
     protected function makeActionsUi()
     {
-		
-		
         $addButton = new UXButton('Добавить');
         $addButton->classes->add('icon-plus');
         $addButton->font = $addButton->font->withBold();
@@ -294,41 +288,6 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
             $this->doClone();
         });
 
-
-		//FFFF
-		
-		$INI = new IniStorage;
-	    $INI->path = "theme/style.ini";
-	    $THEME = $INI->get('theme');
- 
-
-    if ($THEME == 'dark') {
-        $TxTTHEM = "Светлая тема";
-	    $DarkTheme = new UXButton("$TxTTHEM");
-        $DarkTheme->classes->add('icon-copy');
-        $DarkTheme->maxHeight = 999;
-        $DarkTheme->enabled = true;
-		$STYLE = "white";
-    } 
-    elseif ($THEME !== 'dark') {
-        $TxTTHEM = "Темная тема";
-	    $DarkTheme = new UXButton("$TxTTHEM");
-        $DarkTheme->classes->add('icon-copy');
-        $DarkTheme->maxHeight = 999;
-        $DarkTheme->enabled = true;
-		$STYLE = "dark";
-    } 
-        $DarkTheme->on('action', function () use ($DarkTheme, $INI, $TxTTHEM, $THEME, $STYLE)  {
-		$DARK = new IniStorage;
-	    $DARK->path = "theme/style.ini";
-	    $DARK = $INI->get('theme');		
-		$INI->set('theme',$STYLE);
-        Execute("DevelNext.exe"); //даём команду на запуск приложения		
-		Exit; //Закрываем приложение		
-    });
-		
-		
-		
         $delButton = new UXButton();
         $delButton->classes->add('icon-trash2');
         $delButton->maxHeight = 999;
@@ -339,21 +298,18 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
             $this->list->removeBySelections();
         });
 
-        $this->list->on('select', function ($nodes) use ($delButton, $editButton, $cloneButton, $DarkTheme) {
+        $this->list->on('select', function ($nodes) use ($delButton, $editButton, $cloneButton) {
             $delButton->enabled = !!$nodes;
             $editButton->enabled = sizeof($nodes) == 1;
             $cloneButton->enabled = sizeof($nodes) == 1;
-            $DarkTheme->enabled = sizeof($nodes) == 1;
         });
 
-        $ui = new UXHBox([$addButton, new UXSeparator('VERTICAL'), $editButton, $cloneButton, $delButton, $DarkTheme]);
+        $ui = new UXHBox([$addButton, new UXSeparator('VERTICAL'), $editButton, $cloneButton, $delButton]);
         $ui->spacing = 5;
         $ui->minHeight = 30;
 
         return $ui;
     }
-
-
 
     /**
      * Refresh ui and pane.

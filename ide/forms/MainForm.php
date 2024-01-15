@@ -2,6 +2,7 @@
 namespace ide\forms;
 
 
+
 use ide\editors\form\IdeTabPane;
 use ide\forms\mixins\SavableFormMixin;
 use ide\Ide;
@@ -57,14 +58,22 @@ use php\time\Timer;
 use std;
 use action\Animation;
 
+use php\gui\UXControl;
 
-use ide\account\ServiceToast;
+use php\gui\layout\UXScrollPane;
 
 use httpclient;
 use php\io\IOException;
 use php\framework\Logger;
 use facade\Json;
 use bundle\http\HttpClient;
+
+use ide\forms\malboro\Modals;
+
+use ide\forms\malboro\Toasts;
+
+use ide\forms\malboro\Updates;
+use ide\forms\malboro\DiscordRPC;
 
 /**
  * @property UXTabPane $fileTabPane
@@ -85,13 +94,10 @@ use bundle\http\HttpClient;
  */
 class MainForm extends AbstractIdeForm
 {
- 
     use IdeConfigurable;
 
 
-    public $toasts;
-
-
+    
     /**
      * @var UXMenuBar
      */
@@ -149,6 +155,8 @@ class MainForm extends AbstractIdeForm
             $this->opacity = 1;
         });
 
+        app()->form('NewSplashForm')->status-> text = 'Запускаем главную форму';
+
         $mainMenu = $this->mainMenu; // FIX!!!!! see FixSkinMenu
 
         $this->headRightPane->spacing = 5;
@@ -162,6 +170,7 @@ class MainForm extends AbstractIdeForm
         $tabPane = $pane ? $pane->children[0] : new UXTabPane();
         $tabPane->id = 'fileTabPane';
         $tabPane->tabClosingPolicy = 'ALL_TABS';
+
         $tabPane->classes->add('dn-file-tab-pane');
 
 
@@ -231,7 +240,7 @@ class MainForm extends AbstractIdeForm
         if ($menu == null) {
             $menu = new UXMenu($text);
             $menu->id = "menu$id";
-
+    
             if ($prepend) {
                 $this->mainMenu->menus->insert(0, $menu);
             } else {
@@ -249,48 +258,21 @@ class MainForm extends AbstractIdeForm
      */
     public function doShowing()
     {
-        Ide::get()->getL10n()->translateNode($this->mainMenu);
-
+        $class = new Updates;
+        $class->checkUpdates();
     }
-
-
+ 
     public function show()
     {
        
         parent::show();
-        $this->toasts_container();
         $this->minWidth = 1450;
         $this->minHeight = 850;
+       # $class = new DiscordRPC;
+       # $class->RPC();
+        Ide::get()->getL10n()->translateNode($this->mainMenu);
 
-        $version = "1.6"; // Это менять с сервером (Это новая версия программы)
-        $latestVersion = "1.6"; // Это актуальная версия на текущий момент (А это старая версия программы и текущая)
-        $url = "http://ggpay.hhos.net/cloud/dist/version.txt";
-        $current_version = file_get_contents($url);
- 
-        if ($current_version === false) {
-            $this->show_tc(['message' => "Не удается получить информацию о последней версии. Пожалуйста, попробуйте позже.", 'color' => 'red']);
-        } else {
-            $current_version = trim($current_version); // Удаляем возможные пробелы или символы новой строки
-        
-            if ($version == $current_version) {
-                $this->show_tc(['message' => "Вы используете актуальную версию. Текущая версия: $latestVersion", 'color' => 'blue']);
-            } else {
-                $this->show_tc(['message' => "Дуступно новое обновление V$latestVersion, разрешите открыть update.exe, нажмите да", 'color' => 'red']);
-                sleep(10);
-                execute('cmd /c cd /d "' . $path . '" & start update.exe');
-            }
-        } 
-        
-
-
-
-
-
-        
-
-
-    
-        $ideLanguage = Ide::get()->getLanguage();
+     $ideLanguage = Ide::get()->getLanguage();
 
         $menu = $this->findSubMenu('menuL10n');
         $menu->items->clear();
@@ -323,7 +305,7 @@ class MainForm extends AbstractIdeForm
             });
 
             $menu->items->add($item);
-        }
+        } 
 
         $screen = UXScreen::getPrimary();
 
@@ -372,6 +354,11 @@ class MainForm extends AbstractIdeForm
         });
     }
 
+ 
+ 
+
+
+
     /**
      * @event close
      *
@@ -382,52 +369,117 @@ class MainForm extends AbstractIdeForm
      */
     public function doClose(UXEvent $e = null)
     {
-        Logger::info("Close main form ...");
-
+        $e->consume();
         $project = Ide::get()->getOpenedProject();
-
-        if ($project) {
-            $dialog = new MessageBoxForm(_('Вы действительно хотите выйти из среды? Не забудьте сохранить проект', $project->getName()), [
-                'no'  => _('Да'),
-                'abort' => _('Нет'),
-                'restart' => _('Перезапустить')
-            ]);
-            $dialog->title = _('exit.project.title');
-
-            if ($dialog->showDialog()) {
-                $result = $dialog->getResult();
-
-
-     if ($result == 'restart') {
-                    Execute("DevelNext.exe"); //даём команду на запуск приложения
-                    Exit; //Закрываем приложение
-                } 
-                elseif ($result == 'abort') { //нет, иди на
-                    if ($e) {
-                        $e->consume();
-                    }
-                    return;
-                } else {
-                }
-                Exit; //Закрываем приложение
-            } else {
-                if ($e) {
-                    $e->consume();
-                }
+        $modal = [
+            'fitToWidth' => true, # Во всю длину
+            'fitToHeight' => true, # Во всю ширину
+            'blur' => app()->form('MainForm')->flowPane, # Объект для размытия
+            'title' => 'Вы действительно хотите выйти из среды?', # Заголовок окна
+            'message' => 'Не забудьте сохранить ваш проект.', # Сообщение
+            'color_overlay' => "#ff5252",
+            'close_overlay' => false, # Закрывать при клике мыши на overlay
+            'buttons' => [['text' => 'Да, выйти', 'style' => 'button-red'], ['text' => 'Отмена', 'style' => 'button-accent', 'close' => true]]
+            ];
+        $modalClass = new Modals;
+        $MainFormZ = app()->form('MainForm');
+        $modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
+            if ($e == 'Да, выйти') {
+                Exit();
             }
-        } else {
-            $dialog = new MessageBoxForm(_('exit.message'), [_('exit.yes'), _('exit.no')]);
-            if ($dialog->showDialog() && $dialog->getResultIndex() == 0) {
-                $this->hide();
-                Exit; //Закрываем приложение
-            } else {
-                if ($e) {
-                    $e->consume();
-                }
+        });
+    }
+    /**
+     * @event keyDown-F5 
+     */
+    function doKeyDownF5(UXKeyEvent $e = null)
+    {    
+        $e->consume();
+        $project = Ide::get()->getOpenedProject();
+        # Параметры модального окна
+        $modal = [
+            'fitToWidth' => true, # Во всю длину
+            'fitToHeight' => true, # Во всю ширину
+            'blur' => $this->flowPane, # Объект для размытия
+            'title' => 'Вы действительно хотите перезагрузить среду?', # Заголовок окна
+            'message' => 'Тогда не забудьте, сохранить ваш проект.', # Сообщение
+            'close_overlay' => true, # Закрывать при клике мыши на overlay
+            'buttons' => [['text' => 'Перезагрузить среду', 'style' => 'button-red'], ['text' => 'Отмена', 'style' => 'button-accent', 'close' => true]]
+            ];
+        # Отображаем окно      
+        $modalClass = new Modals;
+        $MainFormZ = app()->form('MainForm');
+        $modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
+            if ($e == 'Перезагрузить среду') {
+                Execute("DevelNext.exe"); // Даем команду на запуск приложения
+                Exit(); // Закрываем приложение
             }
-        }
+        });
+
     }
 
+
+
+    /**
+     * @event keyDown-Ctrl+W 
+     */
+    function doKeyDownCtrlW(UXKeyEvent $e = null)
+    {    
+        $e->consume();
+        
+    }
+
+
+        /**
+     * @event keyDown-F11 
+     */
+    function doKeyDownF11(UXKeyEvent $e = null)
+    {    
+        $e->consume();
+        $project = Ide::get()->getOpenedProject();
+        # Параметры модального окна
+        $modal = [
+            'fitToWidth' => true, # Во всю длину
+            'fitToHeight' => true, # Во всю ширину
+            'blur' => $this->flowPane, # Объект для размытия
+            'title' => 'Вызвать сборщик мусора?', # Заголовок окна
+            'message' => 'Ваша память будет почищена.', # Сообщение
+            'close_overlay' => true, # Закрывать при клике мыши на overlay
+            'buttons' => [['text' => 'Вызвать', 'style' => 'button-red'], ['text' => 'Отмена', 'style' => 'button-accent', 'close' => true]]
+            ];
+        # Отображаем окно      
+        $modalClass = new Modals;
+        $MainFormZ = app()->form('MainForm');
+        $modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
+            if ($e == 'Вызвать') {
+                $this->showPreloader('Выдвигаеюсь..');
+                new Thread(function() {
+                    System::gc();
+                    uiLater(function() {
+                        $this->hidePreloader();
+                        $class = new Toasts;
+                        $class->showToast("Сборщик мусора", "Текущая память была освобождена", "#FF4F44");
+                    });
+                })->start();
+                
+                
+                
+            }
+        });
+
+    }
+
+    
+        /**
+     * @event keyDown-F12 
+     */
+    function doKeyDownF12(UXKeyEvent $e = null)
+    {    
+        $class = new Updates;
+        $class->checkUpdates();
+    }
+
+    
     /**
      * @return UXHBox
      */
