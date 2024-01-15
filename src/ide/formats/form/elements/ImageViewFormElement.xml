@@ -12,10 +12,6 @@
         <property code="proportional" name="Пропорциональность" editor="boolean" />
     </properties>
 
-    <properties group="borders" title="Регулировка" sort="1500">
-        <property code="border" name="Закругление" editor="float" />
-
-    </properties>
 
     <properties group="mosaicF" title="Мозайка" sort="1500">
         <property code="mosaic" name="Мозайка" editor="boolean" />
