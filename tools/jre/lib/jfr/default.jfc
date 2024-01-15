@@ -214,6 +214,11 @@
       <setting name="threshold">10 ms</setting>
     </event>
 
+    <event path="vm/runtime/shutdown">
+      <setting name="enabled">true</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
     <event path="vm/runtime/thread_dump">
       <setting name="enabled" control="thread-dump-enabled">true</setting>
       <setting name="period" control="thread-dump-interval">everyChunk</setting>
@@ -542,6 +547,31 @@
     <event path="java/statistics/throwables">
       <setting name="enabled">true</setting>
       <setting name="period">1000 ms</setting>
+    </event>
+
+    <event path="java/security_property">
+      <setting name="enabled">false</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="java/security_provider">
+      <setting name="enabled">false</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="java/tls_handshake">
+      <setting name="enabled">false</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="java/x509_certificate">
+      <setting name="enabled">false</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="java/x509_validation">
+      <setting name="enabled">false</setting>
+      <setting name="stackTrace">true</setting>
     </event>
 
   </producer>

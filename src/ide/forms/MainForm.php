@@ -95,8 +95,6 @@ use ide\forms\malboro\DiscordRPC;
 class MainForm extends AbstractIdeForm
 {
     use IdeConfigurable;
-
-
     
     /**
      * @var UXMenuBar
