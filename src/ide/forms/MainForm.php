@@ -354,10 +354,6 @@ class MainForm extends AbstractIdeForm
         });
     }
 
- 
- 
-
-
 
     /**
      * @event close

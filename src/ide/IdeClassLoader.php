@@ -96,8 +96,7 @@ class IdeClassLoader extends ClassLoader
                 }
             });
             
-            #app()->form('NewSplashForm')->status-> text = 'Подгружаем ресурсы';
-            echo "LOADER cached version = $cacheVersion\n\nLOADER new version    = $version", "\n";
+            #echo "LOADER cached version = $cacheVersion\n\nLOADER new version    = $version", "\n";
         }
     
         if ($this->version != $cacheVersion || !$cacheVersion) {
@@ -169,11 +168,6 @@ class IdeClassLoader extends ClassLoader
                 $t = Time::millis();
 
                 $filename = "res://$path/$name.php";
-
-                /*if (class_exists(Logger::class, false)) {
-                    Logger::warn("Make module '$filename'");
-                }*/
-
                 $module = new Module(Stream::of($filename));
                 $module->call();
 
