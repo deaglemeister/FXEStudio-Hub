@@ -59,7 +59,6 @@ class ToolInstallForm extends AbstractIdeForm
                     $this->console->end();
 
                     waitAsync(2000, [$this, 'hide']);
-                    //$this->hide();
                 } else {
                     UXDialog::show('Ошибка установки ' . $this->installer->getTool()->getName(), 'ERROR');
                 }

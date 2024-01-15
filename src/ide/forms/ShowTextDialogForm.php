@@ -7,6 +7,7 @@ use php\gui\UXLabel;
 use php\gui\UXTextArea;
 use php\gui\UXTextField;
 use php\lib\str;
+use ide\forms\malboro\Toasts;
 
 /**
  * Class ShowTextDialogForm
@@ -74,7 +75,7 @@ class ShowTextDialogForm extends AbstractIdeForm
         } else {
             UXClipboard::setText($this->area->text);
         }
-
-        $this->toast("Текст успешно скопирован в буфер обмена");
+        $class = new Toasts;
+        $class->showToast("Текст", "Успешен скопирован в буфер обмена", "#FF4F44");
     }
 }
