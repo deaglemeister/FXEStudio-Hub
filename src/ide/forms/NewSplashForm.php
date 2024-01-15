@@ -85,7 +85,6 @@ class NewSplashForm extends AbstractIdeForm
     $time = Time::now()->toString('HH:mm');
     $hour = (int)explode(':', $time)[0]; // Получаем время
     $random = rand(0,43);
-    
         if ($hour >= 0 && $hour < 6) {// с 00:00 до 6:00
             $this->greetings->text = $greetings[$random];
         } elseif ($hour >= 6 && $hour < 12) {// с 6:00 до 12:00
@@ -100,15 +99,12 @@ class NewSplashForm extends AbstractIdeForm
         $this->status-> text = 'Hide Splash Form';
         $this->centerOnScreen();
         $this->waitAndHide(); // Обновленное название функции
-        
     }
     
     public function waitAndHide(int $timeoutMs = 1)
     {
-        
-
         $settings = json_decode(file_get_contents('tools\Settings\Settings.ini'), true);
-        
+    
         $image = new UXImageArea();
         $image->autoSize = false;
         $image->centered = false;
@@ -123,9 +119,7 @@ class NewSplashForm extends AbstractIdeForm
                 $this->HideNOWAIT(1);
                 pre('Error #1 - Вы не выбрали картинку в настройках, измените картинку чтобы Splash работал, или отключите его. ' .$path);
             }else{
-
                 $image->image = new UXImage($path);
-
                 $this->add($image);
                 $this->greetings->toFront();
                 $this->panel->toFront();
@@ -138,14 +132,10 @@ class NewSplashForm extends AbstractIdeForm
         }else{
             $this->HideNOWAIT(1);
         }
-
     }
     function HideNOWAIT($timeoutMs){
-        
-            
         waitAsync($timeoutMs, function () use ($timeoutMs) {
             $mainForm = $this->_app->getMainForm();
-            
             if ($mainForm instanceof UXForm && $mainForm->visible) {
                 $this->hide();
                 return;

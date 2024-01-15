@@ -22,9 +22,6 @@
 # the command line, set the key security.overridePropertiesFile
 # to false in the master security properties file. It is set to true
 # by default.
-#
-# If this properties file fails to load, the JDK implementation will throw
-# an unspecified error when initializing the java.security.Security class.
 
 # In this file, various security properties are set for use by
 # java.security classes. This is where users can statically register
@@ -213,8 +210,6 @@ package.access=sun.,\
                com.sun.org.apache.xalan.internal.xsltc.trax.,\
                com.sun.org.apache.xalan.internal.xsltc.util.,\
                com.sun.org.apache.xml.internal.res.,\
-               com.sun.org.apache.xml.internal.resolver.helpers.,\
-               com.sun.org.apache.xml.internal.resolver.readers.,\
                com.sun.org.apache.xml.internal.security.,\
                com.sun.org.apache.xml.internal.serializer.utils.,\
                com.sun.org.apache.xml.internal.utils.,\
@@ -226,7 +221,6 @@ package.access=sun.,\
                jdk.internal.,\
                jdk.nashorn.internal.,\
                jdk.nashorn.tools.,\
-               jdk.xml.internal.,\
                com.sun.activation.registries.,\
                com.sun.java.accessibility.,\
                com.sun.browser.,\
@@ -275,8 +269,6 @@ package.definition=sun.,\
                    com.sun.org.apache.xalan.internal.xsltc.trax.,\
                    com.sun.org.apache.xalan.internal.xsltc.util.,\
                    com.sun.org.apache.xml.internal.res.,\
-                   com.sun.org.apache.xml.internal.resolver.helpers.,\
-                   com.sun.org.apache.xml.internal.resolver.readers.,\
                    com.sun.org.apache.xml.internal.security.,\
                    com.sun.org.apache.xml.internal.serializer.utils.,\
                    com.sun.org.apache.xml.internal.utils.,\
@@ -288,7 +280,6 @@ package.definition=sun.,\
                    jdk.internal.,\
                    jdk.nashorn.internal.,\
                    jdk.nashorn.tools.,\
-                   jdk.xml.internal.,\
                    com.sun.activation.registries.,\
                    com.sun.java.accessibility.,\
                    com.sun.browser.,\
@@ -448,48 +439,6 @@ networkaddress.cache.negative.ttl=10
 #   krb5.kdc.bad.policy = tryLess:2,2000
 krb5.kdc.bad.policy = tryLast
 
-#
-# This property contains a list of disabled EC Named Curves that can be included
-# in the jdk.[tls|certpath|jar].disabledAlgorithms properties.  To include this
-# list in any of the disabledAlgorithms properties, add the property name as
-# an entry.
-jdk.disabled.namedCurves = secp112r1, secp112r2, secp128r1, secp128r2, \
-    secp160k1, secp160r1, secp160r2, secp192k1, secp192r1, secp224k1, \
-    secp224r1, secp256k1, sect113r1, sect113r2, sect131r1, sect131r2, \
-    sect163k1, sect163r1, sect163r2, sect193r1, sect193r2, sect233k1, \
-    sect233r1, sect239k1, sect283k1, sect283r1, sect409k1, sect409r1, \
-    sect571k1, sect571r1, X9.62 c2tnb191v1, X9.62 c2tnb191v2, \
-    X9.62 c2tnb191v3, X9.62 c2tnb239v1, X9.62 c2tnb239v2, X9.62 c2tnb239v3, \
-    X9.62 c2tnb359v1, X9.62 c2tnb431r1, X9.62 prime192v2, X9.62 prime192v3, \
-    X9.62 prime239v1, X9.62 prime239v2, X9.62 prime239v3, brainpoolP256r1, \
-    brainpoolP320r1, brainpoolP384r1, brainpoolP512r1
-
-#
-# Kerberos cross-realm referrals (RFC 6806)
-#
-# OpenJDK's Kerberos client supports cross-realm referrals as defined in
-# RFC 6806. This allows to setup more dynamic environments in which clients
-# do not need to know in advance how to reach the realm of a target principal
-# (either a user or service).
-#
-# When a client issues an AS or a TGS request, the "canonicalize" option
-# is set to announce support of this feature. A KDC server may fulfill the
-# request or reply referring the client to a different one. If referred,
-# the client will issue a new request and the cycle repeats.
-#
-# In addition to referrals, the "canonicalize" option allows the KDC server
-# to change the client name in response to an AS request. For security reasons,
-# RFC 6806 (section 11) FAST scheme is enforced.
-#
-# Disable Kerberos cross-realm referrals. Value may be overwritten with a
-# System property (-Dsun.security.krb5.disableReferrals).
-sun.security.krb5.disableReferrals=false
-
-# Maximum number of AS or TGS referrals to avoid infinite loops. Value may
-# be overwritten with a System property (-Dsun.security.krb5.maxReferrals).
-sun.security.krb5.maxReferrals=5
-
-#
 # Algorithm restrictions for certification path (CertPath) processing
 #
 # In some environments, certain algorithms or key lengths may be undesirable
@@ -498,40 +447,35 @@ sun.security.krb5.maxReferrals=5
 # describes the mechanism for disabling algorithms based on algorithm name
 # and/or key length.  This includes algorithms used in certificates, as well
 # as revocation information such as CRLs and signed OCSP Responses.
-# The syntax of the disabled algorithm string is described as follows:
+#
+# The syntax of the disabled algorithm string is described as this Java
+# BNF-style:
 #   DisabledAlgorithms:
 #       " DisabledAlgorithm { , DisabledAlgorithm } "
 #
 #   DisabledAlgorithm:
-#       AlgorithmName [Constraint] { '&' Constraint } | IncludeProperty
+#       AlgorithmName [Constraint]
 #
 #   AlgorithmName:
 #       (see below)
 #
 #   Constraint:
-#       KeySizeConstraint | CAConstraint | DenyAfterConstraint |
-#       UsageConstraint
+#       KeySizeConstraint
 #
 #   KeySizeConstraint:
-#       keySize Operator KeyLength
+#       keySize Operator DecimalInteger
 #
 #   Operator:
 #       <= | < | == | != | >= | >
 #
-#   KeyLength:
-#       Integer value of the algorithm's key length in bits
+#   DecimalInteger:
+#       DecimalDigits
 #
-#   CAConstraint:
-#       jdkCA
+#   DecimalDigits:
+#       DecimalDigit {DecimalDigit}
 #
-#   DenyAfterConstraint:
-#       denyAfter YYYY-MM-DD
-#
-#   UsageConstraint:
-#       usage [TLSServer] [TLSClient] [SignedJAR]
-#
-#   IncludeProperty:
-#       include <security property>
+#   DecimalDigit: one of
+#       1 2 3 4 5 6 7 8 9 0
 #
 # The "AlgorithmName" is the standard algorithm name of the disabled
 # algorithm. See "Java Cryptography Architecture Standard Algorithm Name
@@ -545,77 +489,15 @@ sun.security.krb5.maxReferrals=5
 # that rely on DSA, such as NONEwithDSA, SHA1withDSA.  However, the assertion
 # will not disable algorithms related to "ECDSA".
 #
-# The "IncludeProperty" allows a implementation-defined security property that
-# can be included in the disabledAlgorithms properties.  These properties are
-# to help manage common actions easier across multiple disabledAlgorithm
-# properties.
-# There is one defined security property:  jdk.disabled.NamedCurves
-# See the property for more specific details.
-#
-#
-# A "Constraint" defines restrictions on the keys and/or certificates for
-# a specified AlgorithmName:
-#
-#   KeySizeConstraint:
-#     keySize Operator KeyLength
-#       The constraint requires a key of a valid size range if the
-#       "AlgorithmName" is of a key algorithm.  The "KeyLength" indicates
-#       the key size specified in number of bits.  For example,
-#       "RSA keySize <= 1024" indicates that any RSA key with key size less
-#       than or equal to 1024 bits should be disabled, and
-#       "RSA keySize < 1024, RSA keySize > 2048" indicates that any RSA key
-#       with key size less than 1024 or greater than 2048 should be disabled.
-#       This constraint is only used on algorithms that have a key size.
-#
-#   CAConstraint:
-#     jdkCA
-#       This constraint prohibits the specified algorithm only if the
-#       algorithm is used in a certificate chain that terminates at a marked
-#       trust anchor in the lib/security/cacerts keystore.  If the jdkCA
-#       constraint is not set, then all chains using the specified algorithm
-#       are restricted.  jdkCA may only be used once in a DisabledAlgorithm
-#       expression.
-#       Example:  To apply this constraint to SHA-1 certificates, include
-#       the following:  "SHA1 jdkCA"
-#
-#   DenyAfterConstraint:
-#     denyAfter YYYY-MM-DD
-#       This constraint prohibits a certificate with the specified algorithm
-#       from being used after the date regardless of the certificate's
-#       validity.  JAR files that are signed and timestamped before the
-#       constraint date with certificates containing the disabled algorithm
-#       will not be restricted.  The date is processed in the UTC timezone.
-#       This constraint can only be used once in a DisabledAlgorithm
-#       expression.
-#       Example:  To deny usage of RSA 2048 bit certificates after Feb 3 2020,
-#       use the following:  "RSA keySize == 2048 & denyAfter 2020-02-03"
-#
-#   UsageConstraint:
-#     usage [TLSServer] [TLSClient] [SignedJAR]
-#       This constraint prohibits the specified algorithm for
-#       a specified usage.  This should be used when disabling an algorithm
-#       for all usages is not practical. 'TLSServer' restricts the algorithm
-#       in TLS server certificate chains when server authentication is
-#       performed. 'TLSClient' restricts the algorithm in TLS client
-#       certificate chains when client authentication is performed.
-#       'SignedJAR' constrains use of certificates in signed jar files.
-#       The usage type follows the keyword and more than one usage type can
-#       be specified with a whitespace delimiter.
-#       Example:  "SHA1 usage TLSServer TLSClient"
-#
-# When an algorithm must satisfy more than one constraint, it must be
-# delimited by an ampersand '&'.  For example, to restrict certificates in a
-# chain that terminate at a distribution provided trust anchor and contain
-# RSA keys that are less than or equal to 1024 bits, add the following
-# constraint:  "RSA keySize <= 1024 & jdkCA".
-#
-# All DisabledAlgorithms expressions are processed in the order defined in the
-# property.  This requires lower keysize constraints to be specified
-# before larger keysize constraints of the same algorithm.  For example:
-# "RSA keySize < 1024 & jdkCA, RSA keySize < 2048".
-#
-# Note: The algorithm restrictions do not apply to trust anchors or
-# self-signed certificates.
+# A "Constraint" provides further guidance for the algorithm being specified.
+# The "KeySizeConstraint" requires a key of a valid size range if the
+# "AlgorithmName" is of a key algorithm.  The "DecimalInteger" indicates the
+# key size specified in number of bits.  For example, "RSA keySize <= 1024"
+# indicates that any RSA key with key size less than or equal to 1024 bits
+# should be disabled, and "RSA keySize < 1024, RSA keySize > 2048" indicates
+# that any RSA key with key size less than 1024 or greater than 2048 should
+# be disabled. Note that the "KeySizeConstraint" only makes sense to key
+# algorithms.
 #
 # Note: This property is currently used by Oracle's PKIX implementation. It
 # is not guaranteed to be examined and used by other implementations.
@@ -624,85 +506,16 @@ sun.security.krb5.maxReferrals=5
 #   jdk.certpath.disabledAlgorithms=MD2, DSA, RSA keySize < 2048
 #
 #
-jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
-    RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224, \
-    include jdk.disabled.namedCurves, \
-    SHA1 usage SignedJAR & denyAfter 2019-01-01
+jdk.certpath.disabledAlgorithms=MD2, MD5, RSA keySize < 1024
 
-#
-# Legacy algorithms for certification path (CertPath) processing and
-# signed JAR files.
-#
-# In some environments, a certain algorithm or key length may be undesirable
-# but is not yet disabled.
-#
-# Tools such as keytool and jarsigner may emit warnings when these legacy
-# algorithms are used. See the man pages for those tools for more information.
-#
-# The syntax is the same as the "jdk.certpath.disabledAlgorithms" and
-# "jdk.jar.disabledAlgorithms" security properties.
-#
-# Note: This property is currently used by the JDK Reference
-# implementation. It is not guaranteed to be examined and used by other
-# implementations.
-
-jdk.security.legacyAlgorithms=SHA1, \
-    RSA keySize < 2048, DSA keySize < 2048
-
-#
-# Algorithm restrictions for signed JAR files
-#
-# In some environments, certain algorithms or key lengths may be undesirable
-# for signed JAR validation.  For example, "MD2" is generally no longer
-# considered to be a secure hash algorithm.  This section describes the
-# mechanism for disabling algorithms based on algorithm name and/or key length.
-# JARs signed with any of the disabled algorithms or key sizes will be treated
-# as unsigned.
-#
-# The syntax of the disabled algorithm string is described as follows:
-#   DisabledAlgorithms:
-#       " DisabledAlgorithm { , DisabledAlgorithm } "
-#
-#   DisabledAlgorithm:
-#       AlgorithmName [Constraint] { '&' Constraint }
-#
-#   AlgorithmName:
-#       (see below)
-#
-#   Constraint:
-#       KeySizeConstraint | DenyAfterConstraint
-#
-#   KeySizeConstraint:
-#       keySize Operator KeyLength
-#
-#   DenyAfterConstraint:
-#       denyAfter YYYY-MM-DD
-#
-#   Operator:
-#       <= | < | == | != | >= | >
-#
-#   KeyLength:
-#       Integer value of the algorithm's key length in bits
-#
-# Note: This property is currently used by the JDK Reference
-# implementation. It is not guaranteed to be examined and used by other
-# implementations.
-#
-# See "jdk.certpath.disabledAlgorithms" for syntax descriptions.
-#
-jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, \
-      DSA keySize < 1024, include jdk.disabled.namedCurves, \
-      SHA1 denyAfter 2019-01-01
-
-#
 # Algorithm restrictions for Secure Socket Layer/Transport Layer Security
 # (SSL/TLS) processing
 #
 # In some environments, certain algorithms or key lengths may be undesirable
 # when using SSL/TLS.  This section describes the mechanism for disabling
 # algorithms during SSL/TLS security parameters negotiation, including
-# protocol version negotiation, cipher suites selection, signature schemes
-# selection, peer authentication and key exchange mechanisms.
+# protocol version negotiation, cipher suites selection, peer authentication
+# and key exchange mechanisms.
 #
 # Disabled algorithms will not be negotiated for SSL/TLS connections, even
 # if they are enabled explicitly in an application.
@@ -716,18 +529,12 @@ jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, \
 # See the specification of "jdk.certpath.disabledAlgorithms" for the
 # syntax of the disabled algorithm string.
 #
-# Note: The algorithm restrictions do not apply to trust anchors or
-# self-signed certificates.
-#
-# Note: This property is currently used by the JDK Reference implementation.
+# Note: This property is currently used by Oracle's JSSE implementation.
 # It is not guaranteed to be examined and used by other implementations.
 #
 # Example:
-#   jdk.tls.disabledAlgorithms=MD5, SSLv3, DSA, RSA keySize < 2048, \
-#       rsa_pkcs1_sha1
-jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
-    DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, \
-    include jdk.disabled.namedCurves
+#   jdk.tls.disabledAlgorithms=MD5, SSLv3, DSA, RSA keySize < 2048
+jdk.tls.disabledAlgorithms=SSLv3, RC4, MD5withRSA, DH keySize < 768
 
 # Legacy algorithms for Secure Socket Layer/Transport Layer Security (SSL/TLS)
 # processing in JSSE implementation.
@@ -741,7 +548,7 @@ jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
 # During SSL/TLS security parameters negotiation, legacy algorithms will
 # not be negotiated unless there are no other candidates.
 #
-# The syntax of the legacy algorithms string is described as this Java
+# The syntax of the disabled algorithm string is described as this Java
 # BNF-style:
 #   LegacyAlgorithms:
 #       " LegacyAlgorithm { , LegacyAlgorithm } "
@@ -771,7 +578,7 @@ jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
 # See SSL/TLS specifications and "Java Cryptography Architecture Standard
 # Algorithm Name Documentation" for information about the algorithm names.
 #
-# Note: This property is currently used by the JDK Reference implementation.
+# Note: This property is currently used by Oracle's JSSE implementation.
 # It is not guaranteed to be examined and used by other implementations.
 # There is no guarantee the property will continue to exist or be of the
 # same syntax in future releases.
@@ -781,9 +588,10 @@ jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
 #
 jdk.tls.legacyAlgorithms= \
         K_NULL, C_NULL, M_NULL, \
+        DHE_DSS_EXPORT, DHE_RSA_EXPORT, DH_anon_EXPORT, DH_DSS_EXPORT, \
+        DH_RSA_EXPORT, RSA_EXPORT, \
         DH_anon, ECDH_anon, \
-        RC4_128, RC4_40, DES_CBC, DES40_CBC, \
-        3DES_EDE_CBC
+        RC4_128, RC4_40, DES_CBC, DES40_CBC
 
 # The pre-defined default finite field Diffie-Hellman ephemeral (DHE)
 # parameters for Transport Layer Security (SSL/TLS/DTLS) processing.
@@ -841,477 +649,3 @@ jdk.tls.legacyAlgorithms= \
 #       E485B576 625E7EC6 F44C42E9 A637ED6B 0BFF5CB6 F406B7ED \
 #       EE386BFB 5A899FA5 AE9F2411 7C4B1FE6 49286651 ECE65381 \
 #       FFFFFFFF FFFFFFFF, 2}
-
-#
-# TLS key limits on symmetric cryptographic algorithms
-#
-# This security property sets limits on algorithms key usage in TLS 1.3.
-# When the amount of data encrypted exceeds the algorithm value listed below,
-# a KeyUpdate message will trigger a key change.  This is for symmetric ciphers
-# with TLS 1.3 only.
-#
-# The syntax for the property is described below:
-#   KeyLimits:
-#       " KeyLimit { , KeyLimit } "
-#
-#   WeakKeyLimit:
-#       AlgorithmName Action Length
-#
-#   AlgorithmName:
-#       A full algorithm transformation.
-#
-#   Action:
-#       KeyUpdate
-#
-#   Length:
-#       The amount of encrypted data in a session before the Action occurs
-#       This value may be an integer value in bytes, or as a power of two, 2^29.
-#
-#   KeyUpdate:
-#       The TLS 1.3 KeyUpdate handshake process begins when the Length amount
-#       is fulfilled.
-#
-# Note: This property is currently used by OpenJDK's JSSE implementation. It
-# is not guaranteed to be examined and used by other implementations.
-#
-jdk.tls.keyLimits=AES/GCM/NoPadding KeyUpdate 2^37
-
-#
-# Cryptographic Jurisdiction Policy defaults
-#
-# Import and export control rules on cryptographic software vary from
-# country to country.  By default, the JDK provides two different sets of
-# cryptographic policy files:
-#
-#     unlimited:  These policy files contain no restrictions on cryptographic
-#                 strengths or algorithms.
-#
-#     limited:    These policy files contain more restricted cryptographic
-#                 strengths, and are still available if your country or
-#                 usage requires the traditional restrictive policy.
-#
-# The JDK JCE framework uses the unlimited policy files by default.
-# However the user may explicitly choose a set either by defining the
-# "crypto.policy" Security property or by installing valid JCE policy
-# jar files into the traditional JDK installation location.  To better
-# support older JDK Update releases, the "crypto.policy" property is not
-# defined by default.  See below for more information.
-#
-# The following logic determines which policy files are used:
-#
-#         <java-home> refers to the directory where the JRE was
-#         installed and may be determined using the "java.home"
-#         System property.
-#
-# 1.  If the Security property "crypto.policy" has been defined,
-#     then the following mechanism is used:
-#
-#     The policy files are stored as jar files in subdirectories of
-# <java-home>/lib/security/policy.  Each directory contains a complete
-# set of policy files.
-#
-#     The "crypto.policy" Security property controls the directory
-#     selection, and thus the effective cryptographic policy.
-#
-# The default set of directories is:
-#
-#     limited | unlimited
-#
-# 2.  If the "crypto.policy" property is not set and the traditional
-#     US_export_policy.jar and local_policy.jar files
-#     (e.g. limited/unlimited) are found in the legacy
-#     <java-home>/lib/security directory, then the rules embedded within
-#     those jar files will be used. This helps preserve compatibility
-# for users upgrading from an older installation.
-#
-# 3.  If the jar files are not present in the legacy location
-#     and the "crypto.policy" Security property is not defined,
-#     then the JDK will use the unlimited settings (equivalent to
-#     crypto.policy=unlimited)
-#
-# Please see the JCA documentation for additional information on these
-# files and formats.
-#
-# YOU ARE ADVISED TO CONSULT YOUR EXPORT/IMPORT CONTROL COUNSEL OR ATTORNEY
-# TO DETERMINE THE EXACT REQUIREMENTS.
-#
-# Please note that the JCE for Java SE, including the JCE framework,
-# cryptographic policy files, and standard JCE providers provided with
-# the Java SE, have been reviewed and approved for export as mass market
-# encryption item by the US Bureau of Industry and Security.
-#
-# Note: This property is currently used by the JDK Reference implementation.
-# It is not guaranteed to be examined and used by other implementations.
-#
-#crypto.policy=unlimited
-
-#
-# The policy for the XML Signature secure validation mode. The mode is
-# enabled by setting the property "org.jcp.xml.dsig.secureValidation" to
-# true with the javax.xml.crypto.XMLCryptoContext.setProperty() method,
-# or by running the code with a SecurityManager.
-#
-#   Policy:
-#       Constraint {"," Constraint }
-#   Constraint:
-#       AlgConstraint | MaxTransformsConstraint | MaxReferencesConstraint |
-#       ReferenceUriSchemeConstraint | KeySizeConstraint | OtherConstraint
-#   AlgConstraint
-#       "disallowAlg" Uri
-#   MaxTransformsConstraint:
-#       "maxTransforms" Integer
-#   MaxReferencesConstraint:
-#       "maxReferences" Integer
-#   ReferenceUriSchemeConstraint:
-#       "disallowReferenceUriSchemes" String { String }
-#   KeySizeConstraint:
-#       "minKeySize" KeyAlg Integer
-#   OtherConstraint:
-#       "noDuplicateIds" | "noRetrievalMethodLoops"
-#
-# For AlgConstraint, Uri is the algorithm URI String that is not allowed.
-# See the XML Signature Recommendation for more information on algorithm
-# URI Identifiers. For KeySizeConstraint, KeyAlg is the standard algorithm
-# name of the key type (ex: "RSA"). If the MaxTransformsConstraint,
-# MaxReferencesConstraint or KeySizeConstraint (for the same key type) is
-# specified more than once, only the last entry is enforced.
-#
-# Note: This property is currently used by the JDK Reference implementation. It
-# is not guaranteed to be examined and used by other implementations.
-#
-jdk.xml.dsig.secureValidationPolicy=\
-    disallowAlg http://www.w3.org/TR/1999/REC-xslt-19991116,\
-    disallowAlg http://www.w3.org/2001/04/xmldsig-more#rsa-md5,\
-    disallowAlg http://www.w3.org/2001/04/xmldsig-more#hmac-md5,\
-    disallowAlg http://www.w3.org/2001/04/xmldsig-more#md5,\
-    maxTransforms 5,\
-    maxReferences 30,\
-    disallowReferenceUriSchemes file http https,\
-    minKeySize RSA 1024,\
-    minKeySize DSA 1024,\
-    minKeySize EC 224,\
-    noDuplicateIds,\
-    noRetrievalMethodLoops
-
-#
-# Deserialization system-wide filter factory
-#
-# A filter factory class name is used to configure the system-wide filter factory.
-# The filter factory selects the sun.misc.ObjectInputFilter to use for each
-# ObjectInputStream when invoked with a current and a requested filter.
-# The class must be public, must have a public zero-argument constructor, implement the
-# java.util.function.BinaryOperator<sun.misc.ObjectInputFilter> interface,
-# provide its implementation and be accessible via the application class loader.
-# See the release notes for more details.
-#
-# If the system property jdk.serialFilterFactory is also specified, it supersedes
-# the security property value defined here.
-#
-#jdk.serialFilterFactory=<classname>
-
-#
-# Serialization process-wide filter
-#
-# A filter, if configured, is used by java.io.ObjectInputStream during
-# deserialization to check the contents of the stream.
-# A filter is configured as a sequence of patterns, each pattern is either
-# matched against the name of a class in the stream or defines a limit.
-# Patterns are separated by ";" (semicolon).
-# Whitespace is significant and is considered part of the pattern.
-#
-# If the system property jdk.serialFilter is also specified on the command
-# line, it supersedes the security property value defined here.
-#
-# If a pattern includes a "=", it sets a limit.
-# If a limit appears more than once the last value is used.
-# Limits are checked before classes regardless of the order in the sequence of patterns.
-# If any of the limits are exceeded, the filter status is REJECTED.
-#
-#   maxdepth=value - the maximum depth of a graph
-#   maxrefs=value  - the maximum number of internal references
-#   maxbytes=value - the maximum number of bytes in the input stream
-#   maxarray=value - the maximum array length allowed
-#
-# Other patterns, from left to right, match the class or package name as
-# returned from Class.getName.
-# If the class is an array type, the class or package to be matched is the element type.
-# Arrays of any number of dimensions are treated the same as the element type.
-# For example, a pattern of "!example.Foo", rejects creation of any instance or
-# array of example.Foo.
-#
-# If the pattern starts with "!", the status is REJECTED if the remaining pattern
-#   is matched; otherwise the status is ALLOWED if the pattern matches.
-# If the pattern ends with ".**" it matches any class in the package and all subpackages.
-# If the pattern ends with ".*" it matches any class in the package.
-# If the pattern ends with "*", it matches any class with the pattern as a prefix.
-# If the pattern is equal to the class name, it matches.
-# Otherwise, the status is UNDECIDED.
-#
-#jdk.serialFilter=pattern;pattern
-
-#
-# RMI Registry Serial Filter
-#
-# The filter pattern uses the same format as jdk.serialFilter.
-# This filter can override the builtin filter if additional types need to be
-# allowed or rejected from the RMI Registry or to decrease limits but not
-# to increase limits.
-# If the limits (maxdepth, maxrefs, or maxbytes) are exceeded, the object is rejected.
-#
-# Each non-array type is allowed or rejected if it matches one of the patterns,
-# evaluated from left to right, and is otherwise allowed. Arrays of any
-# component type, including subarrays and arrays of primitives, are allowed.
-#
-# Array construction of any component type, including subarrays and arrays of
-# primitives, are allowed unless the length is greater than the maxarray limit.
-# The filter is applied to each array element.
-#
-# The built-in filter allows subclasses of allowed classes and
-# can approximately be represented as the pattern:
-#
-#sun.rmi.registry.registryFilter=\
-#    maxarray=1000000;\
-#    maxdepth=20;\
-#    java.lang.String;\
-#    java.lang.Number;\
-#    java.lang.reflect.Proxy;\
-#    java.rmi.Remote;\
-#    sun.rmi.server.UnicastRef;\
-#    sun.rmi.server.RMIClientSocketFactory;\
-#    sun.rmi.server.RMIServerSocketFactory;\
-#    java.rmi.activation.ActivationID;\
-#    java.rmi.server.UID
-#
-# RMI Distributed Garbage Collector (DGC) Serial Filter
-#
-# The filter pattern uses the same format as jdk.serialFilter.
-# This filter can override the builtin filter if additional types need to be
-# allowed or rejected from the RMI DGC.
-#
-# The builtin DGC filter can approximately be represented as the filter pattern:
-#
-#sun.rmi.transport.dgcFilter=\
-#    java.rmi.server.ObjID;\
-#    java.rmi.server.UID;\
-#    java.rmi.dgc.VMID;\
-#    java.rmi.dgc.Lease;\
-#    maxdepth=5;maxarray=10000
-
-# CORBA ORBIorTypeCheckRegistryFilter
-# Type check enhancement for ORB::string_to_object processing
-#
-# An IOR type check filter, if configured, is used by an ORB during
-# an ORB::string_to_object invocation to check the veracity of the type encoded
-# in the ior string.
-#
-# The filter pattern consists of a semi-colon separated list of class names.
-# The configured list contains the binary class names of the IDL interface types
-# corresponding to the IDL stub class to be instantiated.
-# As such, a filter specifies a list of IDL stub classes that will be
-# allowed by an ORB when an ORB::string_to_object is invoked.
-# It is used to specify a white list configuration of acceptable
-# IDL stub types which may be contained in a stringified IOR
-# parameter passed as input to an ORB::string_to_object method.
-#
-# Note: This property is currently used by the JDK Reference implementation.
-# It is not guaranteed to be examined and used by other implementations.
-#
-#com.sun.CORBA.ORBIorTypeCheckRegistryFilter=binary_class_name;binary_class_name
-
-#
-# JCEKS Encrypted Key Serial Filter
-#
-# This filter, if configured, is used by the JCEKS KeyStore during the
-# deserialization of the encrypted Key object stored inside a key entry.
-# If not configured or the filter result is UNDECIDED (i.e. none of the patterns
-# matches), the filter configured by jdk.serialFilter will be consulted.
-#
-# If the system property jceks.key.serialFilter is also specified, it supersedes
-# the security property value defined here.
-#
-# The filter pattern uses the same format as jdk.serialFilter. The default
-# pattern allows java.lang.Enum, java.security.KeyRep, java.security.KeyRep$Type,
-# and javax.crypto.spec.SecretKeySpec and rejects all the others.
-jceks.key.serialFilter = java.lang.Enum;java.security.KeyRep;\
-  java.security.KeyRep$Type;javax.crypto.spec.SecretKeySpec;!*
-
-#
-# Disabled mechanisms for the Simple Authentication and Security Layer (SASL)
-#
-# Disabled mechanisms will not be negotiated by both SASL clients and servers.
-# These mechanisms will be ignored if they are specified in the "mechanisms"
-# argument of "Sasl.createSaslClient" or the "mechanism" argument of
-# "Sasl.createSaslServer".
-#
-# The value of this property is a comma-separated list of SASL mechanisms.
-# The mechanisms are case-sensitive. Whitespaces around the commas are ignored.
-#
-# Note: This property is currently used by the JDK Reference implementation.
-# It is not guaranteed to be examined and used by other implementations.
-#
-# Example:
-#   jdk.sasl.disabledMechanisms=PLAIN, CRAM-MD5, DIGEST-MD5
-jdk.sasl.disabledMechanisms=
-
-#
-# Policies for distrusting Certificate Authorities (CAs).
-#
-# This is a comma separated value of one or more case-sensitive strings, each
-# of which represents a policy for determining if a CA should be distrusted.
-# The supported values are:
-#
-#   SYMANTEC_TLS : Distrust TLS Server certificates anchored by a Symantec
-#   root CA and issued after April 16, 2019 unless issued by one of the
-#   following subordinate CAs which have a later distrust date:
-#     1. Apple IST CA 2 - G1, SHA-256 fingerprint:
-#        AC2B922ECFD5E01711772FEA8ED372DE9D1E2245FCE3F57A9CDBEC77296A424B
-#        Distrust after December 31, 2019.
-#     2. Apple IST CA 8 - G1, SHA-256 fingerprint:
-#        A4FE7C7F15155F3F0AEF7AAA83CF6E06DEB97CA3F909DF920AC1490882D488ED
-#        Distrust after December 31, 2019.
-#
-# Leading and trailing whitespace surrounding each value are ignored.
-# Unknown values are ignored. If the property is commented out or set to the
-# empty String, no policies are enforced.
-#
-# Note: This property is currently used by the JDK Reference implementation.
-# It is not guaranteed to be supported by other SE implementations. Also, this
-# property does not override other security properties which can restrict
-# certificates such as jdk.tls.disabledAlgorithms or
-# jdk.certpath.disabledAlgorithms; those restrictions are still enforced even
-# if this property is not enabled.
-#
-jdk.security.caDistrustPolicies=SYMANTEC_TLS
-
-#
-# Policies for the proxy_impersonator Kerberos ccache configuration entry
-#
-# The proxy_impersonator ccache configuration entry indicates that the ccache
-# is a synthetic delegated credential for use with S4U2Proxy by an intermediate
-# server. The ccache file should also contain the TGT of this server and
-# an evidence ticket from the default principal of the ccache to this server.
-#
-# This security property determines how Java uses this configuration entry.
-# There are 3 possible values:
-#
-#  no-impersonate     - Ignore this configuration entry, and always act as
-#                       the owner of the TGT (if it exists).
-#
-#  try-impersonate    - Try impersonation when this configuration entry exists.
-#                       If no matching TGT or evidence ticket is found,
-#                       fallback to no-impersonate.
-#
-#  always-impersonate - Always impersonate when this configuration entry exists.
-#                       If no matching TGT or evidence ticket is found,
-#                       no initial credential is read from the ccache.
-#
-# The default value is "always-impersonate".
-#
-# If a system property of the same name is also specified, it supersedes the
-# security property value defined here.
-#
-#jdk.security.krb5.default.initiate.credential=always-impersonate
-
-#
-# JNDI Object Factories Filter
-#
-# This filter is used by the JNDI runtime to control the set of object factory classes
-# which will be allowed to instantiate objects from object references returned by
-# naming/directory systems. The factory class named by the reference instance will be
-# matched against this filter. The filter property supports pattern-based filter syntax
-# with the same format as jdk.serialFilter.
-#
-# Each pattern is matched against the factory class name to allow or disallow it's
-# instantiation. The access to a factory class is allowed unless the filter returns
-# REJECTED.
-#
-# Note: This property is currently used by the JDK Reference implementation.
-# It is not guaranteed to be examined and used by other implementations.
-#
-# If the system property jdk.jndi.object.factoriesFilter is also specified, it supersedes
-# the security property value defined here. The default value of the property is "*".
-#
-# The default pattern value allows any object factory class specified by the reference
-# instance to recreate the referenced object.
-#jdk.jndi.object.factoriesFilter=*
-
-#
-# The default Character set name (java.nio.charset.Charset.forName())
-# for converting TLS ALPN values between byte arrays and Strings.
-# Prior versions of the JDK may use UTF-8 as the default charset. If
-# you experience interoperability issues, setting this property to UTF-8
-# may help.
-#
-# jdk.tls.alpnCharset=UTF-8
-jdk.tls.alpnCharset=ISO_8859_1
-
-#
-# PKCS12 KeyStore properties
-#
-# The following properties, if configured, are used by the PKCS12 KeyStore
-# implementation during the creation of a new keystore. Several of the
-# properties may also be used when modifying an existing keystore. The
-# properties can be overridden by a KeyStore API that specifies its own
-# algorithms and parameters.
-#
-# If an existing PKCS12 keystore is loaded and then stored, the algorithm and
-# parameter used to generate the existing Mac will be reused. If the existing
-# keystore does not have a Mac, no Mac will be created while storing. If there
-# is at least one certificate in the existing keystore, the algorithm and
-# parameters used to encrypt the last certificate in the existing keystore will
-# be reused to encrypt all certificates while storing. If the last certificate
-# in the existing keystore is not encrypted, all certificates will be stored
-# unencrypted. If there is no certificate in the existing keystore, any newly
-# added certificate will be encrypted (or stored unencrypted if algorithm
-# value is "NONE") using the "keystore.pkcs12.certProtectionAlgorithm" and
-# "keystore.pkcs12.certPbeIterationCount" values defined here. Existing private
-# and secret key(s) are not changed. Newly set private and secret key(s) will
-# be encrypted using the "keystore.pkcs12.keyProtectionAlgorithm" and
-# "keystore.pkcs12.keyPbeIterationCount" values defined here.
-#
-# In order to apply new algorithms and parameters to all entries in an
-# existing keystore, one can create a new keystore and add entries in the
-# existing keystore into the new keystore. This can be achieved by calling the
-# "keytool -importkeystore" command.
-#
-# If a system property of the same name is also specified, it supersedes the
-# security property value defined here.
-#
-# If the property is set to an illegal value,
-# an iteration count that is not a positive integer, or an unknown algorithm
-# name, an exception will be thrown when the property is used.
-# If the property is not set or empty, a default value will be used.
-#
-# Note: These properties are currently used by the JDK Reference implementation.
-# They are not guaranteed to be examined and used by other implementations.
-
-# The algorithm used to encrypt a certificate. This can be any non-Hmac PBE
-# algorithm defined in the Cipher section of the Java Security Standard
-# Algorithm Names Specification. When set to "NONE", the certificate
-# is not encrypted. The default value is "PBEWithHmacSHA256AndAES_256".
-#keystore.pkcs12.certProtectionAlgorithm = PBEWithHmacSHA256AndAES_256
-
-# The iteration count used by the PBE algorithm when encrypting a certificate.
-# This value must be a positive integer. The default value is 10000.
-#keystore.pkcs12.certPbeIterationCount = 10000
-
-# The algorithm used to encrypt a private key or secret key. This can be
-# any non-Hmac PBE algorithm defined in the Cipher section of the Java
-# Security Standard Algorithm Names Specification. The value must not be "NONE".
-# The default value is "PBEWithHmacSHA256AndAES_256".
-#keystore.pkcs12.keyProtectionAlgorithm = PBEWithHmacSHA256AndAES_256
-
-# The iteration count used by the PBE algorithm when encrypting a private key
-# or a secret key. This value must be a positive integer. The default value
-# is 10000.
-#keystore.pkcs12.keyPbeIterationCount = 10000
-
-# The algorithm used to calculate the optional MacData at the end of a PKCS12
-# file. This can be any HmacPBE algorithm defined in the Mac section of the
-# Java Security Standard Algorithm Names Specification. When set to "NONE",
-# no Mac is generated. The default value is "HmacPBESHA256".
-#keystore.pkcs12.macAlgorithm = HmacPBESHA256
-
-# The iteration count used by the MacData algorithm. This value must be a
-# positive integer. The default value is 10000.
-#keystore.pkcs12.macIterationCount = 10000

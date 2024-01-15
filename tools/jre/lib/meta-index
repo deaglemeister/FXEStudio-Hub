@@ -14,9 +14,6 @@ META-INF/ORACLE_J.SF
 oracle/jrockit/
 jdk/jfr
 com/oracle/jrockit/
-# jfxswt.jar
-javafx/embed/
-META-INF/INDEX.LIST
 ! jsse.jar
 sun/security
 com/sun/net/
