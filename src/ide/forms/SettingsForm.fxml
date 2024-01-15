@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496" prefWidth="696" styleClass="">
+  <children>
+    <Panel borderColor="#c0c0c0" borderRadius="9" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="panelAlt" layoutX="88" layoutY="600" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="88" prefWidth="240" styleClass="" titleColor="#000000" titleOffset="15" titlePosition="TOP_LEFT">
+      <children/>
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+    </Panel>
+    <Data cursor="DEFAULT" enabled="1" id="data-panelAlt" visible="1"/>
+    <TabPaneEx focusTraversable="true" id="tabPane" layoutX="0" layoutY="0" prefHeight="496" prefWidth="696" styleClass="tab-pane " tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Основное">
+          <content>
+            <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="474" prefWidth="696" styleClass="">
+              <children>
+                <ScrollPane focusTraversable="false" hbarPolicy="NEVER" hvalue="0" id="container" layoutX="0" layoutY="0" prefHeight="472" prefWidth="696" styleClass="scroll-pane " vbarPolicy="NEVER" vvalue="0">
+                  <content>
+                    <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="520" prefWidth="696" styleClass="">
+                      <children>
+                        <VBox alignment="TOP_CENTER" focusTraversable="false" id="vbox" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="520" prefWidth="696" spacing="6" styleClass="">
+                          <padding>
+                            <Insets bottom="0" left="5" right="5" top="5"/>
+                          </padding>
+                          <children>
+                            <Panel backgroundColor="#3b7be611" borderColor="#c0c0c0" borderRadius="9" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="panel" layoutX="5" layoutY="5" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="92" prefWidth="686" styleClass="" titleColor="#000000" titleOffset="15" titlePosition="TOP_LEFT">
+                              <children>
+                                <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="208" layoutY="56" prefHeight="32" prefWidth="120" style="                   -fx-background-color: rgba(59, 123, 230, 0.10);                   -fx-text-fill: #3B7BE6;" styleClass="button " text="Изменить тему" textAlignment="CENTER" textFill="#3b7be6" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="12"/>
+                                  </font>
+                                </Button>
+                                <Data cursor="HAND" enabled="1" id="data-button" visible="1"/>
+                                <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="207" layoutY="32" prefHeight="15.240234375" prefWidth="281.5078125" styleClass="label " text="Данный метод изменит тему, и перезагрузит среду." textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="Microsoft JhengHei UI" size="12"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
+                                <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="236" layoutY="8" prefHeight="20.3203125" prefWidth="213.5078125" styleClass="label " text="Смены темы среды FXEdition" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="Microsoft JhengHei UI" size="16"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
+                                <ComboBox editable="false" focusTraversable="true" id="combobox" layoutX="336" layoutY="56" prefHeight="16" prefWidth="144" promptText="" style="                   -fx-background-color: rgba(59, 123, 230, 0.10);                   -fx-text-fill: #3B7BE6;" styleClass="combo-box-base combo-box " value="" visibleRowCount="10">
+                                  <items xmlns:fx="http://javafx.com/fxml">
+                                    <FXCollections fx:factory="observableArrayList"/>
+                                  </items>
+                                </ComboBox>
+                                <Data cursor="DEFAULT" enabled="1" id="data-combobox" visible="1"/>
+                                <Hyperlink alignment="CENTER_LEFT" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="link4" layoutX="568" layoutY="72" prefHeight="17" prefWidth="104" styleClass="hyperlink " text="Показать в папке" textAlignment="LEFT" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="12"/>
+                                  </font>
+                                </Hyperlink>
+                                <Data cursor="DEFAULT" enabled="1" id="data-link4" visible="1"/>
+                              </children>
+                              <titleFont>
+                                <Font name="System Regular" size="12"/>
+                              </titleFont>
+                            </Panel>
+                            <Data cursor="DEFAULT" enabled="1" id="data-panel" visible="1"/>
+                            <Panel backgroundColor="#d24e4926" borderColor="#c0c0c0" borderRadius="9" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="panel3" layoutX="5" layoutY="103" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="184" prefWidth="686" style="  -fx-background-color: rgba(210, 78, 73, 0.15);" styleClass="" titleColor="#000000" titleOffset="15" titlePosition="TOP_LEFT">
+                              <children>
+                                <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="91" layoutY="40" prefHeight="48" prefWidth="504" styleClass="label " text="Данный метод может включить или выключить Splash экран, а так же дать ему время просмтотра Splash экрана. Так же данный метод изменяет Splash на вашу картинку." textAlignment="CENTER" textFill="#000000" underline="false" wrapText="true">
+                                  <font>
+                                    <Font name="Microsoft JhengHei UI" size="12"/>
+                                  </font>
+                                </LabelEx>
+                                <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label6" layoutX="235" layoutY="16" prefHeight="20.3203125" prefWidth="215.9921875" styleClass="label " text="Splash Time &amp; Splash Screen" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="Microsoft JhengHei UI" size="16"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
+                                <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
+                                <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="472" layoutY="136" prefHeight="32" prefWidth="184" style="                   -fx-background-color: rgba(210, 78, 73, 0.15);                 -fx-text-fill:  #D24E49;" styleClass="button " text="Изменить" textAlignment="CENTER" textFill="#d24e49" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="12"/>
+                                  </font>
+                                </Button>
+                                <Data cursor="DEFAULT" enabled="" id="data-button3" visible="1"/>
+                                <ComboBox editable="false" focusTraversable="true" id="comboboxAlt" layoutX="40" layoutY="136" prefHeight="32" prefWidth="120" promptText="" style="                   -fx-background-color: rgba(59, 123, 230, 0.10);                   -fx-text-fill: #3B7BE6;" styleClass="combo-box-base combo-box " value="Включено" visibleRowCount="10">
+                                  <items xmlns:fx="http://javafx.com/fxml">
+                                    <FXCollections fx:factory="observableArrayList">
+                                      <String fx:value="Включить"/>
+                                      <String fx:value="Выключить"/>
+                                    </FXCollections>
+                                  </items>
+                                </ComboBox>
+                                <Data cursor="DEFAULT" enabled="1" id="data-comboboxAlt" visible="1"/>
+                                <org.develnext.jphp.ext.javafx.support.control.NumberSpinner alignment="CENTER_LEFT" arrowsStyle="RIGHT_VERTICAL" editable="false" focusTraversable="true" id="numberField" initial="1" layoutX="168" layoutY="136" max="10" min="1" prefHeight="32" prefWidth="64" step="1" style=" -fx-background-color: rgba(59, 123, 230, 0.10);                   -fx-text-fill: #3B7BE6;" styleClass="spinner "/>
+                                <Data cursor="DEFAULT" enabled="1" id="data-numberField" visible="1"/>
+                                <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label11" layoutX="240" layoutY="139" prefHeight="24" prefWidth="32" styleClass="label " text="сек." textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="14"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-label11" visible="1"/>
+                                <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="272" layoutY="136" prefHeight="32" prefWidth="184" style="                   -fx-background-color:rgba(59, 123, 230, 0.15);                 -fx-text-fill:  #3B7BE6;" styleClass="button " text="Изменить картинку" textAlignment="CENTER" textFill="#3b7be6" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="12"/>
+                                  </font>
+                                </Button>
+                                <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible="1"/>
+                                <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="path_img_splash" layoutX="104" layoutY="107" prefHeight="17" prefWidth="472" styleClass="label " text="{path_img_splash}" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="System Regular" size="12"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-path_img_splash" visible="1"/>
+                                <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label14" layoutX="264" layoutY="88" prefHeight="15.240234375" prefWidth="154.46484375" styleClass="label " text="Размеры картинки: 744x346" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                                  <font>
+                                    <Font name="Microsoft JhengHei UI" size="12"/>
+                                  </font>
+                                </LabelEx>
+                                <Data cursor="DEFAULT" enabled="1" id="data-label14" visible="1"/>
+                              </children>
+                              <titleFont>
+                                <Font name="System Regular" size="12"/>
+                              </titleFont>
+                            </Panel>
+                            <Data cursor="DEFAULT" enabled="1" id="data-panel3" visible="1"/>
+                          </children>
+                        </VBox>
+                        <Data cursor="DEFAULT" enabled="1" id="data-vbox" visible="1"/>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </ScrollPane>
+                <Data cursor="DEFAULT" enabled="1" id="data-container" visible="1"/>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="О программе">
+          <content>
+            <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="474" prefWidth="696" styleClass="">
+              <children>
+                <TitledPane alignment="CENTER_LEFT" animated="true" collapsible="true" contentDisplay="LEFT" ellipsisString="..." expanded="true" focusTraversable="true" graphicTextGap="4" id="spoiler" layoutX="8" layoutY="8" prefHeight="112" prefWidth="330" styleClass="titled-pane " text="Информация" textAlignment="LEFT" textFill="#292e35" underline="true" wrapText="false">
+                  <font>
+                    <Font name="System Regular" size="12"/>
+                  </font>
+                  <content>
+                    <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="98" prefWidth="328" styleClass="">
+                      <padding>
+                        <Insets bottom="9.6" left="9.6" right="9.6" top="9.6"/>
+                      </padding>
+                      <children>
+                        <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label7" layoutX="44" layoutY="8" prefHeight="15.9609375" prefWidth="239.3671875" styleClass="label " text="Информация, по быстрому доступу кнопок" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label7" visible="1"/>
+                        <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label8" layoutX="19" layoutY="32" prefHeight="15.9609375" prefWidth="285.140625" styleClass="label " text="1. Функциональная кнопка &quot;F5&quot; - Перезапуск среды" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label8" visible="1"/>
+                        <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label9" layoutX="20" layoutY="54" prefHeight="24" prefWidth="288" styleClass="label " text="2. Функциональная кнопка &quot;F11&quot; - Очистка памяти" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label9" visible="1"/>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <Data cursor="DEFAULT" enabled="1" id="data-spoiler" visible="1"/>
+                <TitledPane alignment="CENTER_LEFT" animated="true" collapsible="true" contentDisplay="LEFT" ellipsisString="..." expanded="true" focusTraversable="true" graphicTextGap="4" id="spoilerAlt" layoutX="352" layoutY="8" prefHeight="126" prefWidth="330" styleClass="titled-pane " text="Ссылки на проекты" textAlignment="LEFT" textFill="#292e35" underline="true" wrapText="false">
+                  <font>
+                    <Font name="System Regular" size="12"/>
+                  </font>
+                  <content>
+                    <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="100" prefWidth="328" styleClass="">
+                      <padding>
+                        <Insets bottom="9.6" left="9.6" right="9.6" top="9.6"/>
+                      </padding>
+                      <children>
+                        <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label10" layoutX="69" layoutY="8" prefHeight="15.9609375" prefWidth="189.01171875" styleClass="label " text="Быстрые ссылки на наши проекты" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label10" visible="1"/>
+                        <Hyperlink alignment="CENTER_LEFT" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="link3" layoutX="112" layoutY="32" prefHeight="16" prefWidth="72" styleClass="hyperlink " text="Наш GitHub" textAlignment="LEFT" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </Hyperlink>
+                        <Data cursor="DEFAULT" enabled="1" id="data-link3" visible="1"/>
+                        <Hyperlink alignment="CENTER_LEFT" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="linkAlt" layoutX="16" layoutY="32" prefHeight="17" prefWidth="96" styleClass="hyperlink " text="Документация" textAlignment="LEFT" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </Hyperlink>
+                        <Data cursor="DEFAULT" enabled="1" id="data-linkAlt" visible="1"/>
+                        <Hyperlink alignment="CENTER_LEFT" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="link" layoutX="200" layoutY="32" prefHeight="17" prefWidth="104" styleClass="hyperlink " text="Телеграмм канал" textAlignment="LEFT" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </Hyperlink>
+                        <Data cursor="DEFAULT" enabled="1" id="data-link" visible="1"/>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <Data cursor="DEFAULT" enabled="1" id="data-spoilerAlt" visible="1"/>
+                <TitledPane alignment="CENTER_LEFT" animated="true" collapsible="true" contentDisplay="LEFT" ellipsisString="..." expanded="true" focusTraversable="true" graphicTextGap="4" id="spoiler3" layoutX="8" layoutY="144" prefHeight="144" prefWidth="681" styleClass="titled-pane " text="Информация о программе" textAlignment="LEFT" textFill="#292e35" underline="true" wrapText="false">
+                  <font>
+                    <Font name="System Regular" size="12"/>
+                  </font>
+                  <content>
+                    <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="132" prefWidth="679" styleClass="">
+                      <padding>
+                        <Insets bottom="9.6" left="9.6" right="9.6" top="9.6"/>
+                      </padding>
+                      <children>
+                        <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="181" layoutY="8" prefHeight="15.9609375" prefWidth="308.71875" styleClass="label " text="Информация, по модифицированной сборке DevelNext" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="19" layoutY="32" prefHeight="80" prefWidth="640" styleClass="label " text="FXEdition 17 | Сборка для DevelNext 16.7.0 - Данная идеи сборки была реализована Александром и Андрюшей, а затем была перенесена на сам DevelNext 16.7. FXEdition — это простая среда в использовании конструктора программ, чрезвычайно быстрая и хорошая поддерживаемое приложение, которое позволяет делать свои лаунчера, программы и так далее. Это многоциональная сборка, с фиксами, новыми фичами." textAlignment="LEFT" textFill="#000000" underline="false" wrapText="true">
+                          <font>
+                            <Font name="System Regular" size="12"/>
+                          </font>
+                        </LabelEx>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
+                        <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <Data cursor="DEFAULT" enabled="1" id="data-spoiler3" visible="1"/>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPaneEx>
+    <Data cursor="DEFAULT" draggable="NONE" enabled="1" id="data-tabPane" visible="1"/>
+  </children>
+</AnchorPane>

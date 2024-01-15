@@ -5,47 +5,42 @@
 	"tasks": [
 		{
 			"label": "Compile And Run",
-			"dependsOn": ["Compile", "Move", "Debug"],
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Compile",
+				"Debug"
+			],
+			"problemMatcher": []
 		},
 		{
 			"label": "Compile",
 			"type": "shell",
-			"command": "jar -cMf FXE.jar ./.data ./.dn ./.forms ./.game ./.system ./ide ./JPHP-INF ./META-INF ./vendor ./LICENSE",
+			"command": "jar -cMf ..\\lib\\FXE.jar ./.data ./.dn ./.forms ./.system ./ide ./JPHP-INF ./META-INF ./vendor ./LICENSE",
 			"presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      }
-		},
-		{
-			"label": "Move",
-			"type": "shell",
-			"command": "echo not supported",
-			"windows": {
-        "command": "move .\\FXE.jar 'C:\\Program Files (x86)\\DevelNext\\lib'",
-				"options": {
-					"env": {
-						"APP_HOME": "C:\\Program Files (x86)\\DevelNext"
-					}
-				}
-      },
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": [],
+			"options": {
+				"cwd": ".\\src"
+			}
 		},
 		{
 			"label": "Debug",
 			"type": "shell",
 			"command": "echo not supported",
 			"windows": {
-        "command": ".\\DevelNext-debug.exe",
+				"command": ".\\DevelNext-debug.exe",
 				"options": {
-					"cwd": "C:\\Program Files (x86)\\DevelNext",
-					"env": {
-						"APP_HOME": "C:\\Program Files (x86)\\DevelNext"
-					}
+					"cwd": ".\\",
+					"env": {}
 				}
-      },
+			},
 			"presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
 		}
 	]
 }
