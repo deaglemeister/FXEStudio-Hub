@@ -5,6 +5,8 @@ use ide\editors\AbstractEditor;
 use ide\Ide;
 use ide\misc\AbstractCommand;
 use ide\project\behaviours\BackupProjectBehaviour;
+use ide\forms\malboro\Modals;
+use ide\forms\malboro\Toasts;
 
 class BackupSettingsMenuCommand extends AbstractCommand
 {
@@ -53,7 +55,9 @@ class BackupSettingsMenuCommand extends AbstractCommand
             $config->setProperties($form->getResult());
             $config->save();
 
-            Ide::toast('Настройки архивирования успешно сохранены.');
+            #Ide::toast('Настройки архивирования успешно сохранены.');
+            $class = new Toasts;
+            $class->showToast("Aрхивирование", "Настройки архивирования успешно сохранены", "#6667AB");
         }
     }
 }

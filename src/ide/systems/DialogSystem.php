@@ -61,8 +61,8 @@ class DialogSystem
 
     static function registerDefaults()
     {
-        static::fileDialog(static::DIALOG_OPEN_PROJECT, [['description' => 'DevelNext проекты и архивы', 'extensions' => ['*.dnproject', '*.zip']]]);
-        static::fileDialog(static::DIALOG_IMAGE, [['description' => 'Изображения (jpg, png, gif)', 'extensions' => ['*.jpg', '*.jpeg', '*.png', '*.gif']]]);
+        static::fileDialog(static::DIALOG_OPEN_PROJECT, [['description' => 'FXEdition проекты и архивы', 'extensions' => ['*.dnproject', '*.zip']]]);
+        static::fileDialog(static::DIALOG_IMAGE, [['description' => 'Изображения (jpg, png, jpeg)', 'extensions' => ['*.jpg', '*.jpeg', '*.png', '*.gif']]]);
         static::fileDialog(static::DIALOG_ANY_FILE);
         static::directoryDialog(static::DIALOG_PROJECTS_DIRECTORY);
     }

@@ -28,6 +28,8 @@ use script\TimerScript;
 use php\time\Timer;
 use std;
 use action\Animation;
+use ide\forms\malboro\Modals;
+use ide\forms\malboro\Toasts;
 
 
 use timer\AccurateTimer;
@@ -87,7 +89,7 @@ class ProjectSystem
                 uiLater(function () use ($consoleOutput, $e, $callback) {
                     $file = Ide::project() ? Ide::project()->getAbsoluteFile($e->getFile())->getRelativePath() : $e->getFile();
 
-                    $consoleOutput->addConsoleLine("[ERROR] Cannot build project");
+                    $consoleOutput->addConsoleLine("[Ошибка] Cannot build project");
                     $consoleOutput->addConsoleLine("  -> {$file}");
                     $consoleOutput->addConsoleLine("  -> {$e->getMessage()}, on line {$e->getLine()}", 'red');
 
@@ -169,7 +171,9 @@ class ProjectSystem
             });
 
             if (!$files) {
-                UXDialog::show('В архиве не обнаружен файл проекта', 'ERROR');
+                #UXDialog::show('В архиве не обнаружен файл проекта', 'ERROR');
+                $class = new Toasts;
+                $class->showToast("Архив", "В архиве не обнаружен файл проекта", "#FF4F44");
                 return;
             }
 
@@ -195,7 +199,9 @@ class ProjectSystem
         } catch (IOException $e) {
             self::close(false);
             Ide::get()->getMainForm()->hidePreloader();
-            Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+            #Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+            $class = new Toasts;
+            $class->showToast("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
         }
     }
 
@@ -235,7 +241,9 @@ class ProjectSystem
             Logger::exception("Unable to create project", $e);
             ProjectSystem::close(false);
             Ide::get()->getMainForm()->hidePreloader();
-            Notifications::error("Ошибка создания проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+            #Notifications::error("Ошибка создания проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+            $class = new Toasts;
+            $class->showToast("Ошибка создания проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
         }
     }
 
@@ -339,7 +347,9 @@ class ProjectSystem
                 Ide::get()->getMainForm()->hidePreloader();
 
                 Logger::exception("Unable to open project", $e);
-                Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+                #Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
+                $class = new Toasts;
+                $class->showToast("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
             }
         } catch (InvalidProjectFormatException $e) {
             Ide::get()->getMainForm()->hidePreloader();

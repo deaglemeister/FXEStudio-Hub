@@ -102,41 +102,6 @@ class ShareProjectBehaviour extends AbstractProjectBehaviour
 
     public function doMakeSettings(CommonProjectControlPane $editor)
     {
-		
-
-	/* 	//dd
-        $title = new UXLabel('Dev: Alexander Fitchers and Andrey Guschin');
-        $title->font = $title->font->withBold();
-
-        $colon = new UXLabel(': ');
-        $colon->font = $colon->font->withBold();
-
-       $url = new URL(Ide::service()->getEndpoint());
-
-        $link = new UXHyperlink('FXEdition: 1.0 | NextApp');
-        $link->on('action', function () use ($url) {
-            browse('https://hub.develnext.org');
-			
-        }); 
-
-        $titleFlow = new UXHBox([$title, $link, $colon]);
-
-        $this->uiAuthPane = $authPane = new NeedAuthPane();
-        $authPane->setTitle('DevelNext FXEdition 2024');
-		
-
-
-        $this->uiSyncPane = $syncPane = new ShareProjectArea([$this, 'doUpdateSettings']);
-
-     // Ide::accountManager()->bind('login', [$this, 'doUpdateSettings']);
-   //  Ide::accountManager()->bind('logout', [$this, 'doUpdateSettings']);
-
-        $ui = new UXVBox([$titleFlow]);
-        $ui->spacing = 5;
-
-        $pane = $editor->addSettingsPane($ui);
-        $pane->backgroundColor = 'white'; 
-
-        $this->uiSettings = $ui;*/
+        #nop
     }
 }

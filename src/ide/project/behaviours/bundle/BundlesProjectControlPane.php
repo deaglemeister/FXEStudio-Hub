@@ -232,9 +232,8 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
                         $editor->open();
                         $editor->refresh();
                     }
-                    Ide::toast("Пакет расширения '{$resource->getName()}' подключен к проекту");
-                    #$class = new Toasts;
-                    #$class->showToast("Пакет расширения", "{$resource->getName()} подключен к проекту", "#6667AB");
+                    $class = new Toasts;
+                    $class->showToast("Пакет расширения", "{$resource->getName()} подключен к проекту", "#6667AB");
                 });
             });
         });
@@ -450,13 +449,25 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
                             uiLater(function () use ($resource) {
                                 Ide::get()->getMainForm()->hidePreloader();
                                 $this->refresh();
-
-                                $msg = new MessageBoxForm('Для корректного завершения установки пакета перезапустите DevelNext!', ['Перезапустить', 'Позже']);
-
-                                if ($msg->showWarningDialog() && $msg->getResultIndex() == 0) {
-                                    Execute("DevelNext.exe"); // Даем команду на запуск приложения
-                                    Exit(); // Закрываем приложение
-                                }
+                                        # Параметры модального окна
+                                $modal = [
+                                    'fitToWidth' => true, # Во всю длину
+                                    'fitToHeight' => true, # Во всю ширину
+                                    'blur' => $this->flowPane, # Объект для размытия
+                                    'title' => 'Для корректного завершения установки пакета перезапустите FXEdition', # Заголовок окна
+                                    'message' => 'Тогда не забудьте, сохранить ваш проект.', # Сообщение
+                                    'close_overlay' => true, # Закрывать при клике мыши на overlay
+                                    'buttons' => [['text' => 'Перезагрузить среду', 'style' => 'button-red'], ['text' => 'Отмена', 'style' => 'button-accent', 'close' => true]]
+                                    ];
+                                # Отображаем окно      
+                                $modalClass = new Modals;
+                                $MainFormZ = app()->form('MainForm');
+                                $modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
+                                    if ($e == 'Перезагрузить среду') {
+                                        Execute("DevelNext.exe"); // Даем команду на запуск приложения
+                                        Exit(); // Закрываем приложение
+                                    }
+                                });
 
                                 /** @var IdeLibraryBundleResource $resource */
                                 $resource = Ide::get()->getLibrary()->getResource('bundles', $resource->getUniqueId());

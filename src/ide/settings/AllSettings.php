@@ -8,7 +8,7 @@ class AllSettings extends AbstractSettings
      */
     public function getTitle()
     {
-        return 'Общие настройки';
+        return 'FXEdition';
     }
 
     /**
