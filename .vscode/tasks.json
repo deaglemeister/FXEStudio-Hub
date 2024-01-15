@@ -10,7 +10,12 @@
 				"Compile",
 				"Debug"
 			],
-			"problemMatcher": []
+			"problemMatcher": [],
+			"presentation": {
+				"panel": "shared",
+				"reveal": "always",
+				"focus": true
+			},
 		},
 		{
 			"label": "Compile",
@@ -38,7 +43,8 @@
 			},
 			"presentation": {
 				"reveal": "always",
-				"panel": "new"
+				"panel": "shared",
+				"focus": true
 			},
 			"problemMatcher": []
 		}
