@@ -877,12 +877,16 @@ class BundleProjectBehaviour extends AbstractProjectBehaviour
 
     public function doMakeSettings(CommonProjectControlPane $editor)
     {
-        $title = new UXLabel('Текущие пакеты подключённые к проекту:');
+        $title = new UXLabel('Пакеты:');
         $title->font = $title->font->withBold();
 
         $packages = new UXFlowPane();
         $packages->hgap = $packages->vgap = 5;
         $this->uiPackages = $packages;
+
+        $this->uiUseImportCheckbox = $useImportCheckbox = new UXCheckbox("Добавлять use импорты классов (устарело)");
+        $this->uiUseImportCheckbox->on('mouseUp', [$this, 'doSave']);
+        $useImportCheckbox->tooltipText = 'Добавлять во все исходники подключение классов через use из всех пакетов';
 
         $ui = new UXVBox([$title, $packages, $useImportCheckbox]);
         $ui->spacing = 5;
