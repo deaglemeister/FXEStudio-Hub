@@ -296,7 +296,7 @@ class SettingsForm extends AbstractIdeForm
             $settings = json_decode($settings,true);
             $PathImageCallbake = $settings['SplashImage'];
             if($PathImageCallbake == null){
-                $this->path_img_splash->text = 'Укажите путь к картинке!' ;
+                $this->path_img_splash->text = _('select.folder.image') ;
         }else{
                 $this->path_img_splash->text =fs::abs('./')."/".$PathImageCallbake  ;
             }

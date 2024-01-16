@@ -75,8 +75,8 @@ class Updates
 {
     public function checkUpdates()
     {
-        $version = "1.8.0"; // Новая версия программы (может быть получена с сервера)
-        $latestVersion = "1.8.0"; // Актуальная версия на текущий момент (старая версия программы и текущая)
+        $version = "1.9.0"; // Новая версия программы (может быть получена с сервера)
+        $latestVersion = "1.9.0"; // Актуальная версия на текущий момент (старая версия программы и текущая)
         $url = "https://fdrgn.ru/apps_fx/cloud/dist/version.txt";
         $infoupdate = "https://fdrgn.ru/apps_fx/cloud/dist/infoupdate.txt";
         $file_contents = file_get_contents($infoupdate);

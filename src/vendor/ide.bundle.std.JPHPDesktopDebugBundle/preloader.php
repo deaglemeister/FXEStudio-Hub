@@ -120,11 +120,8 @@ class DebugClassLoader extends ClassLoader
             if (fs::isFile($filenameEncoded)) {
                 $module = new Module($filenameEncoded, true);
                 $module->call();
-
                 $t = Time::millis() - $t;
                 $this->allTime += $t;
-
-               // echo "[DEBUG] load cached '$filename', $t ms\n";
                 return;
             }
         }
@@ -142,9 +139,6 @@ class DebugClassLoader extends ClassLoader
                     $module->dump($filenameEncoded);
                 }
             }
-
-            //require $filename;
-
             $t = Time::millis() - $t;
             $this->allTime += $t;
 

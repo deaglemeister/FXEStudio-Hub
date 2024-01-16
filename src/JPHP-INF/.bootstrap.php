@@ -58,14 +58,14 @@ if (!IdeSystem::isDevelopment()) {
 }
 
 
-$THEME = file_get_contents('theme\style.ini');
-$THEME = json_decode($THEME, true);
+        $THEME = file_get_contents('theme\style.ini');
+        $THEME = json_decode($THEME, true);
 
-$THEME = $THEME['Style'];
-$app = new Ide();
-$app->addStyle("theme/$THEME");
-$app->launch();
-$app->form('NewSplashForm')->hide();
+        $THEME = $THEME['Style'];
+        $app = new Ide();
+        $app->addStyle("theme/$THEME");
+        $app->launch();
+        $app->form('NewSplashForm')->hide();
 
 function _($code, ...$args) {
     static $l10n;
@@ -79,7 +79,6 @@ function _($code, ...$args) {
 
 function dump($arg) {
     ob_start();
-    //var_dump($arg);
     $str = ob_get_clean();
     UXDialog::showAndWait($str);
 }
