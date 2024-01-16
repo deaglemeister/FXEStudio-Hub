@@ -152,7 +152,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
 
     public function getDescription()
     {
-        return "Управление зависимостями пакетов";
+        return "Управление пакетами";
     }
 
     function getMenuCount()
