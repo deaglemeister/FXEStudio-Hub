@@ -8,7 +8,7 @@
     -fx-base: #f5f6f8; /*Отвечает за всю MainForm*/
     -fx-background: #ffffff; /*Отвечает за оттенки MainForm*/
     -fx-background-form: #d82626;
-    -fx-control-inner-background: derive(-fx-base, -2%);
+    -fx-control-inner-backg2round: derive(-fx-base, -2%);
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, -4%);
     -fx-dark-text-color: #292e35;
     -fx-mid-text-color: #292e35;
