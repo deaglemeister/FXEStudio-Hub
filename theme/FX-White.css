@@ -1,8 +1,8 @@
 @import url('https://gist.github.com/gferreira/fdbb16adfb699576242abb0a13c1c404#file-varfonts-css_03-css');
 
-.align-center {
+/*.align-center {
 	-fx-alignment: center !Important;
-}
+} */
 
 .root, .FormEditor {
     -fx-base: #f5f6f8; /*Отвечает за всю MainForm*/
