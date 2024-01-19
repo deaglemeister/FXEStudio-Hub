@@ -70,6 +70,7 @@ use php\util\Configuration;
 use php\util\Scanner;
 use script\TimerScript;
 use timer\AccurateTimer;
+use php\desktop\Runtime;
 
 
 /**
@@ -209,7 +210,22 @@ class Ide extends Application
                 #Logger::info("Start IDE, mode = $this->mode, os = $this->OS, version = {$this->getVersion()}");
                 #Logger::info(str::format("Commands Args = [%s]", str::join((array)$GLOBALS['argv'], ', ')));
                 app()->form('NewSplashForm')->status->text = 'Start ide.php';
-				
+				Runtime::addJar("tools\\discordRPC\\annotations-23.0.0.jar");
+                Runtime::addJar("tools\\discordRPC\\DiscordRPCExtension-1.0-SNAPSHOT.jar");
+                Runtime::addJar("tools\\discordRPC\\dn-kdiscord-bundle.jar");
+                Runtime::addJar("tools\\discordRPC\\junixsocket-common-2.6.2.jar");
+                Runtime::addJar("tools\\discordRPC\\junixsocket-native-common-2.6.2.jarr");
+                Runtime::addJar("tools\\discordRPC\\KDiscordIPC-0.2.2.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlin-stdlib-1.4.10.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlin-stdlib-1.9.21.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlin-stdlib-jdk7-1.8.0.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlin-stdlib-jdk8-1.8.0.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlinx-coroutines-android-1.8.0-RC2.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlinx-coroutines-core-jvm-1.8.0-RC2.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlinx-serialization-core-jvm-1.3.3.jar");
+                Runtime::addJar("tools\\discordRPC\\kotlinx-serialization-json-jvm-1.3.3.jar");
+                Runtime::addJar("tools\\discordRPC\\slf4j-api-1.7.36.jar");
+
                 restore_exception_handler();
 
                 set_exception_handler(function ($e) {
