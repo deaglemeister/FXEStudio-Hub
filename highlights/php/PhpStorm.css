@@ -4,11 +4,12 @@
 }
 
 .syntax-text-area .paragraph-box:has-caret {
-    -fx-background-color: #fffae3;
+    -fx-background-color: red;
 }
 
 .syntax-text-area .text {
-    -fx-fill: #000000;
+    -fx-fill: transparent;
+    -fx-background-color: transparent;
 }
 
 .syntax-text-area .gutter .lineno {
