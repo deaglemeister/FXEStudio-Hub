@@ -1,0 +1,8 @@
+
+HBox, VBox, FlowPane, TilePane, GridPane {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.FormEditor {
+    -fx-background-color: #c9c9c9;
+}

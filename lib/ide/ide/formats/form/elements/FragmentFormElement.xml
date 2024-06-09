@@ -1,0 +1,8 @@
+<element extends="NodeFormElement">
+    <properties>
+
+        <property name="Подключаемая форма" code="content" editor="form" tooltip="" virtual="1" />
+                 <property code="-fx-background-color" name="Задний фон" editor="color" css="1" />
+         <property code="-fx-background-radius" name="Радиус заднего фона" editor="float" css="1"/>
+    </properties>
+</element>

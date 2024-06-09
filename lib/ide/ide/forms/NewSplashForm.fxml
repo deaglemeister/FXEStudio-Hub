@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346" prefWidth="744" styleClass="">
+  <children>
+    <Data cursor="DEFAULT" enabled="1" id="data-panel" visible="1"/>
+    <Panel borderColor="#c0c0c0" borderRadius="6" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="panel" layoutX="16" layoutY="304" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="32" prefWidth="392" style="-fx-background-color: linear-gradient(to top left, #8c8c8c66, #8c8c8c66);" styleClass="" titleColor="#292e35" titleOffset="15" titlePosition="TOP_LEFT">
+      <children>
+        <Data cursor="DEFAULT" enabled="1" id="data-greetings" visible="1"/>
+        <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="greetings" layoutX="8" layoutY="7" prefHeight="19" prefWidth="376" styleClass="label " text="{greetings}" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+          <font>
+            <Font name="System Regular" size="13"/>
+          </font>
+        </LabelEx>
+      </children>
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+    </Panel>
+    <Panel borderColor="#c0c0c0" borderRadius="6" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="panelstatus" layoutX="424" layoutY="304" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="32" prefWidth="304" style="-fx-background-color: linear-gradient(to top left, #8c8c8c66, #8c8c8c66);" styleClass="" titleColor="#292e35" titleOffset="15" titlePosition="TOP_LEFT">
+      <children>
+        <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="status" layoutX="8" layoutY="7" prefHeight="19" prefWidth="288" styleClass="label " text="{status}" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+          <font>
+            <Font name="System Regular" size="13"/>
+          </font>
+        </LabelEx>
+        <Data cursor="DEFAULT" enabled="1" id="data-status" visible="1"/>
+      </children>
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+    </Panel>
+    <Data cursor="DEFAULT" enabled="1" id="data-panelstatus" visible="1"/>
+  </children>
+</AnchorPane>

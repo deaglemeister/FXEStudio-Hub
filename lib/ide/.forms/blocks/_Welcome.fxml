@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1054.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutY="-3.0" prefHeight="762.0" prefWidth="1054.0" styleClass="backWelcome" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="24.0" layoutY="24.0" prefHeight="32.0" prefWidth="565.0" styleClass="textNewMenu3" text="Добро пожаловать в FXEdition!">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button id="createProjectButton" alignment="TOP_LEFT" layoutX="24.0" layoutY="126.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="132.0" prefWidth="180.0" style="-fx-background-radius: 8; -fx-text-fill: white; -fx-background-color: linear-gradient(from 30% 30% to 100% 100%, #00A307, #009950); -fx-border-color: #007830; -fx-border-radius: 8;" styleClass="icon-newproect16" text="Создать новый проект" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button id="openProjectButton" alignment="TOP_LEFT" layoutX="217.0" layoutY="126.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="132.0" prefWidth="180.0" style="-fx-background-color: #EAEAEA; -fx-background-radius: 8; -fx-border-color: #B8B8B8; -fx-border-radius: 8;" styleClass="icon-openproect" text="Открыть существующий проект" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button id="" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="409.0" layoutY="126.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="132.0" prefWidth="180.0" style="-fx-background-color: #282828; -fx-border-color: #909090; -fx-text-fill: white;  -fx-background-radius: 8; -fx-border-radius: 8;" styleClass="icon-open-github" text="Открыть проект из репозитория (GitHub)" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Hyperlink id="github" layoutX="27.0" layoutY="272.0" text="{dewewrfewflrg5}">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink id="openSupportMoney" layoutX="27.0" layoutY="302.0" text="{dewewrfewflrg6}">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink id="openTg" layoutX="27.0" layoutY="332.0" text="{dewewrfewflrg7}">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink id="listbundels" layoutX="27.0" layoutY="362.0" text="{dewewrfewflrg8}">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink id="docymentss" layoutX="27.0" layoutY="392.0" text="{dewewrfewflrg9}">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Hyperlink>
+      <Label layoutX="24.0" layoutY="56.0" prefHeight="32.0" prefWidth="655.0" styleClass="textNewMenu" text="Создайте новый проект, либо откройте уже существующий.">
+         <font>
+            <Font name="System" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="82.0" prefHeight="32.0" prefWidth="703.0" styleClass="textNewMenu2" text="Также мы подготовили несколько примеров, дабы вы осмотрели функционал среды.">
+         <font>
+            <Font name="System" size="16.0" />
+         </font>
+      </Label>
+      <Button id="" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="596.0" layoutY="126.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="132.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(from 20% 20% to 100% 100%, #A32FFF, #004AA1); -fx-border-color: #033475; -fx-text-fill: white;  -fx-background-radius: 8; -fx-border-radius: 8;" styleClass="icon-open-demo" text="Открыть примеры FXEdition" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

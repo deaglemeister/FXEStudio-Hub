@@ -1,0 +1,18 @@
+<element extends="ComboBoxBaseFormElement">
+    <properties>
+        <property code="format" name="Формат" editor="enum" defaultValue="dd.MM.yyyy">
+            <variants>
+                <variant value="dd.MM.yyyy">[27.02.2024]</variant>
+                <variant value="yyyy.MM.dd">[2015.03.24]</variant>
+                <variant value="dd.MM.yy">[21.03.24]</variant>
+
+                <variant value="dd/MM/yyyy">[21/03/2024]</variant>
+                <variant value="yyyy/MM/dd">[2024/03/21]</variant>
+
+                <variant value="yyyy-MM-dd">[2024-03-24]</variant>
+                <variant value="dd-MM-yyyy">[21-03-2024]</variant>
+            </variants>
+        </property>
+        <property code="showWeekNumbers" name="Номера недель" editor="boolean" />
+    </properties>
+</element>

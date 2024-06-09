@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="151" prefWidth="409" styleClass="">
+  <children>
+    <VBox alignment="TOP_LEFT" focusTraversable="false" id="" layoutX="0" layoutY="0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151" prefWidth="409" spacing="15" styleClass="">
+      <padding>
+        <Insets bottom="20" left="20" right="20" top="20"/>
+      </padding>
+      <children>
+        <ComboBox editable="false" focusTraversable="true" id="list" layoutX="20" layoutY="50" prefHeight="-1" prefWidth="-1" promptText="" styleClass="combo-box-base combo-box " value="" visibleRowCount="10">
+          <items xmlns:fx="http://javafx.com/fxml">
+            <FXCollections fx:factory="observableArrayList"/>
+          </items>
+        </ComboBox>
+        <HBox alignment="CENTER_LEFT" focusTraversable="false" id="" layoutX="20" layoutY="97" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="34" prefWidth="369" spacing="15" styleClass="">
+          <children>
+            <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="saveButton" layoutX="0" layoutY="0" prefHeight="34" prefWidth="-1" styleClass="button icon-ok " text="{btn.save.forms}" textAlignment="LEFT" textFill="#292e35" underline="false" wrapText="false">
+              <font>
+                <Font name="Roboto Regular" size="12"/>
+              </font>
+            </Button>
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>
