@@ -1,6 +1,6 @@
 .root {
     -ui-main-background: #1E1F22; /* Основной фон  */
-    -ui-secondary-background: #2B2D30; /* Вторичный фон  */
+    -ui-secondary-background: #292a2c; /* Вторичный фон  */
     -ui-lines-separators: #393B40; /* Линии и разделители  */
     -ui-invactive: #DFE1E5; /* Не активный выбор */
     -ui-disabled: #A8ADBD; /* Не активный текст и placeholder */
@@ -18,6 +18,9 @@
     -fx-background-color: -ui-main-background;
     -fx-font-family: 'JetBrains Mono';
     -ui-border-tab:-ui-main-background, 50% ;
+    -ui-main-titled: #2B2D30; /* цвет заголовка спойлера*/
+    -fx-background-color: #1E1F22;
+   
 }
 
 .moduleFormEditor {
@@ -39,6 +42,14 @@
     -fx-text-fill: -ui-text;
 }
 
+.hyperlink {
+    -fx-text-fill: #759CFF;
+}
+.hyperlink:hover {
+    -fx-text-fill: #759cffce;
+}
+
+
 .fxe-vertical-editor{
     -fx-background-color: -ui-secondary-background;
     -fx-border-color: -ui-border;
@@ -57,7 +68,7 @@
 }
 .titled-pane > .title {
     -fx-margin: 60 0 0 0 ; 
-    -fx-background-color: -ui-main-background;
+    -fx-background-color: -ui-main-titled;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 4 4 0 0, 3 3 0 0, 4 4 0 0;
     -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
@@ -168,7 +179,13 @@
     -fx-text-fill:  -ui-text;
 }
 
-
+.ui-search-component {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
 
 .fxe-button {
     -fx-background-color: transparent;
@@ -231,10 +248,67 @@
     -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
 }
 
+.scroll-pane {
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-focus-traversable: false;
+}
+.scroll-pane .viewport {
+    -fx-background-color:  -ui-secondary-background;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background;
+    -fx-border-width: 1px;
+    -fx-focus-traversable: false;
+}
 
 
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-font-size: 8px;
+    -fx-background-color: -ui-main-background; /* Прозрачный фон для самой полосы прокрутки */
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+}
+
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+    visibility: hidden;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    visibility: hidden;
+        -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -ui-lines-separators;
+    -fx-background-radius: 4px; /* Закругленные углы для скроллбара */
+    -fx-background-insets: 2; /* Внутренние отступы */
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-radius: 4px; /* Закругленные углы для границы */
+    -fx-border-width: 1px; /* Ширина границы */
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -ui-hoverd; /* Цвет при наведении */
+}
+
+.scroll-bar:vertical .thumb:pressed,
+.scroll-bar:horizontal .thumb:pressed {
+    -fx-background-color: -ui-tree-focused; /* Цвет при нажатии */
+}
 
 
+.dn-file-tab-pane .dn-file-tab-pane-components {
+    -fx-background-color: -ui-secondary-background; 
+}
 
 
 .dn-file-tab-pane {
@@ -327,34 +401,19 @@
     -fx-background-color: -ui-tree-selected;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.separator .line{
+    -fx-border-color:-ui-lines-separators;
+}
 
 .ui-paneVbox {
     -fx-background-color:  -ui-main-background;
     -fx-border-width: 1px;
     -fx-border-color:  -ui-context-menu-border;
 }
-
+.ui-components-right {
+    -fx-background-color:  -ui-secondary-background;
+    -fx-text-fill: -ui-text;
+}
 .ui-topBar {
     -fx-background-color:  -ui-secondary-background;
     -fx-text-fill: -ui-text;

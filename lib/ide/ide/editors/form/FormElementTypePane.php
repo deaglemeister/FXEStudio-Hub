@@ -112,6 +112,8 @@ class FormElementTypePane
 
         $this->content = new UXScrollPane($this->layout);
         $this->content->fitToWidth = true;
+        $this->content->classes->add('ui-paneVbox');
+        
 
         $this->createHeaderUi();
 
@@ -324,6 +326,7 @@ class FormElementTypePane
 
         foreach ($this->layout->children as $box) {
             if ($box->userData == 'searchResult') {
+                $box->classes->add('ui-components-right');
                 $box->free();
                 break;
             }
@@ -331,10 +334,12 @@ class FormElementTypePane
 
         if ($notFound) {
             $label = new UXLabel('Ничего не найдено.');
-            $label->padding = 10;
+            $label->classes->add('ui-components-right');
+            $label->padding = 10;   
 
             $pane = new UXTitledPane('Результаты поиска', $label);
-            $pane->padding = [1, 3];
+            $pane->padding = [3, 5];
+            $pane->classes->add('ui-components-right');
         } else {
             $pane = $this->makeGroupUi('Результаты поиска', $result);
         }
@@ -342,10 +347,9 @@ class FormElementTypePane
         if ($pane) {
             $pane->font = UXFont::of($pane->font->family, $pane->font->size, 'BOLD');
             $pane->style = UiUtils::fontSizeStyle();
-            $pane->textColor = 'gray';
             $pane->animated = false;
             $pane->expanded = true;
-
+            $pane->classes->add('ui-components-right');
             $pane->paddingBottom = 15;
             $pane->userData = 'searchResult';
             $this->layout->children->insert(1, $pane);
@@ -356,14 +360,16 @@ class FormElementTypePane
     {
         if ($this->selectable) {
             $vbox = new UXVBox();
-            $vbox->spacing = 1;
+            $vbox->spacing = 5;
             $vbox->padding = 2;
+            $vbox->classes->add('ui-components-right');
 
             $this->unselectedButton = null;
 
             $this->searchField = $searchField = new UXTextField();
-            $searchField->promptText = 'Поиск компонентов';
+            $searchField->promptText = 'Поиск..';
             $searchField->maxWidth = 10000;
+            $searchField->classes->add('ui-search-component');
 
             $searchField->observer('text')->addListener(function () use ($searchField) {
                 $query = $searchField->text;
@@ -398,12 +404,14 @@ class FormElementTypePane
         }
 
         $vbox = new UXVBox();
-        $vbox->spacing = 1;
-        $vbox->padding = 2;
+        $vbox->spacing = 8;
+        $vbox->padding = 3;
+        $vbox->classes->add('ui-components-right');
 
         $fbox = new UXFlowPane();
         $fbox->hgap = $fbox->vgap = 2;
-        $fbox->padding = 2;
+        $fbox->padding = 3;
+        $fbox->classes->add('ui-components-right');
 
         /** @var AbstractFormElement|ObjectListEditorItem $element */
         foreach ($elements as $id => $element) {
@@ -494,7 +502,8 @@ class FormElementTypePane
         $pane->data('vbox', $vbox);
         $pane->data('fbox', $fbox);
         $pane->font = UXFont::of($pane->font->family, $pane->font->size, 'BOLD');
-        $pane->animated = false;
+        $pane->animated = true;
+        $pane->classes->add('ui-headPane');
         $pane->expanded = true;
         $pane->padding = [1, 3];
 

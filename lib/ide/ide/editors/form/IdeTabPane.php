@@ -365,9 +365,10 @@ class IdeTabPane
         UXAnchorPane::setAnchor($ui, 0);
 
         $ui->tabs->setAll($this->tabs);
-
+        $ui->classes->add('dn-file-tab-pane-components');
         $box = new UXVBox();
-        $box->spacing = 2;
+        $box->spacing = 7;
+        $box->classes->add('ui-headPane');
         $box->add($ui);
 
         $box->maxHeight = 99999;

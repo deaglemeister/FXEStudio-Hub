@@ -87,6 +87,7 @@ class IdeActionsPane extends UXHBox
         $ui->paddingBottom = 4;
         $ui->height = 25;
         $ui->fillHeight = true;
+        $ui->classes->add('fxe-vertical-editor');
 
         $this->snapTypeButtons = $group = new UXToggleGroup();
 
@@ -94,7 +95,7 @@ class IdeActionsPane extends UXHBox
         $dotsButton->graphic = ico('dots16');
         $dotsButton->toggleGroup = $group;
         $dotsButton->selected = true;
-
+        $dotsButton->classes->add('fxe-button');
         $dotsButton->on('action', function () use ($dotsButton) {
             $this->designer->snapType = 'DOTS';
             $dotsButton->selected = true;
@@ -104,7 +105,7 @@ class IdeActionsPane extends UXHBox
         $gridButton = $this->snapGridButton = new UXToggleButton();
         $gridButton->toggleGroup = $group;
         $gridButton->graphic = ico('grid16');
-
+        $gridButton->classes->add('fxe-button');
         $gridButton->on('action', function () use ($gridButton) {
             $this->designer->snapType = 'GRID';
             $gridButton->selected = true;
@@ -114,7 +115,7 @@ class IdeActionsPane extends UXHBox
         $emptyButton = $this->snapEmptyButton = new UXToggleButton();
         $emptyButton->toggleGroup = $group;
         $emptyButton->graphic = ico('grayRect16');
-
+        $emptyButton->classes->add('fxe-button');
         $emptyButton->on('action', function () use ($emptyButton) {
             $this->designer->snapType = 'HIDDEN';
             $emptyButton->selected = true;
@@ -128,12 +129,13 @@ class IdeActionsPane extends UXHBox
         $ui->add(new UXSeparator('VERTICAL'));
 
         $xTitle = new UXLabel('Сетка [X,Y]:');
+        $xTitle->classes->add('ui-text');
         $xTitle->maxHeight = 999;
         $xInput = $this->snapXInput = new UXTextField();
         $xInput->width = 35;
         $xInput->maxHeight = 999;
         $xInput->text = $this->designer->snapSizeX;
-
+        $xInput->classes->add('ui-search-component');
         $xInput->observer('text')->addListener(function ($_, $value) {
             $value = (int) $value;
             if ($value > 0 && $this->designer->snapSizeX != $value) {
@@ -152,7 +154,7 @@ class IdeActionsPane extends UXHBox
         $yInput->width = 35;
         $yInput->maxHeight = 999;
         $yInput->text = $this->designer->snapSizeY;
-
+        $yInput->classes->add('ui-search-component');
         $yInput->observer('text')->addListener(function ($_, $value) {
             $value = (int) $value;
             if ($value > 0 && $this->designer->snapSizeY != $value) {
@@ -199,7 +201,7 @@ class IdeActionsPane extends UXHBox
         $this->add(new UXSeparator('VERTICAL'));
         $this->add($label = new UXLabel("Масштаб:"));
         $label->maxHeight = 999;
-
+        $label->classes->add('ui-text');
         $zoomSelect = $this->zoomSelect = new UXComboBox();
         $zoomList = [5, 10, 15, 20, 25, 30, 35, 40, 50, 65, 75, 100, 115, 125, 150, 200, 400, 500];
 
@@ -232,6 +234,7 @@ class IdeActionsPane extends UXHBox
         foreach (['left', 'right', 'top', 'bottom', 'center', 'middle'] as $align) {
             $btn = new UXButton();
             $btn->tooltipText = 'Alignment (' . str::upperFirst($align) . ")";
+            $btn->classes->add('fxe-button');
             $btn->graphic = ico('align' . str::upperFirst($align) . '16');
             $btn->on('click', function () use ($align) {
                 foreach ($this->designer->getSelectedNodes() as $node) {
