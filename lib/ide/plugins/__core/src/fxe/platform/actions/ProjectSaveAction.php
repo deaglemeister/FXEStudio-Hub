@@ -1,10 +1,10 @@
 <?php
 
-namespace fxe\platform\actions;
+namespace platform\actions;
 
-use fxe\platform\facades\Toaster;
-use fxe\platform\plugins\AnAction;
-use fxe\platform\toaster\ToasterMessage;
+use platform\facades\Toaster;
+use platform\plugins\AnAction;
+use platform\toaster\ToasterMessage;
 use ide\Ide;
 
 class ProjectSaveAction extends AnAction
