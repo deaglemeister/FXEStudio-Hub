@@ -1,8 +1,6 @@
 <?php
 namespace ide\action;
-use ide\Logger;
 use ide\utils\FileUtils;
-use ide\utils\Json;
 use ide\utils\PhpParser;
 use php\format\ProcessorException;
 use php\lib\fs;

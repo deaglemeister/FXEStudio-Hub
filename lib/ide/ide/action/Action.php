@@ -1,6 +1,5 @@
 <?php
 namespace ide\action;
-use php\xml\DomElement;
 
 /**
  * Class Action

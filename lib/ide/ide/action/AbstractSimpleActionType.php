@@ -4,14 +4,13 @@ namespace ide\action;
 use action\Score;
 use ide\forms\ActionArgumentsDialog;
 use ide\Logger;
-use php\jsoup\Document;
 use php\lib\Str;
 use php\xml\DomDocument;
 use php\xml\DomElement;
 
 abstract class AbstractSimpleActionType extends AbstractActionType
 {
-    const GROUP_OTHER = 'Другок';
+    const GROUP_OTHER = 'Другое';
     const GROUP_APP = 'Системные';
     const GROUP_MEDIA = 'Медиа';
     const GROUP_GAME = 'Игра';

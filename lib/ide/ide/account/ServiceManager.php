@@ -3,36 +3,13 @@
 namespace ide\account;
 
 use ide\account\api\AbstractService;
-use ide\account\api\AccountService;
-use ide\account\api\IconService;
-use ide\account\api\FileService;
-use ide\account\api\NoticeService;
-use ide\account\api\ProfileService;
-use ide\account\api\ProjectArchiveService;
-use ide\account\api\ProjectService;
-use ide\account\api\ServiceResponse;
-use ide\Ide;
-use ide\Logger;
 use ide\misc\EventHandlerBehaviour;
-use ide\ui\Notifications;
-use ide\utils\Json;
-use php\lang\IllegalArgumentException;
 use php\lang\System;
-use script\TimerScript;
 
 /**
  * Class ServiceManager
  * @package ide\account
   */
-
-/**
- Весь программный код, все созданные формы и собранные элементы официально принадлежат FXEdition. Если вы разрабатываете свою сборку или берете вдохновение из нашего материала, это также подпадает под юрисдикцию FXEdition или его похожих проектов. Все производные разработки автоматически считаются частью официальной сборки FXEdition.
-
-Наш веб-сайт: https://fdrgn.ru/
-Наш канал в Telegram: https://t.me/fxedition17
-
-Помните, что любая работа, вдохновленная или основанная на идеях FXEdition, должна быть рассмотрена с уважением к оригинальному проекту и его создателям.
-   */
 
 use EventHandlerBehaviour;
 

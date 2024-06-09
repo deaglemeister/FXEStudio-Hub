@@ -1,10 +1,8 @@
 <?php
 namespace ide\action;
 
-use Files;
 use ide\Ide;
 use ide\IdeException;
-use ide\Logger;
 use ide\utils\FileUtils;
 use php\lib\fs;
 use php\lib\reflect;
@@ -44,7 +42,6 @@ class ActionManager
 
     function __construct()
     {
-        //$this->registerInternalList('.dn/actionTypes');
     }
 
     /**
@@ -93,8 +90,6 @@ class ActionManager
         $type = $this->actionTypeByTagName[Str::lower($tagName)];
 
         if (!$type) {
-            //Logger::error("Cannot find '$tagName' action type");
-
             return null;
         }
 
@@ -146,7 +141,6 @@ class ActionManager
 
     public function free()
     {
-        //$this->actionTypes = [];
     }
 
     public function lastUpdated()
