@@ -440,10 +440,11 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
     {
         $title = new UXLabel(_('no.img1'));
         $title->font = $title->font->withBold();
+        $title->classes->add('ui-text');
 
         $label = new UXLabel(_('no.img'));
-        $label->textColor = 'gray';
-        $button = new UXButton(_('no.img2'));
+        $label->classes->add('ui-text');
+        $button = new UXButton( _('no.img2'));
         $button->classes->add('icon-open');
 
         $this->uiSplashLabel = $label;
@@ -482,13 +483,16 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
 
         $title = new UXLabel('Десктопная программа:');
         $title->font = $title->font->withBold();
+        $title->classes->add('ui-text');
 
         $uiUuidInput = new UXTextField();
+        $uiUuidInput->classes->add('ui-search-component');
         $uiUuidInput->width = 250;
         $uiUuidInput->editable = false;
         $uiUuidInput->tooltipText = 'В коде можно получить через app()->getUuid(), используется для индетификации приложения в системе.';
 
         $uiUuid = new UXHBox([new UXLabel('Индетификация UID программы:'), $uiUuidInput]);
+        $uiUuid->classes->add('ui-text');
         $uiUuid->spacing = 10;
         $uiUuid->alignment = 'CENTER_LEFT';
 
@@ -504,8 +508,10 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
         
         $titleIcon = new UXLabel('Иконка для открытия проекта:');
         $titleIcon->font = $titleIcon->font->withBold();
+        $titleIcon->classes->add('ui-text');
 
         $iconTextPath = new UXLabel();
+        $iconTextPath->classes->add('ui-text');
         $iconTextPath->width = 450;
         if(fs::exists($this->project->getRootDir().'\.dn\ide\project\behaviours\FXECustomIcon.png')){
             $iconTextPath->text = $this->project->getRootDir().'\.dn\ide\project\behaviours\FXECustomIcon.png';
@@ -515,6 +521,7 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
 
         
         $chooseIconButton = new UXButton('Выбрать иконку');
+        $chooseIconButton->classes->add('fxe-button');
         $chooseIconButton->on('action', function () use ($iconTextPath) {
             
            

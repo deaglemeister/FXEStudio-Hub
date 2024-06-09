@@ -20,7 +20,36 @@
     -ui-border-tab:-ui-main-background, 50% ;
     -ui-main-titled: #2B2D30; /* цвет заголовка спойлера*/
     -fx-background-color: #1E1F22;
-   
+
+}
+
+
+.list-view
+{
+    -fx-background-color: -ui-main-background;
+    -fx-border-color:   -ui-context-menu-border;
+    -fx-text-fill: -ui-text;
+    -fx-padding: 6; /* увеличение внутренних отступов */
+    -fx-spacing: 2;
+}
+.list-view .virtual-flow
+{
+    -fx-background-color: -ui-main-background;
+    -fx-border-color:   -ui-context-menu-border;
+    -fx-text-fill: -ui-text;
+    -fx-border-width: 1;
+}
+.list-cell {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-secondary-background;
+}
+.list-cell:hover {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+}
+.list-cell:selected {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
 }
 
 .moduleFormEditor {
@@ -366,6 +395,7 @@
     -fx-border-color: transparent;
     -fx-border-width: 0;
 }
+
 
 
 .flow-list-view

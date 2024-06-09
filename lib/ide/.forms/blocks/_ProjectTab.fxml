@@ -34,7 +34,7 @@
             </HBox>
             <HBox alignment="BOTTOM_LEFT" prefHeight="42.0" spacing="10.0">
                <children>
-                  <Button id="openProjectDirButton" mnemonicParsing="false" prefHeight="25.0" styleClass="icon-open" text="Открыть проект в папке">
+                  <Button id="openProjectDirButton" mnemonicParsing="false" prefHeight="25.0" styleClass="fxe-button" text="Открыть проект в папке">
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>

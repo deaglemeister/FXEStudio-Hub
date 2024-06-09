@@ -70,6 +70,7 @@ class CommonProjectControlPane extends AbstractProjectControlPane
         $loader = new UXLoader();
         $ui = $loader->load(Stream::of(AbstractForm::DEFAULT_PATH . 'blocks/_ProjectTab.fxml'));
         $ui->maxWidth = 99999;
+        $ui->classes->add('ui-topBar');
 
         $binder = new EventBinder($ui, $this);
         $binder->setLookup(function (UXNode $context, $id) {
@@ -83,6 +84,7 @@ class CommonProjectControlPane extends AbstractProjectControlPane
         $this->projectDirLabel = $ui->lookup('#projectDirLabel');
 
         $pane = new UXScrollPane($ui);
+        $pane->classes->add('ui-topBar');
         $pane->padding = 0;
         $pane->fitToWidth = true;
 

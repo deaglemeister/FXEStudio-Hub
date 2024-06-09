@@ -191,6 +191,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
         $pane->addMenuCommand(new AbstractEditorsProjectControlPaneEditCommand($this));
         $pane->addMenuCommand(new AbstractEditorsProjectControlPaneCloneCommand($this));
+      
 
         $pane->on('beforeRemove', function (array $nodes) {
             foreach ($nodes as $node) {
@@ -238,6 +239,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
 
         $pane = $pane->getPane();
+        $pane->classes->add('ui-topBar');
         UXVBox::setVgrow($pane, 'ALWAYS');
 
 
@@ -249,7 +251,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
         $ui->add($pane);
         $ui->spacing = 10;
-
+        $ui->classes->add('ui-topBar');
         return $ui;
     }
 
@@ -267,6 +269,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $addButton->classes->add('icon-plus');
         $addButton->font = $addButton->font->withBold();
         $addButton->maxHeight = 999;
+        $addButton->classes->add('fxe-button');
         $addButton->on('action', function () {
             $this->doAdd();
             $this->trigger('updateCount');
@@ -276,6 +279,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $editButton->classes->add('icon-edit');
         $editButton->maxHeight = 999;
         $editButton->enabled = false;
+        $editButton->classes->add('fxe-button');
         $editButton->on('action', function () {
             $this->doEdit();
         });
@@ -284,6 +288,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $cloneButton->classes->add('icon-copy');
         $cloneButton->maxHeight = 999;
         $cloneButton->enabled = false;
+        $cloneButton->classes->add('fxe-button');
         $cloneButton->on('action', function () {
             $this->doClone();
         });
@@ -292,6 +297,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $delButton->classes->add('icon-trash2');
         $delButton->maxHeight = 999;
         $delButton->enabled = false;
+        $delButton->classes->add('fxe-button');
         $delButton->text = _('edit.btns.tree9');
 
         $delButton->on('action', function () {
@@ -307,6 +313,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $ui = new UXHBox([$addButton, new UXSeparator('VERTICAL'), $editButton, $cloneButton, $delButton]);
         $ui->spacing = 5;
         $ui->minHeight = 30;
+        $ui->classes->add('ui-topBar');
 
         return $ui;
     }

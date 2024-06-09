@@ -109,7 +109,7 @@ abstract class AbstractCommand
         $item = new UXMenuItem($this->getName());
         $item->graphic = Ide::get()->getImage($this->getIcon());
         $item->accelerator = $this->getAccelerator();
-
+        $item->classes->add('ui-topBar');
         $item->on('action', $this->makeAction());
 
         return $item;

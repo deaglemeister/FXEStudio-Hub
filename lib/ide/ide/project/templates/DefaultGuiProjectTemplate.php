@@ -277,8 +277,8 @@ class DefaultGuiProjectTemplate extends AbstractProjectTemplate
 
     public function isProjectWillMigrate(Project $project)
     {
-        // check is < 16.5
-        if ($project->getConfig()->getIdeVersionHash() < 2017022512) {
+        // check is hash version fxe < 3.1.1
+        if ($project->getConfig()->getIdeVersionHash() < 20240610) {
             return true;
         }
 
