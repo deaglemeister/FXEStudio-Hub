@@ -683,7 +683,7 @@ class ActionConstructorForm extends AbstractIdeForm
         $btn->data('type', get_class($actionType));
 
         $btn->userData = $actionType;
-        $btn->classes->add('dn-simple-toggle-button');
+        $btn->classes->add('fxe-button');
 
         if ($btn->graphic == null) {
             $btn->graphic = ico('blocks16');

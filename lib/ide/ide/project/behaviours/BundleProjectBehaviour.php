@@ -846,7 +846,7 @@ class BundleProjectBehaviour extends AbstractProjectBehaviour
                 $uiItem = new UXButton($resource ? $resource->getName() : (new \ReflectionClass($bundle))->getShortName());
                 $uiItem->graphic = ($resource && $resource->getIcon()) ? Ide::get()->getImage($resource->getIcon(), [16, 16]) : ico('bundle16');
                 $uiItem->padding = [7, 12];
-                $uiItem->classes->add('dn-simple-toggle-button');
+                $uiItem->classes->add('fxe-button');
                 $uiItem->tooltipText = $bundle->getDescription();
                 $uiItem->on('action', function () use ($resource) {
                     $this->showBundleDetailDialog($resource);
@@ -857,7 +857,7 @@ class BundleProjectBehaviour extends AbstractProjectBehaviour
 
             $addButton = new UXButton();
             $addButton->graphic = ico('edit16');
-            $addButton->classes->add('flat-button');
+            $addButton->classes->add('fxe-button');
             $addButton->text = _('packegsf2');
             $addButton->on('action', function () {
                 /** @var ProjectEditor $projectEditor */

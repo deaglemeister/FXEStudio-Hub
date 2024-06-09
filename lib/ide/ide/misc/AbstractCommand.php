@@ -96,6 +96,8 @@ abstract class AbstractCommand
         $button->paddingLeft = $button->paddingRight = 7;
         $button->style = UiUtils::fontSizeStyle() . "; ";
 
+        $button->classes->add('fxe-button');
+
         $action = $this->makeAction();
         $button->on('action', $action);
 

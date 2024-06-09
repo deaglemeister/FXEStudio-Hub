@@ -387,8 +387,13 @@ class ProjectTree
                 if ($folderName == "src") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/sourceRoot_dark.png')), null, $file->isDirectory());
                 if ($folderName == "resources") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/resourcesRoot_dark.png')), null, $file->isDirectory());
 
-                if ($folderName == "vendor") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/flattenModules_dark.png')), null, $file->isDirectory());
+                if ($folderName == "app") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/excludeRoot_dark.png')), null, $file->isDirectory());
 
+                if ($folderName == "img") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/generatedSource_dark.png')), null, $file->isDirectory());
+
+
+                if ($folderName == "vendor") return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/flattenModules_dark.png')), null, $file->isDirectory());
+                
 
                 $folderName = array_pop($folderNames);
 

@@ -165,7 +165,7 @@ class MainForm extends AbstractIdeForm
             $this->opacity = 1;
         });
 
-		Notifications::show('FXEdition', 'Всю информацию можно найти в разделе "Центр", или на главной форме.', 'INFORMATION');
+		#Notifications::show('FXEdition', 'Всю информацию можно найти в разделе "Центр", или на главной форме.', 'INFORMATION');
 
 
         app()->form('NewSplashForm')->status-> text = 'Запускаем главную форму';

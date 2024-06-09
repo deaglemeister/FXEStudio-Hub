@@ -17,8 +17,6 @@
     -ui-hoverd: derive(-ui-main-background, 20%);
     -fx-background-color: -ui-main-background;
     -fx-font-family: 'JetBrains Mono';
-    
-
     -ui-border-tab:-ui-main-background, 50% ;
 }
 
@@ -178,11 +176,12 @@
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
 }
 
 .fxe-button:hover {
     -fx-background-color: -ui-hoverd;
-    -fx-border-color: -ui-border;
+    -fx-border-color: -ui-lines-separators;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-text-fill: -ui-text;
@@ -352,18 +351,17 @@
 
 .ui-paneVbox {
     -fx-background-color:  -ui-main-background;
-    -fx-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
 }
 
 .ui-topBar {
     -fx-background-color:  -ui-secondary-background;
     -fx-text-fill: -ui-text;
     -fx-text-size: 14px;
-    -fx-color: -ui-lines-separators;
 }
 .ui-headPane {
     -fx-background-color:  -ui-main-background;
-    -fx-color: -ui-lines-separators;
 }
 
 
@@ -384,9 +382,9 @@
     -fx-font-size: 13px;
     -fx-border-width: 0; /* Убираем границы */
     -fx-pref-width: 0;
-        -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
     -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
-   -fx-color: -ui-lines-separators;
+    -fx-color: -ui-lines-separators;
 }
 .ui-treeView:focused {
     -fx-background-color: transparent; /* Убираем фон при фокусировке на дереве */

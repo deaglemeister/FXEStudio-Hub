@@ -23,6 +23,11 @@
     -fx-background-color:  -ui-secondary-background;
 
 }
+
+
+.ui-menu-bar {
+    -fx-background-color: -ui-secondary-background;
+}
 .ui-menu-bar .context-menu {
     -fx-background-color: -ui-secondary-background;
     -fx-background-radius: 8px;

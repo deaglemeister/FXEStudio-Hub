@@ -1,13 +1,14 @@
 
 ide\commands\NewProjectCommand
 ide\commands\OpenProjectCommand
+ide\commands\NewExeDevelNext
 ide\commands\SaveProjectCommand
 ide\commands\ExportProjectCommand
 ide\commands\SaveProjectForLibraryCommand
 ide\commands\CloseProjectCommand
 ide\commands\ExitCommand
-
-
+ide\commands\IdeLogShowCommand
+ide\commands\IdeSandboxShowCommand
 
 ide\commands\TGGroupCommand
 ide\commands\DonateCommand

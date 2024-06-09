@@ -713,7 +713,7 @@ class FileSystem
             $tab->graphic = $button;
 
             $button->graphic = Ide::get()->getImage('icons/plus16.png');
-            $button->classes->add('dn-add-tab-button');
+            $button->classes->add('fxe-button');
             $button->style = '-fx-background-radius: 0; -fx-border-radius: 12; -fx-border-width: 0';
 
             $button->on('click', function ($e) {

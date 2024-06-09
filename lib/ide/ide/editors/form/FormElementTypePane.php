@@ -384,7 +384,7 @@ class FormElementTypePane
                 $this->setOnlyIcons($typeSelect->selectedIndex == 1, false);
             });
 
-            $vbox->add($typeSelect);
+            #$vbox->add($typeSelect);
             $vbox->add($searchField);
 
             $this->layout->add($vbox);
@@ -415,7 +415,7 @@ class FormElementTypePane
                 $smallButton->toggleGroup = $this->toggleGroup;
             }
 
-            $button->classes->add('dn-simple-toggle-button');
+            $button->classes->add('fxe-button');
             $button->height = 16;
             $button->maxWidth = 10000;
             $button->alignment = 'BASELINE_LEFT';
@@ -438,7 +438,7 @@ class FormElementTypePane
                 $button->tooltipText .= "\n{$element->getElementClass()}";
             }
 
-            $smallButton->classes->add('dn-simple-toggle-button');
+            $smallButton->classes->add('fxe-button');
             $smallButton->size = [25, 30];
             $smallButton->userData = $element;
             $smallButton->graphic = Ide::get()->getImage($element->getIcon());

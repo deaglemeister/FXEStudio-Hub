@@ -69,6 +69,7 @@ return new class extends FXEPlugin
                     return new UXImage('res://resources/expui/icons/fileTypes/csv_dark.png');
                 }
             },
+
             new class extends FileType
             {
                 public function validate(File $file): bool

@@ -35,7 +35,7 @@ class FxCssCodeFormat extends AbstractFormat
 
     public function getIcon()
     {
-        return 'icons/cssFile16.png';
+        return '';
     }
 
     /**
