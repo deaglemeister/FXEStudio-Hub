@@ -1,7 +1,6 @@
 <?php
 namespace ide\systems;
 
-use ide\forms\MainForm;
 use ide\forms\MessageBoxForm;
 use ide\forms\OpenProjectForm;
 use ide\Ide;
@@ -13,8 +12,6 @@ use ide\project\ProjectConsoleOutput;
 use ide\project\ProjectImporter;
 use ide\ui\Notifications;
 use ide\utils\FileUtils;
-use php\gui\UXApplication;
-use php\gui\UXDialog;
 use php\gui\UXDirectoryChooser;
 use php\io\File;
 use php\io\IOException;
@@ -23,13 +20,10 @@ use php\lang\Thread;
 use php\lib\fs;
 use php\lib\Items;
 use php\lib\Str;
-use script\TimerScript;
-
-use php\time\Timer;
-use std;
-use action\Animation;
-use ide\forms\malboro\Modals;
 use ide\forms\malboro\Toasts;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 
 use timer\AccurateTimer;
@@ -171,9 +165,14 @@ class ProjectSystem
             });
 
             if (!$files) {
-                #UXDialog::show('В архиве не обнаружен файл проекта', 'ERROR');
-                $class = new Toasts;
-                $class->showToast("Архив", "В архиве не обнаружен файл проекта", "#FF4F44");
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/Error.png');
+                $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с архивами')
+                ->setDescription(_('В архиве был не найден файл проекта .dnproject'))
+                ->setClosable();
+                Toaster::show($tm);
                 return;
             }
 
@@ -187,8 +186,14 @@ class ProjectSystem
 
             AccurateTimer::executeAfter(1000, function () use ($projectDir, $files, $file, $afterOpen) {
                 ProjectSystem::open($projectDir . "/" . Items::first($files)->getName(), true, false);
-
-                Ide::get()->getMainForm()->toast("Проект был успешно импортирован из архива", 3000);
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+                $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с проектами')
+                ->setDescription(_('Ваш проект был успешно импортирован из архива.'))
+                ->setClosable();
+                Toaster::show($tm);
 
                 Logger::info("Finish importing project.");
 
@@ -199,9 +204,16 @@ class ProjectSystem
         } catch (IOException $e) {
             self::close(false);
             Ide::get()->getMainForm()->hidePreloader();
-            #Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
-            $class = new Toasts;
-            $class->showToast("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+            $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер по работе с проектами')
+            ->setDescription(_('Возможно к папке проекта нет доступа или нет места на диске.'))
+            ->setClosable();
+            Toaster::show($tm);
+            return;
+
         }
     }
 
@@ -241,9 +253,14 @@ class ProjectSystem
             Logger::exception("Unable to create project", $e);
             ProjectSystem::close(false);
             Ide::get()->getMainForm()->hidePreloader();
-            #Notifications::error("Ошибка создания проекта", "Возможно к папке проекта нет доступа или нет места на диске");
-            $class = new Toasts;
-            $class->showToast("Ошибка создания проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+            $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер по работе с проектами')
+            ->setDescription(_('Возможно к папке проекта нет доступа или нет места на диске.'))
+            ->setClosable();
+            Toaster::show($tm);
         }
     }
 
@@ -289,7 +306,7 @@ class ProjectSystem
                 $prVersion = $project->getConfig()->getIdeVersion();
 
                 if (!Ide::get()->isSameVersionIgnorePatch($prVersion) && $project->getConfig()->getIdeVersionHash() > Ide::get()->getVersionHash()) {
-                    $msg = new MessageBoxForm("Проект '{$project->getName()}' создан в более новой версии DevelNext ($prVersion), вы точно хотите его открыть?", [
+                    $msg = new MessageBoxForm("Проект '{$project->getName()}' создан в более новой версии FXE Studio ($prVersion), вы точно хотите его открыть?", [
                         'Нет', 'Да, открыть проект'
                     ]);
 
@@ -347,14 +364,26 @@ class ProjectSystem
                 Ide::get()->getMainForm()->hidePreloader();
 
                 Logger::exception("Unable to open project", $e);
-                #Notifications::error("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске");
-                $class = new Toasts;
-                $class->showToast("Ошибка открытия проекта", "Возможно к папке проекта нет доступа или нет места на диске", "#FF4F44");
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+                $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с проектами')
+                ->setDescription(_('Возможно к папке проекта нет доступа или нет места на диске.'))
+                ->setClosable();
+                Toaster::show($tm);
             }
         } catch (InvalidProjectFormatException $e) {
             Ide::get()->getMainForm()->hidePreloader();
             ProjectSystem::closeWithWelcome(false);
-            Notifications::error('Поврежденный проект', 'Проект "' . fs::nameNoExt($fileName) . '" невозможно открыть, он поврежден или создан в новой версии DevelNext.');
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/Error.png');
+            $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер по работе с проектами')
+            ->setDescription(_('Ваш проект повреждённый: ' . fs::nameNoExt($fileName) . 'невозможно открыть, он поврежден или создан в новой версии FXE Studio.'))
+            ->setClosable();
+            Toaster::show($tm);
         }
 
         return null;

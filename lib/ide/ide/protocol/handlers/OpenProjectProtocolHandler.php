@@ -2,14 +2,15 @@
 namespace ide\protocol\handlers;
 
 use ide\account\api\ServiceResponse;
-use ide\commands\AbstractProjectCommand;
-use ide\forms\MessageBoxForm;
 use ide\forms\SharedProjectDetailForm;
 use ide\Ide;
 use ide\Logger;
 use ide\protocol\AbstractProtocolHandler;
 use ide\ui\Notifications;
 use php\lib\str;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 /**
  * Class OpenProjectProtocolHandler
@@ -46,13 +47,26 @@ class OpenProjectProtocolHandler extends AbstractProtocolHandler
                     Ide::service()->projectArchive()->getAsync($uid, function (ServiceResponse $response) use ($uid) {
                         if ($response->isSuccess()) {
                             uiLater(function () use ($response) {
-                                Notifications::show('Обнаружен проект', 'Мы обнаружили ссылку на общедоступный проект, вы можете его открыть.', 'INFORMATION');
+                                $tm = new ToasterMessage();
+                                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
+                                $tm
+                                    ->setIcon($iconImage)
+                                    ->setTitle('Менеджер по работе с проектами')
+                                    ->setDescription(_('Мы обнаружили ссылку на общедоступный проект, вы можете его открыть.'))
+                                    ->setClosable();
+                                Toaster::show($tm);
                                 $dialog = new SharedProjectDetailForm($response->result('uid'));
                                 $dialog->showAndWait();
                             });
                         } else {
-                            Logger::error("Unable to get project, uid = $uid, {$response->toLog()}");
-                            Notifications::error('Ошибка открытия', 'Ссылка на проект некорректная или он был уже удален.');
+                            $tm = new ToasterMessage();
+                            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/warning.png');
+                            $tm
+                                ->setIcon($iconImage)
+                                ->setTitle('Менеджер по работе с проектами')
+                                ->setDescription(_('Ссылка на проект некорректная или он был уже удален.'))
+                                ->setClosable();
+                            Toaster::show($tm);
                         }
                     });
                 });

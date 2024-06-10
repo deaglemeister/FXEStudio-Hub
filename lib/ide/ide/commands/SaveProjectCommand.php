@@ -3,10 +3,9 @@ namespace ide\commands;
 
 use ide\editors\AbstractEditor;
 use ide\Ide;
-use ide\marker\ArrowPointMarker;
-use ide\marker\target\CurrentEditorMarkerTarget;
-use ide\misc\AbstractCommand;
-use php\gui\UXSeparator;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 /**
  * Class SaveProjectCommand
@@ -45,7 +44,17 @@ class SaveProjectCommand extends AbstractProjectCommand
 
         if ($project) {
             $project->save();
-            Ide::get()->getMainForm()->toast(_('toast.project.save.done'));
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
+            $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с проектами')
+                ->setDescription(_('Ваш текущий проект был успешно сохранён.'))
+                ->setLink('Сохранить ещё раз', function () {
+                    $this->onExecute();
+                })
+                ->setClosable();
+            Toaster::show($tm);
         }
     }
 }

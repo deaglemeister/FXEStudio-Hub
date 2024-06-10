@@ -2,10 +2,6 @@
 namespace platform\toaster;
 
 use action\Animation;
-use std;
-use framework;
-use Closure;
-use gui;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXVBox;
 use php\gui\paint\UXColor;
@@ -15,7 +11,9 @@ use php\gui\UXHyperlink;
 use php\gui\UXImage;
 use php\gui\UXImageView;
 use php\gui\UXLabelEx;
+use php\gui\UXNode;
 use php\io\MemoryStream;
+use Closure;
 
 class ToasterMessage
 {
@@ -50,10 +48,9 @@ class ToasterMessage
         $this->__closableTime = $time;
         $this->__closableButton = $button;
         
-        
-
         return $this;
     }
+    
     
     private function _createCloseButton()
     {
@@ -103,11 +100,9 @@ class ToasterMessage
         return $this;
     }
     
-    
     protected $__uxNode;
     public function build()
     {
-        
         $toastFrame = new UXVBox([]);
         $toastFrame->classes->add("idea-toast-frame");
         
@@ -116,7 +111,6 @@ class ToasterMessage
         $hFrame->classes->add("content-box");
         
         if($this->__icon) $hFrame->add($this->__icon);
-        
         
         $vFrame = new UXVBox([]);
         $hFrame->add($vFrame);
@@ -141,19 +135,22 @@ class ToasterMessage
             $hFrame->add($this->_createCloseButton());
         }
         
+        waitAsync($this->__closableTime ?: 15000, function () {
+            if ($this->canClose) {
+                $this->_close();
+            }
+        });
+        
         $this->__uxNode = $toastFrame;
         return $toastFrame;
     }
     
-    
-    
     public $canClose = true;
     private function _close()
     {
-        
         Animation::fadeOut($this->__uxNode, $this->__closableTime ?: 250, function () {
             $this->__uxNode->free();
             $this->canClose = false;
         });
-    }   
+    }
 }

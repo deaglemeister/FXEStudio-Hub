@@ -6,15 +6,16 @@ use ide\Logger;
 use ide\ui\Notifications;
 use php\compress\ZipFile;
 use php\gui\UXApplication;
-use php\gui\UXDialog;
 use php\io\File;
-use php\io\FileStream;
 use php\io\IOException;
 use php\io\Stream;
 use php\lang\System;
 use php\lib\fs;
 use php\lib\Str;
 use php\time\Time;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 /**
  * Class FileUtils
@@ -29,7 +30,15 @@ class FileUtils
     public static function validate($name)
     {
         if (!fs::valid($name)) {
-            UXDialog::show('Некорректное название, присутствуют системные символы, которые нельзя использовать в названии файлов.', 'ERROR');
+
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/Error.png');
+            $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с проектами')
+                ->setDescription(_('Некорректное название, присутствуют системные символы, которые нельзя использовать в названии файлов.'))
+                ->setClosable();
+            Toaster::show($tm);
             return false;
         }
 

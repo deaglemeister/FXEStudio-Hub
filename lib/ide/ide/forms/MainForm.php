@@ -305,6 +305,10 @@ class MainForm extends AbstractIdeForm
         parent::show();
         $screen = UXScreen::getPrimary();
 
+       # MainForm::analyzeMemoryUse();
+       # MainForm::getMemoryUsage();
+
+
         $x = $screen->bounds['x'];
         $y = $screen->bounds['y'];
         $width = $screen->bounds['width'];
@@ -435,31 +439,71 @@ class MainForm extends AbstractIdeForm
      */
     function doKeyDownF5(UXKeyEvent $e = null)
     {    
+ 
+
         $e->consume();
         $project = Ide::get()->getOpenedProject();
-        # Параметры модального окна
-        $modal = [
-            'fitToWidth' => true, # Во всю длину
-            'fitToHeight' => true, # Во всю ширину
-            'blur' => $this->flowPane, # Объект для размытия
-            'title' => _('modals.text.restart.ide'), # Заголовок окна
-            'message' => _('modals.restart.text.save.cancel'), # Сообщение
-            'close_overlay' => true, # Закрывать при клике мыши на overlay
-            'buttons' => [['text' => _('modals.restart.ide'), 'style' => 'button-red'], ['text' =>  _('modals.restart.ide.cancel'), 'style' => 'button-accent', 'close' => true]]
-            ];
-        # Отображаем окно      
-     
-        $MainFormZ = app()->form('MainForm');
-        $this->modalClass->modal_dialog(app()->form('MainForm'), $modal, function($e) use ($MainFormZ) {
-            if ($e == _('modals.restart.ide')) {
+        $tm = new ToasterMessage();
+        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+        $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер по работе с перезагрузкой')
+            ->setDescription(_('Вы точно хотите перезагрузить среду FXE Studio?'))
+            ->setLink('Да, перезагрузить', function () {
                 Execute("DevelNext.exe"); // Даем команду на запуск приложения
                 Exit(); // Закрываем приложение
-            }
-        });
-
+            })
+            ->setClosable();
+        Toaster::show($tm);
     }
 
 
+
+    public static function analyzeMemoryUse()
+    {
+        if (self::isJavaProcessRunning()) {
+            $memoryUsage = self::getMemoryUsage();
+            
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/warning.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с памятью')
+                    ->setDescription(_('В среде IDE используется слишком много памяти. Пожалуйста, проверьте настройки памяти и возможно увеличьте лимиты.'))
+                    ->setLink('Memory Usage: ' . $memoryUsage . ' MB', function () {})
+                    ->setClosable();
+                Toaster::show($tm);
+            
+        }
+    }
+    
+    public static function isJavaProcessRunning()
+    {
+        $output = [];
+        execute('tasklist /FI "IMAGENAME eq javaw.exe"', $output);
+        foreach ($output as $line) {
+            if (strpos($line, 'javaw.exe') !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static function getMemoryUsage()
+    {
+        $output = [];
+        execute('tasklist /FI "IMAGENAME eq javaw.exe" /FO CSV /NH', $output);
+        foreach ($output as $line) {
+            $parts = str_getcsv($line);
+            if (count($parts) >= 5 && $parts[0] === 'javaw.exe') {
+                $memoryInKB = intval($parts[4]);
+                return round($memoryInKB / 1024, 2); 
+            }
+        }
+        return false;
+    }
+    
+    
 
     /**
      * @event keyDown-Ctrl+W 
@@ -499,21 +543,11 @@ class MainForm extends AbstractIdeForm
             if ($e == _('modals.text.go.ide')) {
                 $this->showPreloader('Выдвигаюсь..');
                 new Thread(function() {
-                    // Имитируем замер памяти до очистки (предположим, что до очистки было 150 МБ свободно)
                     $memoryBefore = 150 * 1024 * 1024;
-                
-                    // Вызов сборщика мусора
                     System::gc();
-                
-                    // Ждем некоторое время, чтобы сборщик мусора завершил работу
                     Thread::sleep(1000);
-                
-                    // Имитируем замер памяти после очистки (предположим, что после очистки стало 200 МБ свободно)
                     $memoryAfter = 200 * 1024 * 1024;
-                
-                    // Подсчет освобожденной памяти в байтах и перевод в мегабайты
                     $memoryCleared = ($memoryAfter - $memoryBefore) / (1024 * 1024);
-                
                     uiLater(function() use ($memoryCleared) {
                         $this->hidePreloader();
                         $tm = new ToasterMessage();

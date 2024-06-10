@@ -2,20 +2,10 @@
 namespace ide\formats\form\context;
 
 use ide\editors\AbstractEditor;
-use ide\editors\FormEditor;
 use ide\editors\menu\AbstractMenuCommand;
-use ide\formats\AbstractFormFormat;
-use ide\formats\form\AbstractFormElement;
-use ide\Ide;
-use ide\Logger;
-use ide\forms\malboro\Toasts;
-use php\gui\framework\DataUtils;
-use php\gui\UXClipboard;
-use php\gui\UXMenuItem;
-use php\gui\UXNode;
-use php\lib\items;
-use php\lib\reflect;
-use php\xml\XmlProcessor;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 class UndoObjectMenuCommand extends AbstractMenuCommand
 {
@@ -27,7 +17,6 @@ class UndoObjectMenuCommand extends AbstractMenuCommand
     }
     function __construct()
     {
-      $this->toast = new Toasts;
      
     }
     public function getAccelerator()
@@ -62,7 +51,17 @@ class UndoObjectMenuCommand extends AbstractMenuCommand
             $PasteMenuCommand->onExecute($e,$editor,true,$lastElement);
             array_pop($this->list);
         } else {
-            $this->toast->showToast('Объектный менеджер', 'К сожалению, в данный момент список объектов пуст.', "#FF4F44");
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/virtualFolder_dark.png');
+            $tm
+            ->setIcon($iconImage)
+            ->setTitle('Объектный менеджер конструктора')
+            ->setDescription(_('К сожалению, в данный момент ваш список объектов пуст.'))
+            ->setLink('Больше информации об объектах' , function() {
+                browse('https://fxe-documents.gitbook.io/api-docs/');
+            })
+            ->setClosable();
+            Toaster::show($tm);
         }
     }
     private function displayList() {

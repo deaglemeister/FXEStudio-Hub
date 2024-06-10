@@ -8,20 +8,15 @@ use ide\forms\MessageBoxForm;
 use ide\Ide;
 use ide\IdeConfiguration;
 use ide\library\IdeLibraryBundleResource;
-use ide\Logger;
-use ide\misc\AbstractCommand;
 use ide\project\behaviours\BundleProjectBehaviour;
 use ide\project\control\AbstractProjectControlPane;
 use ide\project\Project;
-use ide\systems\Cache;
 use ide\systems\FileSystem;
 use ide\systems\IdeSystem;
-use ide\systems\ProjectSystem;
 use ide\ui\FlowListViewDecorator;
 use ide\ui\ImageBox;
 use ide\ui\ImageExtendedBox;
 use ide\utils\FileUtils;
-use ide\utils\UiUtils;
 use php\compress\ZipException;
 use php\compress\ZipFile;
 use php\gui\event\UXMouseEvent;
@@ -35,62 +30,30 @@ use php\gui\UXLabel;
 use php\gui\UXNode;
 use php\gui\UXSeparator;
 use php\gui\UXTextField;
-use php\io\File;
 use php\io\IOException;
 use php\io\Stream;
 use php\lang\Thread;
 use php\lib\fs;
 use php\lib\str;
-use php\gui\designer\UXDesigner;
-use php\gui\designer\UXDirectoryTreeValue;
-use php\gui\designer\UXDirectoryTreeView;
-use php\gui\designer\UXFileDirectoryTreeSource;
-use php\gui\dock\UXDockNode;
-use php\gui\dock\UXDockPane;
-use php\gui\event\UXEvent;
-use php\gui\event\UXKeyboardManager;
-use php\gui\event\UXKeyEvent;
 use php\gui\event\UXMouseEvent;
-use php\gui\framework\AbstractForm;
-use php\gui\framework\Preloader;
-use php\gui\layout\UXAnchorPane;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXVBox;
-use php\gui\UXAlert;
-use php\gui\UXApplication;
 use php\gui\UXButton;
-use php\gui\UXForm;
 use php\gui\UXImage;
-use php\gui\UXImageView;
 use php\gui\UXLabel;
-use php\gui\UXMenu;
-use php\gui\UXMenuBar;
-use php\gui\UXMenuItem;
 use php\gui\UXNode;
-use php\gui\UXScreen;
-use php\gui\UXSplitPane;
-use php\gui\UXTab;
-use php\gui\UXTabPane;
-use php\gui\UXTextArea;
-use php\gui\UXTreeView;
-use php\io\File;
-use php\lang\System;
 use php\lib\fs;
 use php\lib\str;
-use script\TimerScript;
-use php\time\Timer;
-use std;
-use action\Animation;
+
 
 use ide\forms\malboro\Modals;
 
-use ide\forms\malboro\Toasts;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 use httpclient;
 use php\io\IOException;
-use php\framework\Logger;
-use facade\Json;
-use bundle\http\HttpClient;
 
 class BundlesProjectControlPane extends AbstractProjectControlPane
 {
@@ -232,8 +195,14 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
                         $editor->open();
                         $editor->refresh();
                     }
-                    $class = new Toasts;
-                    $class->showToast("Пакет расширения", "{$resource->getName()} подключен к проекту", "#6667AB");
+                    $tm = new ToasterMessage();
+                    $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
+                    $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с пакетами')
+                    ->setDescription(_('Пакет расширения: ' .$resource->getName(). ' успешно подключен к вашему проекту.'))
+                    ->setClosable();
+                    Toaster::show($tm);
                 });
             });
         });

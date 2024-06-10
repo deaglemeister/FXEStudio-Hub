@@ -1,34 +1,26 @@
 <?php
 namespace ide\forms;
 
-use ide\bundle\AbstractBundle;
 use ide\forms\mixins\DialogFormMixin;
 use ide\forms\mixins\SavableFormMixin;
 use ide\Ide;
-use ide\IdeConfiguration;
 use ide\library\IdeLibraryBundleResource;
 use ide\project\behaviours\BundleProjectBehaviour;
 use ide\project\Project;
 use ide\ui\ListMenu;
 use php\gui\layout\UXAnchorPane;
 use php\gui\layout\UXHBox;
-use php\gui\layout\UXVBox;
 use php\gui\UXButton;
 use php\gui\UXCheckbox;
-use php\gui\UXDialog;
-use php\gui\UXFileChooser;
 use php\gui\UXImageView;
 use php\gui\UXLabel;
-use php\gui\UXListCell;
 use php\gui\UXListView;
-use php\gui\UXTab;
 use php\gui\UXTabPane;
 use php\gui\UXWebView;
-use php\lang\Thread;
-use php\lib\fs;
 use php\lib\reflect;
-use php\lib\str;
-use ide\forms\malboro\Toasts;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 /**
  * Class BundleCheckListForm
@@ -159,12 +151,17 @@ class BundleDetailInfoForm extends AbstractIdeForm
     public function doUninstall()
     {
         if ($this->displayResource) {
-           // if (MessageBoxForm::confirmDelete('пакет расширения ' . $this->displayResource->getName())) {
                 $this->behaviour->removeBundle($this->displayResource->getBundle());
-                $class = new Toasts;
-                $class->showToast("Пакеты", "Пакет расширения отключен от проекта", "#FF4F44");
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/virtualFolder_dark.png');
+                $tm
+                ->setIcon($iconImage)
+                ->setTitle('Пакетный менеджер конструктора')
+                ->setDescription(_('Пакет расширения отключён от вашего проекта.'))
+                ->setLink('Название пакета: ' . $this->displayResource->getName(), function() {})
+                ->setClosable();
+                Toaster::show($tm);
                 $this->update();
-            //}
         }
     }
 
@@ -215,6 +212,8 @@ class BundleDetailInfoForm extends AbstractIdeForm
                         Версия: {$resource->getVersion()}<br>
                         Класс: <code>" . reflect::typeOf($resource->getBundle()) . "</code></div>";
         $description = "<div style='font: 12px Tahoma;'>$description</div>";
+
+        
         $this->fullDescription->engine->loadContent($description, 'text/html');
     }
     

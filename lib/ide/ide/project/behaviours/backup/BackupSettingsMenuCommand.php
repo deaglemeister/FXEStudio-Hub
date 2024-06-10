@@ -2,11 +2,12 @@
 namespace ide\project\behaviours\backup;
 
 use ide\editors\AbstractEditor;
-use ide\Ide;
 use ide\misc\AbstractCommand;
 use ide\project\behaviours\BackupProjectBehaviour;
-use ide\forms\malboro\Modals;
-use ide\forms\malboro\Toasts;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
+
 
 class BackupSettingsMenuCommand extends AbstractCommand
 {
@@ -55,9 +56,15 @@ class BackupSettingsMenuCommand extends AbstractCommand
             $config->setProperties($form->getResult());
             $config->save();
 
-            #Ide::toast('Настройки архивирования успешно сохранены.');
-            $class = new Toasts;
-            $class->showToast("Aрхивирование", "Настройки архивирования успешно сохранены", "#6667AB");
+
+            $tm = new ToasterMessage();
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/archive_dark.png');
+            $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер архирование проектов')
+            ->setDescription(_('Настройки архивирования успешно сохранены.'))
+            ->setClosable();
+            Toaster::show($tm);
         }
     }
 }

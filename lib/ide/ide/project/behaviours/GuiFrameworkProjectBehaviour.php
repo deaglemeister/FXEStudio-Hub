@@ -24,7 +24,6 @@ use ide\formats\FxCssCodeFormat;
 use script\FileChooserScript;
 use ide\formats\GameSpriteFormat;
 use ide\formats\GuiFormFormat;
-use ide\formats\PhpCodeFormat;
 use ide\formats\ProjectFormat;
 use ide\formats\ScriptModuleFormat;
 use ide\formats\sprite\IdeSpriteManager;
@@ -37,26 +36,20 @@ use ide\forms\ImagePropertyEditorForm;
 use ide\forms\MessageBoxForm;
 use ide\Ide;
 use ide\IdeException;
-use ide\library\IdeLibrarySkinResource;
 use ide\Logger;
 use ide\project\AbstractProjectBehaviour;
 use ide\project\control\CommonProjectControlPane;
 use ide\project\control\DesignProjectControlPane;
 use ide\project\control\FormsProjectControlPane;
 use ide\project\control\ModulesProjectControlPane;
-use ide\project\control\SpritesProjectControlPane;
 use ide\project\Project;
 use ide\project\ProjectExporter;
 use ide\project\ProjectFile;
 use ide\project\ProjectIndexer;
-use ide\project\ProjectModule;
-use ide\project\ProjectTree;
 use ide\systems\FileSystem;
 use ide\utils\FileUtils;
 use ide\utils\Json;
 use php\compress\ZipException;
-use php\compress\ZipFile;
-use php\desktop\Runtime;
 use php\gui\event\UXEvent;
 use php\gui\framework\AbstractForm;
 use php\gui\framework\AbstractModule;
@@ -68,18 +61,20 @@ use php\gui\UXCheckbox;
 use php\gui\UXLabel;
 use php\gui\UXMenu;
 use php\gui\UXMenuItem;
-use php\gui\UXParent;
 use php\gui\UXTextField;
 use php\io\File;
 use php\io\IOException;
 use php\io\ResourceStream;
-use php\lib\arr;
 use php\lib\fs;
 use php\lib\reflect;
 use php\lib\str;
 use php\util\Configuration;
-use php\util\Regex;
 use timer\AccurateTimer;
+
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
+
 
 class GuiFrameworkProjectBehaviour_ProjectTreeMenuCommand extends AbstractMenuCommand
 {
@@ -536,8 +531,14 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
                 fs::copy($img, $pathFoldr.'\FXECustomIcon.png'); 
                 $iconTextPath->text = $this->project->getRootDir().'\.dn\ide\project\behaviours\FXECustomIcon.png';
                         } catch (IOException $e) {
-                   
-                            $this->toast->showToast('Обработчик ошибок','Произошла ошибка :'.$e->getMessage(), "#FF4F44");
+                            $tm = new ToasterMessage();
+                            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/image_dark.png');
+                            $tm
+                            ->setIcon($iconImage)
+                            ->setTitle('Менеджер обработчик ошибок')
+                            ->setDescription(('Произошла ошибка выбора файла: ' . $e->getMessage()))
+                            ->setClosable();
+                            Toaster::show($tm);
                 }
         });
 
@@ -553,6 +554,7 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
     ////
 
     }
+    
 
     public function doReindex(ProjectIndexer $indexer)
     {

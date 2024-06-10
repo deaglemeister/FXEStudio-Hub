@@ -7,7 +7,9 @@ use php\gui\UXLabel;
 use php\gui\UXTextArea;
 use php\gui\UXTextField;
 use php\lib\str;
-use ide\forms\malboro\Toasts;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 
 /**
  * Class ShowTextDialogForm
@@ -75,7 +77,15 @@ class ShowTextDialogForm extends AbstractIdeForm
         } else {
             UXClipboard::setText($this->area->text);
         }
-        $class = new Toasts;
-        $class->showToast("Текст", "Успешен скопирован в буфер обмена", "#FF4F44");
-    }
+        $tm = new ToasterMessage();
+        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/font_dark.png');
+        $tm
+        ->setIcon($iconImage)
+        ->setTitle('Менеджер свойства текста')
+        ->setDescription(_('Ваш текст был скопирован в буфер обмена.'))
+        ->setClosable();
+        Toaster::show($tm);
+
+}
+    
 }
