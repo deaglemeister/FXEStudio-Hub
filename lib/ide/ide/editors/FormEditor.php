@@ -1780,7 +1780,9 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
             $this->selectForm();
         });
 
-        $designPane = new UXDesignPane();
+        $designPane = new UXDesignPane($viewer);
+        $designPane->borderColor = '#70AEFF';
+        $designPane->borderWidth = '3px';
 
         $viewer->on('dragOver', $this->makeDesignerDragOverHandler());
         $viewer->on('dragDone', function (UXEvent $e) {

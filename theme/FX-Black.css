@@ -184,6 +184,9 @@
     -fx-text-fill:  -ui-text;
     -fx-text-size: 17px;
 }
+.ui-menu-item {
+    -fx-text-fill: -ui-text; /* Белый цвет текста */
+}
 /* Конец контекстного меню */
 
 

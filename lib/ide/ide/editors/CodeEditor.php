@@ -5,7 +5,6 @@ use Files;
 use ide\autocomplete\php\PhpAutoComplete;
 use ide\autocomplete\ui\AutoCompletePane;
 use ide\editors\menu\ContextMenu;
-use ide\editors\MiniMap;
 use ide\forms\AbstractIdeForm;
 use ide\forms\CodeEditorSettingsForm;
 use ide\forms\FindTextDialogForm;
@@ -34,7 +33,6 @@ use php\gui\designer\UXTextCodeArea;
 use php\gui\event\UXKeyEvent;
 use php\gui\layout\UXAnchorPane;
 use php\gui\layout\UXHBox;
-use php\gui\layout\UXPane;
 use php\gui\layout\UXVBox;
 use php\gui\text\UXFont;
 use php\gui\UXApplication;
@@ -110,13 +108,6 @@ class CodeEditor extends AbstractEditor
      * @var UXSyntaxTextArea|UXAbstractCodeArea
      */
     protected $textArea;
-
-   /**
-     * @var UXtextAreas|UXAbstractCodeArea
-     */
-    protected $textAreas;
-
-    
 
     /**
      * @var UXCodeAreaScrollPane
@@ -218,19 +209,21 @@ class CodeEditor extends AbstractEditor
                     $this->textArea = new UXJavaScriptCodeArea();
                     break;
 
+                case 'json':
+                        $this->textArea = new UXTextCodeArea();
+                        break;
+    
+
                 default:
                     $this->textArea = new UXTextCodeArea();
                     break;
             }
         } else {
             $this->textArea = new UXSyntaxTextArea();
-
-
             $this->textArea->syntaxStyle = "text/$mode";
         }
 
         $this->textArea->on('keyUp', function (UXKeyEvent $e) {
-            
             if ($e->controlDown) {
                 switch ($e->codeName) {
                     case 'F':
@@ -560,101 +553,63 @@ class CodeEditor extends AbstractEditor
         $this->fileTime = fs::time($this->file);
     }
 
-
-
     /**
      * @return UXNode
      */
- public function makeUi()
-{
-    if (!$this->embedded) {
-        $this->registerDefaultCommands();
+    public function makeUi()
+    {
+        if (!$this->embedded) {
+            $this->registerDefaultCommands();
+        }
+
+        $this->ui = $ui = new UXVBox();
+
+        $commandPane = UiUtils::makeCommandPane($this->commands);
+        $commandPane->padding = 5;
+        $commandPane->spacing = 4;
+        $commandPane->fillHeight = true;
+        $ui->classes->add('fxe-vertical-editor');
+
+        if ($this->commands) {
+            $ui->add($commandPane);
+        }
+
+        $this->statusBar = $statusBar = new UXHBox();
+        $label = new UXLabel("* Только для чтения");
+        $label->font = $label->font->withBold();
+        $label->textColor = 'red';
+        $statusBar->backgroundColor = 'white';
+
+        $statusBar->add($label);
+        $statusBar->padding = 5;
+
+        $this->textAreaScrollPane = $scrollPane = new UXCodeAreaScrollPane($this->textArea);
+        $scrollPane->classes->add('scroll-pane');
+        $ui->add($scrollPane);
+
+        if ($this->isReadOnly()) {
+            $ui->add($statusBar);
+        }
+
+        UXVBox::setVgrow($scrollPane, 'ALWAYS');
+
+        $resize = function () {
+            $this->refreshUi();
+        };
+
+        $ui->observer('height')->addListener($resize);
+        $ui->observer('width')->addListener($resize);
+
+        return $ui;
     }
 
-    $this->ui = $ui = new UXVBox();
-    $ui->alignment = 'CENTER_LEFT';
-
-    $commandPane = UiUtils::makeCommandPane($this->commands);
-    $commandPane->padding = 5;
-    $commandPane->spacing = 4;
-    $commandPane->fillHeight = true;
-
-    if ($this->commands) {
-        $ui->add($commandPane);
-    }
-
-    $this->statusBar = $statusBar = new UXHBox();
-    $label = new UXLabel("* Только для чтения");
-    $label->font = $label->font->withBold();
-    $label->textColor = 'red';
-    $statusBar->backgroundColor = 'white';
-
-    $statusBar->add($label);
-    $statusBar->padding = 5;
-    
-    $textAreas = $this->textArea;
-    $textAreas->size = [1250, 0];
-    
-
-    
-    
-    $textAreas->anchors = ['left' => 0, 'top' => 0, 'bottom' => 0]; 
-
-    // Создаем мини-карту
-    $miniMap = new MiniMap($textAreas);
-    
-    $miniText = $miniMap->getMiniMapText();
-
-    $miniMapArea = $miniMap->getMiniMapArea();
-    $miniMapArea->x = 0;
-    $miniMapArea->y = 0;
-
-    // Создаем HBox для размещения текстовой области и мини-карты
-    $this->textAreaScrollPane = $scrollPane = new UXCodeAreaScrollPane($textAreas);
-
-    // $class = new AutoCompleteTextArea($textAreas,$scrollPane);
-    $scrollPaneContainer = new UXHBox();
-    $scrollPaneContainer->alignment = 'CENTER_LEFT';
-    $scrollPaneContainer->add($scrollPane); // Добавляем текстовую область
-    
-    $Panehide = new UXPane();
-    $Panehide->backgroundColor = '#242429';
-    $Panehide->size = [20,700];
-    $Panehide->x = 0;
-    $Panehide->y = 0;
-    $Pane = new UXPane();
-    $Pane->backgroundColor = '#242429';
-    $Pane->add($miniMapArea);
-    $Pane->add($Panehide);
-    $scrollPaneContainer->add($Pane); // Добавляем мини-карту
-
-    // Добавляем контейнер с текстовой областью и мини-картой в VBox
-    $ui->add($scrollPaneContainer);
-
-    if ($this->isReadOnly()) {
-        $ui->add($statusBar);
-    }
-    
-    UXVBox::setVgrow($scrollPaneContainer, 'ALWAYS');
-    $resize = function () {
-        $this->refreshUi();
-    };
-
-    $ui->observer('height')->addListener($resize);
-    $ui->observer('width')->addListener($resize);
-    return $ui;
-}
-
-public function refreshUi()
+    public function refreshUi()
     {
         $ui = $this->ui;
 
-
         $ui->requestLayout();
 
-
         waitAsync(500, function () use ($ui) {
-            
             $ui->requestLayout();
         });
 
@@ -698,7 +653,27 @@ public function refreshUi()
             $this->register(AbstractCommand::makeSeparator());
         }
 
+        $this->register(AbstractCommand::make('Отменить (Ctrl + Z)', 'icons/undo16.png', function () {
+            $this->executeCommand('undo');
+        }));
 
+        $this->register(AbstractCommand::make('Вернуть (Ctrl + Shift + Z)', 'icons/redo16.png', function () {
+            $this->executeCommand('redo');
+        }));
+
+        $this->register(AbstractCommand::makeSeparator());
+
+        $this->register(AbstractCommand::make('Вырезать (Ctrl + X)', 'icons/cut16.png', function () {
+            $this->executeCommand('cut');
+        }));
+
+        $this->register(AbstractCommand::make('Копировать (Ctrl + C)', 'icons/copy16.png', function () {
+            $this->executeCommand('copy');
+        }));
+
+        $this->register(AbstractCommand::make('Вставить (Ctrl + V)', 'icons/paste16.png', function () {
+            $this->executeCommand('paste');
+        }));
 
         $this->register(AbstractCommand::makeSeparator());
 
@@ -934,9 +909,8 @@ public function refreshUi()
      */
     public function setHighlight($name)
     {
-        
         $file = self::getHighlightFile($this->mode, $name);
-        
+
         if ($file->isFile()) {
             $this->textArea->setStylesheet(FileUtils::urlPath($file));
         }
@@ -1013,10 +987,10 @@ public function refreshUi()
      */
     public static function getCurrentHighlight($lang)
     {
-        $value = Ide::get()->getUserConfigValue(__CLASS__ . '#' . $lang . '.highlight', 'FXEditionPHP');
+        $value = Ide::get()->getUserConfigValue(__CLASS__ . '#' . $lang . '.highlight', 'DevelNext-Dark');
 
         if (!self::getHighlightFile($lang, $value)->isFile()) {
-            return 'FXEditionPHP';
+            return 'DevelNext-Dark';
         }
 
         return $value;
@@ -1054,27 +1028,28 @@ class SetDefaultCommand extends AbstractCommand
 
     public function getName()
     {
-       # return 'Использовать по умолчанию';
+        return 'Использовать по умолчанию';
     }
 
     public function makeUiForHead()
     {
-      #  $ui = new UXCheckbox($this->getName());
-       # $ui->padding = 3;
+        $ui = new UXCheckbox($this->getName());
+        $ui->classes->add('ui-text');
+        $ui->padding = 3;
 
-       # $ui->selected = $this->formEditor->getDefaultEventEditor(false) == "php";
+        $ui->selected = $this->formEditor->getDefaultEventEditor(false) == "php";
 
-        #UXApplication::runLater(function () use ($ui) {
-            #$ui->watch('selected', function (UXNode $self, $property, $oldValue, $newValue) {
-             #   if ($newValue) {
-             #       $this->formEditor->setDefaultEventEditor($this->editor);
-             #   } else {
-               #     $this->formEditor->setDefaultEventEditor($this->editor == 'php' ? 'constructor' : 'php');
-               # }
-            #});
-      #  });
+        UXApplication::runLater(function () use ($ui) {
+            $ui->watch('selected', function (UXNode $self, $property, $oldValue, $newValue) {
+                if ($newValue) {
+                    $this->formEditor->setDefaultEventEditor($this->editor);
+                } else {
+                    $this->formEditor->setDefaultEventEditor($this->editor == 'php' ? 'constructor' : 'php');
+                }
+            });
+        });
 
-       # return $ui;
+        return $ui;
     }
 
     public function withBeforeSeparator()
@@ -1086,240 +1061,4 @@ class SetDefaultCommand extends AbstractCommand
     {
         //
     }
-}
-class AutoCompleteTextArea {
-    private $textArea;
-    private $savedCharacters = '';
-    private $listView;
-    private $suggestions = 
-    [
-    "-fx-background-color:",
-    "-fx-background-radius:",
-    "-fx-font-family:",
-    "-fx-font-size:",
-    "-fx-text-fill:",
-    "-fx-base:",
-    "-fx-border-radius:",
-    "-fx-border-color:",
-    "-fx-padding:",
-    "fx-background-insets:",
-    "-fx-effect:",
-    "-fx-color:",
-    "-fx-shape:",
-    "-fx-border-style:",
-    "-fx-stroke:",
-    "-fx-border-insets:",
-    "-fx-fill-height::",
-    "-fx-scale-x:",
-    "-fx-scale-y:",
-    "-fx-alignment:",
-    "-fx-pref-height:",
-    "-fx-spacing:",
-    "-fx-fill-height:",
-    "-fx-min-heigh:",
-    "-fx-min-width:",
-    "-fx-hgap:",
-    "-fx-vgap:",
-    "-fx-background-size:",
-    "-fx-background-repeat:",
-    "-fx-background-image:",
-    "-fx-pref-column-count:",
-    "-fx-arrows-visible:",
-    "-fx-tooltip-visible:",
-    "-fx-page-information-visible:",
-    "-fx-page-information-alignment:",
-    "-fx-arrow-button-gap:",
-    "-fx-scale-shape:",
-    "-fx-content-display:",
-    "-fx-cursor:",
-    "-fx-indent:",
-    "-fx-rotate:",
-    "-fx-table-header-border-color:",
-    "-fx-table-cell-border-color:",
-    "-fx-font-weight:",
-    "-fx-opacity:",
-    "-fx-tick-label-font-size:",
-    "-fx-tick-label-fill:",
-    "-fx-stroke:",
-    "-fx-stroke-width:",
-    "-fx-fill:",
-    "-fx-bubble-fill:",
-    "-fx-pie-color:",
-    "-fx-graphic:",
-    "-fx-underline:",
-    "-fx-border-width:",
-    "-fx-minor-tick-length:",
-    "-fx-focus-color:",
-    "-fx-faint-focus-color:",
-    "-fx-max-height:",
-    "-fx-max-width:",
-    "-fx-indeterminate-segment-count:",
-    "-fx-spin-enabled:",
-    "-fx-translate-y:",
-    "-fx-highlight-fill:",
-    "-fx-highlight-text-fill:",
-    "-fx-prompt-text-fill:",
-    "-fx-pref-width:",
-    "-fx-cell-size:",
-    "-fx-stroke:",
-    ];
-
-    public function __construct($textArea,$container) {
-        $this->textArea = $textArea;
-         
-        $this->listView = new UXListView();
-        $this->listView->on('action',function (UXEvent $e = null) use ($textArea){
-           $pos = $this->caretPosition;
-           
-           $replace = $this->listView->selectedItem;
-           
-           
-           $this->savedCharacters = null;
-           $this->listView->hide();
-           
-         
-        });
-        $this->listView->hide();
-        $this->listView->size = [320, 72];
-        print_r($container);
-        $container->content = $this->listView;
-        $this->textArea->text = "Пример текста\nВо второй строке\nИ третьей тоже";
-        $this->textArea->on('keyDown', function(UXKeyEvent $e) {
-            $this->processing($e);
-        });
-    }
-
-    private function processing(UXKeyEvent $e) {
-        if ($e->codeName == 'Backspace') {
-            $this->savedCharacters = substr($this->savedCharacters, 0, -1);
-        } elseif ($e->codeName == 'Enter') {
-            $this->savedCharacters = '';
-        } else {
-            $this->addingWord($e);
-        }
-        $this->checkListView();
-        $this->removeNonMatchingItems();
-    }
-
-    private function checkListView() {
-        if ($this->listView->items->isEmpty()) {
-            $this->listView->hide();
-            $this->checkCharacters();
-        } else {
-            $this->listView->show();
-            $this->checkCharacters();
-        }
-    }
-
-private function checkCharacters() {
-    $this->listView->items->clear(); // Очищаем список перед добавлением новых элементов
-    
-    // Проверяем, если введенный текст совпадает полностью с каким-либо элементом массива suggestions
-    if (in_array($this->savedCharacters, $this->suggestions)) {
-        $this->listView->items->add($this->savedCharacters);
-    } else {
-        // Флаг для отслеживания наличия подходящих элементов
-        $hasMatchingItems = false;
-
-        // Фильтруем массив suggestions, чтобы отобразить только те элементы, которые начинаются с введенного текста
-        foreach ($this->suggestions as $suggestion) {
-            if (strpos($suggestion, $this->savedCharacters) === 0) {
-                $this->listView->items->add($suggestion);
-                $hasMatchingItems = true;
-            }
-        }
-
-        // Если нет подходящих элементов, скрываем listView
-        if (!$hasMatchingItems) {
-            $this->listView->hide();
-        }
-    }
-}
-
-private function addingWord($e)
-{
-    $this->savedCharacters .= $e->text;
-    $caretPosition = $this->textArea->caretPosition;
-    $text = substr($this->textArea->text, 0, $caretPosition);
-    $lines = explode("\n", $text);
-    $caretX = 0;
-    $caretY = 0;
-   // $fontSize = $this->textArea->font->size;
-print_r($this->textArea);
-    foreach ($lines as $line) {
-       // $lineWidth = $this->textArea->font->calculateTextWidth($line);
-        $caretX = 10;
-        $caretY += $this->textArea->lineHeight;
-    }
-    $this->listView->toFront();
-    //$this->textArea->opacity = 0;
-   // //$this->listView->style = '-fx-base: black;';
-   // $this->listView->show();
-//    $this->listView->anchors = ['bottom' => 10, 'right' => 10];;
- //   $this->listView->x = $caretX + 20;
-  //  var_dump($this->listView->x);
- //   $this->listView->y = round($caretY + 10);
-    var_dump($caretY);
-    var_dump($this->listView->y);
-
-    
-}
-
-    private function levenshteinSimilarity($word1, $word2) {
-        $len1 = strlen($word1);
-        $len2 = strlen($word2);
-
-        $matrix = [];
-        for ($i = 0; $i <= $len1; $i++) {
-            $matrix[$i][0] = $i;
-        }
-        for ($j = 0; $j <= $len2; $j++) {
-            $matrix[0][$j] = $j;
-        }
-
-        for ($i = 1; $i <= $len1; $i++) {
-            for ($j = 1; $j <= $len2; $j++) {
-                $cost = $word1[$i - 1] != $word2[$j - 1];
-                $matrix[$i][$j] = min(
-                    $matrix[$i - 1][$j] + 1,
-                    $matrix[$i][$j - 1] + 1,
-                    $matrix[$i - 1][$j - 1] + $cost
-                );
-            }
-        }
-
-        return 1 - ($matrix[$len1][$len2] / max($len1, $len2));
-    }
-
-    private function findSimilarWords($word, $array, $threshold = 0.5) {
-        $similarWords = [];
-
-        foreach ($array as $item) {
-            $similarity = $this->levenshteinSimilarity($word, $item);
-            if ($similarity >= $threshold) {
-                $similarWords[] = $item;
-            }
-        }
-
-        return $similarWords;
-    }
-
-    private function isTextInList($text) {
-        $items = $this->listView->items;
-        foreach ($items as $item) {
-            if ($item == $text) {
-                return true;
-            }
-        }
-        return false;
-    }
-private function removeNonMatchingItems() {
-    $word = $this->savedCharacters;
-    $items = $this->listView->items;
-    foreach ($items as $index => $item) {
-        if (strpos($item, $word) === false) {
-            $this->listView->items->removeByIndex($index);
-        }
-    }
-}
 }

@@ -1,46 +1,49 @@
 .syntax-text-area {
-    -fx-background-color: #202020;
-    -fx-background-fill: #404E51;
+    -fx-background-color: #1E1F22;
+    -fx-background-fill: #2B2D30;
     -fx-cursor: text;
 }
 
 .syntax-text-area .paragraph-box:has-caret {
-    -fx-background-color: #2b3436;
+    -fx-background-color: #2B2D30;
 }
 
 .syntax-text-area .text {
-    -fx-fill: #E0E2E4;
+    -fx-fill: #BDC0C9;
 }
 
 .syntax-text-area .gutter {
-    -fx-border-color: #939393;
-    -fx-background-color: #545454;
+    -fx-border-color: #6F737A;
+    -fx-background-color: #1E1F22;
     -fx-border-width: 0 1px 0 0;
-    -fx-padding: 0 3 0 3;
+    -fx-padding: 0 8 0 8;
+    -fx-text-fill: #4E5157;
 }
 
+
 .syntax-text-area .caret {
-    -fx-stroke: white;
+    -fx-stroke: #BDC0C9;
 }
 
 .syntax-text-area .text.semicolon {
+    -fx-fill: #BDC0C9;
 }
 
 .syntax-text-area .text.control, .syntax-text-area .text.operator {
-    -fx-fill: #22C1AE;
+    -fx-fill: #BDC0C9;
 }
 
 .syntax-text-area .text.comment {
-    -fx-fill: #6c6c6c;
+    -fx-fill: #648769;
     -fx-font-style: italic;
 }
 
 .syntax-text-area .text.selector {
-    -fx-fill: #cda869;
+    -fx-fill: red;
 }
 
 .syntax-text-area .text.keyword {
-    -fx-fill: #cda869;
+    -fx-fill: #CF84CF;
 }
 
 .syntax-text-area .text.string {
@@ -48,11 +51,11 @@
 }
 
 .syntax-text-area .text.number {
-    -fx-fill: #54b0ff;
+    -fx-fill: #70AEFF;
 }
 
 .syntax-text-area .text.variable {
-    -fx-fill: #ae9fbf;
+    -fx-fill: #D69A6B;
 }
 
 .syntax-text-area .text.label {
