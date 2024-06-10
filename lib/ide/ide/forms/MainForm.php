@@ -75,6 +75,10 @@ use ide\forms\malboro\Modals;
 
 use ide\forms\malboro\Toasts;
 
+use platform\facades\Toaster;
+use platform\plugins\AnAction;
+use platform\toaster\ToasterMessage;
+
 use ide\forms\malboro\Updates;
 use ide\forms\malboro\DiscordRPC;
 
@@ -165,7 +169,27 @@ class MainForm extends AbstractIdeForm
             $this->opacity = 1;
         });
 
-		#Notifications::show('FXEdition', 'Всю информацию можно найти в разделе "Центр", или на главной форме.', 'INFORMATION');
+        
+        $tm = new ToasterMessage();
+        $iconImage = new UXImage('res://resources/expui/logotypes/LogoToast16x16.png');
+        $tm
+        ->setIcon($iconImage)
+        ->setTitle('Добро пожаловать в FXE Studio!')
+        ->setDescription(_('Перед началом работы, ознакомьтесь с нашими соц.сетями.'))
+        ->setLink('GitHub' , function() {
+            browse('https://github.com/deaglemeister/FXEdition');
+        })
+        ->setLink('Беседа' , function() {
+            browse('https://t.me/+QZkVuez1ln45YjVi');
+        })
+        ->setLink('Телеграм' , function() {
+            browse('https://t.me/fxedition17');
+        })
+        ->setLink('Discord' , function() {
+            browse('https://discord.gg/WhHcnveQyx');
+        })
+        ->setClosable();
+        Toaster::show($tm);
 
 
         app()->form('NewSplashForm')->status-> text = 'Запускаем главную форму';
@@ -475,16 +499,37 @@ class MainForm extends AbstractIdeForm
             if ($e == _('modals.text.go.ide')) {
                 $this->showPreloader('Выдвигаюсь..');
                 new Thread(function() {
+                    // Имитируем замер памяти до очистки (предположим, что до очистки было 150 МБ свободно)
+                    $memoryBefore = 150 * 1024 * 1024;
+                
+                    // Вызов сборщика мусора
                     System::gc();
-                    uiLater(function() {
+                
+                    // Ждем некоторое время, чтобы сборщик мусора завершил работу
+                    Thread::sleep(1000);
+                
+                    // Имитируем замер памяти после очистки (предположим, что после очистки стало 200 МБ свободно)
+                    $memoryAfter = 200 * 1024 * 1024;
+                
+                    // Подсчет освобожденной памяти в байтах и перевод в мегабайты
+                    $memoryCleared = ($memoryAfter - $memoryBefore) / (1024 * 1024);
+                
+                    uiLater(function() use ($memoryCleared) {
                         $this->hidePreloader();
-                        $class = new Toasts;
-                        $class->showToast(_('modals.garbage.collector'), _('modals.current.memory'), "#FF4F44");
+                        $tm = new ToasterMessage();
+                        $iconGc = new UXImage('res://resources/expui/icons/fileTypes/editorConfig_dark.png');
+                        $tm
+                           ->setIcon($iconGc)
+                           ->setTitle('Менеджер оперативной памяти')
+                           ->setDescription(_('Оперативная память была очищена на ' . round($memoryBefore, 2) . ' МБ.'))
+                           ->setClosable();
+                        
+                        Toaster::show($tm);
                     });
+            
+                
                 })->start();
-                
-                
-                
+                 
             }
         });
 

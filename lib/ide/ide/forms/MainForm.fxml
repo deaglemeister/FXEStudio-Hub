@@ -42,7 +42,7 @@
                                 </HBox>
                                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <SplitPane id="splitTree" dividerPositions="0.2530487804878049" prefHeight="200.0" styleClass='ui-paneVbox' prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <SplitPane id="splitTree" dividerPositions="0.2530487804878049" prefHeight="200.0" styleClass="ui-paneVbox" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                                 <AnchorPane id="directoryTree" minHeight="0.0" minWidth="0.0" prefWidth="150.0" styleClass="ui-treeView" SplitPane.resizableWithParent="false" />
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -67,5 +67,9 @@
                 </HBox>
             </children>
         </VBox>
+            <VBox id="toasterContainer" maxWidth="360.0" minHeight="20.0" minWidth="360.0"
+            prefWidth="360.0" spacing="10.0"
+            AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0"
+            alignment="BOTTOM_RIGHT"/>
     </children>
 </AnchorPane>

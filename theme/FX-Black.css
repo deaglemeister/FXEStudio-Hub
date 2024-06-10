@@ -24,6 +24,40 @@
 }
 
 
+.idea-toast-frame
+{
+    -fx-background-color: #27282E;
+    -fx-padding: 10px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    
+    -fx-text-fill: #fff;
+    
+}
+
+.idea-toast-frame .label
+{
+    -fx-text-fill: #fff;
+}
+
+.idea-toast-frame .content-box
+{
+    -fx-spacing: 8;
+}
+
+.idea-toast-frame .button-bar
+{
+    -fx-spacing: 8;
+}
+
+
+.idea-toast-frame .hyperlink {
+    -fx-text-fill: -ui-text-link;
+}
+.idea-toast-frame .hyperlink:hover {
+    -fx-text-fill: #70A0FF;
+}
+
 .list-view
 {
     -fx-background-color: -ui-main-background;
