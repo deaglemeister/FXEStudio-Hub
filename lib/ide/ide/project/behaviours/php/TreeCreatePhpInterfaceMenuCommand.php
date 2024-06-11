@@ -24,6 +24,11 @@ class TreeCreatePhpInterfaceMenuCommand extends AbstractMenuCommand
         $this->tree = $tree;
     }
 
+    public function getAccelerator()
+    {
+        return 'F7';
+    }
+
     public function getIcon()
     {
         return 'icons/interface_dark.png';

@@ -21,7 +21,7 @@ class TreeShowInExplorerCommand extends AbstractMenuCommand
 
     public function getName()
     {
-        return _('show.folder');
+        return _('Открыть в папке');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

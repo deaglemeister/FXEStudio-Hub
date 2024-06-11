@@ -19,25 +19,28 @@
     -fx-font-family: 'JetBrains Mono';
     -ui-border-tab:-ui-main-background, 50% ;
     -ui-main-titled: #2B2D30; /* цвет заголовка спойлера*/
-    -fx-background-color: #1E1F22;
-
+    -ui-toasts-frame: #212224;
 }
+
 
 
 .idea-toast-frame
 {
-    -fx-background-color: #27282E;
+    -fx-background-color: -ui-toasts-frame;
     -fx-padding: 10px;
-    -fx-background-radius: 6px;
-    -fx-border-radius: 6px;
-    
-    -fx-text-fill: #fff;
-    
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-text-fill:  -ui-text;
+    -fx-text-size: 15px;
+    -fx-effect: dropshadow(gaussian, #393b402d, 15, 0.0, 0, 0);
 }
 
 .idea-toast-frame .label
 {
-    -fx-text-fill: #fff;
+    -fx-text-fill: -ui-text;
+    -fx-text-size: 15px;
 }
 
 .idea-toast-frame .content-box
@@ -168,24 +171,42 @@
 
 /* Начало контекстного меню */
 .context-menu {
-    -fx-background-color: transparent;
+    -fx-background-color: -ui-secondary-background;
     -fx-background-radius: 8px;
     -fx-border-color: -ui-context-menu-border;
-    -fx-border-width: 1px;
+    -fx-border-width: 2px;
     -fx-border-radius: 8px;
-    -fx-min-width: 220;
-    -fx-spacing: 6;
+    -fx-min-width: 140px;
+    -fx-padding: 7px 7px 7px 7px;
+    -fx-spacing: 3px;
+    -fx-font-size: 13px;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, #393b402d, 15, 0.0, 0, 0);
+    -fx-background-insets: 1, 1;
 }
+
 .context-menu .menu-item:hover,
 .context-menu .menu-item:focused {
     -fx-background-color: derive(-ui-context-menu, 20%);
+    -fx-background-radius: 3px;
+}
+.context-menu .separator:horizontal .line {
+    -fx-border-color: -ui-lines-separators transparent transparent transparent;
+    -fx-border-insets: 1px 0 0 0;
+}
+
+.context-menu > .scroll-arrow {
+    -fx-padding: 4px; /* увеличение внутренних отступов */
+    -fx-background-color: transparent;
+}
+
+.context-menu > .scroll-arrow:hover {
+    -fx-background-color: -ui-context-menu-hover;
+    -fx-text-fill: -ui-text;
 }
 .context-menu .label {
     -fx-text-fill:  -ui-text;
     -fx-text-size: 17px;
-}
-.ui-menu-item {
-    -fx-text-fill: -ui-text; /* Белый цвет текста */
 }
 /* Конец контекстного меню */
 

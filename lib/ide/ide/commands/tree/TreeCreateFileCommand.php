@@ -20,14 +20,20 @@ class TreeCreateFileCommand extends AbstractMenuCommand
         $this->tree = $tree;
     }
 
+    public function getAccelerator()
+    {
+        return 'F4';
+    }
+
+
     public function getIcon()
     {
-        return 'icons/documentPlus16.png';
+        return 'icons/filecontext.png';
     }
 
     public function getName()
     {
-        return _('file');
+        return _('Пустой файл');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

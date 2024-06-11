@@ -30,13 +30,18 @@ class TreeCopyPathCommand extends AbstractMenuCommand
         $this->asRes = $asRes;
     }
 
+    public function getIcon()
+    {
+        return 'icons/copy_dark.png';
+    }
+
     public function getName()
     {
         if ($this->asRes) {
-            return _('copy.res.path');
+            return _('Скопировать (res://) путь');
         }
 
-        return _('copy.path');
+        return _('Скопировать путь');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

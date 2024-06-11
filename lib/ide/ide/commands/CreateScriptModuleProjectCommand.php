@@ -26,12 +26,12 @@ class CreateScriptModuleProjectCommand extends AbstractMenuCommand
 {
     public function getName()
     {
-        return _('new.module');
+        return _('Новый модуль');
     }
 
     public function getIcon()
     {
-        return 'icons/blocks16.png';
+        return 'icons/webModuleGroup_dark.png';
     }
 
     public function getCategory()

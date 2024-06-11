@@ -23,12 +23,12 @@ class TreeCreatePhpFileMenuCommand extends AbstractMenuCommand
 
     public function getIcon()
     {
-        return 'icons/phpFile16.png';
+        return 'icons/php.png';
     }
 
     public function getName()
     {
-        return _('menu.php.file');
+        return _('PHP Файл');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

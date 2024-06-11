@@ -9,7 +9,9 @@ use ide\Logger;
 use ide\project\AbstractProjectBehaviour;
 use ide\project\behaviours\php\TreeCreatePhpClassMenuCommand;
 use ide\project\behaviours\php\TreeCreatePhpFileMenuCommand;
+use ide\commands\tree\TreeCreateFileCommand;
 use ide\project\behaviours\php\TreeCreatePhpInterfaceMenuCommand;
+use ide\commands\tree\TreeCreateDirectoryCommand;
 use ide\project\control\CommonProjectControlPane;
 use ide\project\Project;
 use ide\project\ProjectFile;
@@ -169,7 +171,9 @@ class PhpProjectBehaviour extends AbstractProjectBehaviour
     protected function registerTreeMenu()
     {
         $menu = $this->project->getTree()->getContextMenu();
-        $menu->add(new TreeCreatePhpFileMenuCommand($this->project->getTree()), 'new');
+        $menu->add(new TreeCreateFileCommand($this->project->getTree()), 'new'); // создать файл
+        $menu->add(new TreeCreateDirectoryCommand($this->project->getTree()), 'new'); // создать папку
+        $menu->add(new TreeCreatePhpFileMenuCommand($this->project->getTree()), 'new'); //
         $menu->add(new TreeCreatePhpClassMenuCommand($this->project->getTree()), 'new');
         $menu->add(new TreeCreatePhpInterfaceMenuCommand($this->project->getTree()), 'new');
     }

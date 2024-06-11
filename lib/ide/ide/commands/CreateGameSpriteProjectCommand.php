@@ -28,12 +28,12 @@ class CreateGameSpriteProjectCommand extends AbstractMenuCommand
 {
     public function getName()
     {
-        return _('new.sprite');
+        return _('Новый спрайт');
     }
 
     public function getIcon()
     {
-        return 'icons/picture16.png';
+        return 'icons/yarn.png';
     }
 
     public function getCategory()

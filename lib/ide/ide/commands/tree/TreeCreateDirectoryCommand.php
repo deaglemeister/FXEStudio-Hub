@@ -20,12 +20,12 @@ class TreeCreateDirectoryCommand extends AbstractMenuCommand
 
     public function getIcon()
     {
-        return 'icons/folderPlus16.png';
+        return 'icons/folder_dark.png';
     }
 
     public function getName()
     {
-        return _('creating.folder');
+        return _('Пустую папку');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

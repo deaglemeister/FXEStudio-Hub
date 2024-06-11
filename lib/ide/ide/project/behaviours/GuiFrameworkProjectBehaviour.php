@@ -38,6 +38,10 @@ use ide\Ide;
 use ide\IdeException;
 use ide\Logger;
 use ide\project\AbstractProjectBehaviour;
+use ide\project\behaviours\php\TreeCreateNewIniFileMenuCommand;
+use ide\project\behaviours\php\TreeCssFileCommand;
+use ide\project\behaviours\php\TreeJsonFileCommand;
+use ide\project\behaviours\php\TreeZipFileCommand;
 use ide\project\control\CommonProjectControlPane;
 use ide\project\control\DesignProjectControlPane;
 use ide\project\control\FormsProjectControlPane;
@@ -146,7 +150,7 @@ class GuiFrameworkProjectBehaviour_ProjectTreeMenuCommand extends AbstractMenuCo
                 $menu->items->add($menuItem);
 
                 if (FileSystem::isOpened($editor->getFile())) {
-                    $menuItem->style = '-fx-text-fill: blue;';
+                    $menuItem->classes->add('ui-text');
                 }
 
                 $menuItem->on('action', function () use ($editor) {
@@ -302,9 +306,14 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
         $menu = $tree->getContextMenu();
 
         $menu->addSeparator('new');
+        $menu->add(new TreeCreateNewIniFileMenuCommand($tree), 'new');
+        $menu->add(new TreeJsonFileCommand($tree), 'new');
+        $menu->add(new TreeCssFileCommand($tree), 'new');
+        $menu->addSeparator('new');
         $menu->add(new CreateFormProjectCommand($tree), 'new');
         $menu->add(new CreateScriptModuleProjectCommand(), 'new');
         $menu->add(new CreateGameSpriteProjectCommand(), 'new');
+
     }
 
     /**

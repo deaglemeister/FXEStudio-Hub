@@ -24,14 +24,19 @@ class TreeCreatePhpClassMenuCommand extends AbstractMenuCommand
         $this->tree = $tree;
     }
 
+    public function getAccelerator()
+    {
+        return 'F6';
+    }
+
     public function getIcon()
     {
-        return 'icons/phpFile16.png';
+        return 'icons/class_dark.png';
     }
 
     public function getName()
     {
-        return _('menu.php.class');
+        return _('PHP Класс');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

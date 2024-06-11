@@ -22,14 +22,20 @@ class TreeDeleteFileCommand extends AbstractMenuCommand
         $this->tree = $tree;
     }
 
+        public function getAccelerator()
+    {
+        return 'Delete';
+    }
+
+
     public function getIcon()
     {
-        return 'icons/delete16.png';
+        return '';
     }
 
     public function getName()
     {
-        return _('delete.tree');
+        return _('Удалить файл');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)
@@ -72,8 +78,8 @@ class TreeDeleteFileCommand extends AbstractMenuCommand
         $file = $this->tree->getSelectedFullPath();
         $item->disable = !$file;
 
-        if ($file) {
-            $item->text = $this->getName() . ' [' . $file->getName() . ']';
-        }
+        #if ($file) {
+          #  $item->text = $this->getName() . ' [' . $file->getName() . ']';
+      #  }
     }
 }

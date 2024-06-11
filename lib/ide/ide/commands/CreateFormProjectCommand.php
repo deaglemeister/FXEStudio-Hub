@@ -40,14 +40,19 @@ class CreateFormProjectCommand extends AbstractMenuCommand
     }
 
 
+    public function getAccelerator()
+    {
+        return 'F8';
+    }
+
     public function getName()
     {
-        return _('new.form'); //_('lang.name.f')
+        return _('Новую форму'); //_('lang.name.f')
     }
 
     public function getIcon()
     {
-        return 'icons/window16.png';
+        return 'icons/applicationRemote_dark.png';
     }
 
     public function getCategory()

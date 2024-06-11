@@ -45,7 +45,7 @@ class TreeScriptHelperMenuCommand extends AbstractMenuCommand
 
     public function getIcon()
     {
-        return 'icons/scriptHelper16.png';
+        return 'icons/shell_dark.png';
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)
@@ -95,7 +95,7 @@ class TreeScriptHelperMenuCommand extends AbstractMenuCommand
 
     public function withBeforeSeparator()
     {
-        return true;
+        return false;
     }
 
 

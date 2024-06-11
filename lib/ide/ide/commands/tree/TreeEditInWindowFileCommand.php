@@ -23,9 +23,19 @@ class TreeEditInWindowFileCommand extends AbstractMenuCommand
         $this->tree = $tree;
     }
 
+    public function getAccelerator()
+    {
+        return 'F1';
+    }
+
+    public function getIcon()
+    {
+        return 'icons/splitVertically_dark.png';
+    }
+
     public function getName()
     {
-        return _('separate.edit.window');
+        return _('Открыть в новом окне');
     }
 
     public function onExecute($e = null, AbstractEditor $editor = null)

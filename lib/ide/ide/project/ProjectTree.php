@@ -7,8 +7,6 @@ use platform\plugins\traits\FileTypes;
 
 
 use ide\commands\tree\TreeCopyPathCommand;
-use ide\commands\tree\TreeCreateDirectoryCommand;
-use ide\commands\tree\TreeCreateFileCommand;
 use ide\commands\tree\TreeDeleteFileCommand;
 use ide\commands\tree\TreeEditFileCommand;
 use ide\commands\tree\TreeEditInWindowFileCommand;
@@ -88,20 +86,19 @@ class ProjectTree
         $this->project = $project;
         $this->contextMenu = new ContextMenu();
 
-        $this->contextMenu->addGroup('new',  _('createcomntext'));
-        $this->contextMenu->add(new TreeCreateDirectoryCommand($this));
+        $this->contextMenu->addGroup('new',  _('Добавить'));
         $this->contextMenu->addSeparator();
-        $this->contextMenu->add(new TreeEditFileCommand($this));
-        $this->contextMenu->add(new TreeEditInWindowFileCommand($this));
+        $this->contextMenu->add(new TreeCopyPathCommand($this, true)); //Скопировать путь
+        $this->contextMenu->add(new TreeCopyPathCommand($this));
+
         $this->contextMenu->add(new TreeDeleteFileCommand($this));
         $this->contextMenu->addSeparator();
-        $this->contextMenu->add(new TreeCopyPathCommand($this));
-        $this->contextMenu->add(new TreeCopyPathCommand($this, true));
-        $this->contextMenu->add(new TreeShowInExplorerCommand($this));
-        $this->contextMenu->add(new TreeScriptHelperMenuCommand($this));
+        #$this->contextMenu->add(new TreeEditFileCommand($this)); //Редактировать
+        $this->contextMenu->add(new TreeShowInExplorerCommand($this)); //Показать в папке
+        $this->contextMenu->add(new TreeEditInWindowFileCommand($this)); //редактировать в новом окне
+        $this->contextMenu->addSeparator();
+        $this->contextMenu->add(new TreeScriptHelperMenuCommand($this)); //Сгенирировать скрипт
 
-        $this->contextMenu->add(new TreeCreateFileCommand($this), 'new');
-        $this->contextMenu->addSeparator('new');
     }
 
     /**
