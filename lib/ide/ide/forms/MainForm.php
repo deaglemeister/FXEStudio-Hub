@@ -81,6 +81,7 @@ use platform\toaster\ToasterMessage;
 
 use ide\forms\malboro\Updates;
 use ide\forms\malboro\DiscordRPC;
+use platform\facades\PluginManager;
 
 /**
  * @property UXTabPane $fileTabPane
@@ -295,8 +296,8 @@ class MainForm extends AbstractIdeForm
      */
     public function doShowing()
     {
-        $class = new Updates;
-        $class->checkUpdates();
+        $plugin = new PluginManager();
+        $plugin->checkUpdates();
     }
  
     public function show()

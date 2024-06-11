@@ -45,7 +45,7 @@ class SaveProjectCommand extends AbstractProjectCommand
         if ($project) {
             $project->save();
             $tm = new ToasterMessage();
-            $iconImage = new UXImage('ources/expui/icons/fileTypes/succes.png');
+            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
             $tm
                 ->setIcon($iconImage)
                 ->setTitle('Менеджер по работе с проектами')

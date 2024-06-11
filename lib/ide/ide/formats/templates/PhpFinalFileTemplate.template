@@ -1,0 +1,6 @@
+<?php
+#HEADER#
+
+final class #CLASS#  {
+    // код класса
+}

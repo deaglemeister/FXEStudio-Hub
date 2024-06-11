@@ -1,0 +1,10 @@
+<?php
+#HEADER#
+
+abstract class #CLASS# {
+    abstract public function myMethod();
+
+    public function anotherMethod() {
+        // код метода
+    }
+}

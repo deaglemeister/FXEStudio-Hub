@@ -1,0 +1,8 @@
+<?php
+#HEADER#
+
+trait #CLASS#  {
+    public function myTraitMethod() {
+        // код метода
+    }
+}

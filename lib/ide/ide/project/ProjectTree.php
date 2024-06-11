@@ -463,7 +463,7 @@ class ProjectTree
                 case "yaml":
                     return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/yaml_dark.png')), null, $file->isDirectory());
                 case "css":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/editorConfig_dark.png')), null, $file->isDirectory());
+                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/xhtml_dark.png')), null, $file->isDirectory());
                 case "rar":
                     return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/archive_dark.png')), null, $file->isDirectory());
                 case "zip":

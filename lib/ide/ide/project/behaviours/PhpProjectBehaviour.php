@@ -12,6 +12,9 @@ use ide\project\behaviours\php\TreeCreatePhpFileMenuCommand;
 use ide\commands\tree\TreeCreateFileCommand;
 use ide\project\behaviours\php\TreeCreatePhpInterfaceMenuCommand;
 use ide\commands\tree\TreeCreateDirectoryCommand;
+use ide\project\behaviours\php\TreeCreateAbstractClassMenuCommand;
+use ide\project\behaviours\php\TreeCreateFinalClassMenuCommand;
+use ide\project\behaviours\php\TreeCreateTraitClassMenuCommand;
 use ide\project\control\CommonProjectControlPane;
 use ide\project\Project;
 use ide\project\ProjectFile;
@@ -176,6 +179,9 @@ class PhpProjectBehaviour extends AbstractProjectBehaviour
         $menu->add(new TreeCreatePhpFileMenuCommand($this->project->getTree()), 'new'); //
         $menu->add(new TreeCreatePhpClassMenuCommand($this->project->getTree()), 'new');
         $menu->add(new TreeCreatePhpInterfaceMenuCommand($this->project->getTree()), 'new');
+        $menu->add(new TreeCreateTraitClassMenuCommand($this->project->getTree()), 'new');
+        $menu->add(new TreeCreateAbstractClassMenuCommand($this->project->getTree()), 'new');
+        $menu->add(new TreeCreateFinalClassMenuCommand($this->project->getTree()), 'new');
     }
 
     protected function refreshInspector()

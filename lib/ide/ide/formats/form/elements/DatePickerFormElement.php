@@ -46,7 +46,7 @@ class DatePickerFormElement extends AbstractFormElement
 
     public function getGroup()
     {
-        return 'Доплнительно';
+        return 'Дополнительно';
     }
 
     /**
