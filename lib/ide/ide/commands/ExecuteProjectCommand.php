@@ -33,6 +33,8 @@ use php\lib\Str;
 use php\time\Time;
 use script\TimerScript;
 use timer\AccurateTimer;
+use php\intellij\tty\PtyProcess;
+use php\intellij\tty\PtyProcessConnector;
 
 class ExecuteProjectCommand extends AbstractCommand
 {
@@ -248,13 +250,9 @@ class ExecuteProjectCommand extends AbstractCommand
 
                     //$args = [$ide->getGradleProgram(), 'run', '-Dfile.encoding=UTF-8', '--daemon'];
 
-                    $this->process = new Process(
-                        $args,
-                        $project->getRootDir(),
-                        $ide->makeEnvironment()
-                    );
+                    $this->process = new PtyProcessConnector(PtyProcess::exec($args, $ide->makeEnvironment(), $project->getRootDir()));
 
-                    $this->process = $this->process->start();
+                    //$this->process = $this->process->start();
                     $dialog->watchProcess($this->process);
 
                     $dialog->setStopProcedure(function () use ($dialog) {
