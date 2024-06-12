@@ -78,7 +78,7 @@ class EnumPropertyEditor extends TextPropertyEditor
         $this->choiceBox->items->addAll($this->variants);
         UXHBox::setHgrow($this->choiceBox, 'ALWAYS');
 
-        $this->choiceBox->style = "-fx-background-insets: 0; -fx-background-radius: 0; -fx-background-color: -fx-control-inner-background;";
+        #$this->choiceBox->style = "-fx-background-insets: 0; -fx-background-radius: 0; -fx-background-color: -fx-control-inner-background;";
 
         $this->choiceBox->on('action', function () {
             if ($this->existsCustomValue) {

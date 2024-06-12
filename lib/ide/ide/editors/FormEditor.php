@@ -1781,9 +1781,8 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
         });
 
         $designPane = new UXDesignPane($viewer);
-        $designPane->borderColor = '#70AEFF';
-        $designPane->borderWidth = '3px';
-
+        $designPane->classes->add('split-pane');
+        
         $viewer->on('dragOver', $this->makeDesignerDragOverHandler());
         $viewer->on('dragDone', function (UXEvent $e) {
             $e->consume();
@@ -1815,8 +1814,8 @@ class FormEditor extends AbstractModuleEditor implements MarkerTargable
         } else {
             $this->markerNode = $this->layout;
 
-            $this->layout->style = '-fx-border-width: 0px; -fx-border-style: none; -fx-border-color: transperet;';
-            $this->layout->backgroundColor = '#F7F7F7';
+            #$this->layout->style = '-fx-border-width: 0px; -fx-border-style: none; -fx-border-color: transperet;';
+            $this->layout->classes->add('ui-paneVbox');
 
             uiLater(function () use ($area, $viewer) {
                 $area->minWidth = $viewer->viewportBounds['width'];

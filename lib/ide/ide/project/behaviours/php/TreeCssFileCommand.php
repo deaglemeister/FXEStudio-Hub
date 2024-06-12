@@ -3,16 +3,13 @@ namespace ide\project\behaviours\php;
 
 use ide\editors\AbstractEditor;
 use ide\editors\menu\AbstractMenuCommand;
-use ide\formats\templates\PhpInterfaceFileTemplate;
 use ide\forms\InputMessageBoxForm;
 use ide\forms\MessageBoxForm;
-use ide\Ide;
 use ide\project\ProjectTree;
 use ide\systems\FileSystem;
 use ide\utils\FileUtils;
 use php\gui\UXDialog;
 use php\lib\fs;
-use php\lib\str;
 use php\util\Regex;
 
 class TreeCssFileCommand extends AbstractMenuCommand
@@ -38,19 +35,17 @@ class TreeCssFileCommand extends AbstractMenuCommand
     {
         $file = $this->tree->getSelectedFullPath();
 
-        $dialog = new InputMessageBoxForm('Создание CSS файла', 'Введите название для CSS файла', '* Только валидное имя для интерфейса');
-        $dialog->setPattern(new Regex('^[a-z\\_]{1}[a-z0-9\\_]{0,60}$', 'i'), 'Данное название некорректное');
+        $dialog = new InputMessageBoxForm('Создание css файла', 'Введите название css Json файла', '* Только валидное имя для файла');
+        $dialog->setPattern(new Regex('^[\\w\\d\\_\\-\\.\\+\\=\\ \\@\\/\\,\\\\]{1,}$', 'i'), 'Данное название некорректное');
 
         $dialog->showDialog();
         $name = $dialog->getResult();
 
-        $project = Ide::project();
-
         if ($name) {
             $f = $file->isDirectory() ? "$file/$name" : "{$file->getParent()}/$name";
 
-            if (fs::ext($f) != 'zip') {
-                $f .= '.zip';
+            if (fs::ext($f) != 'css') {
+                $f .= '.css';
             }
 
             $f = fs::normalize($f);
@@ -61,24 +56,7 @@ class TreeCssFileCommand extends AbstractMenuCommand
                 return;
             }
 
-            $template = new PhpInterfaceFileTemplate(fs::nameNoExt($f));
-
-            $absoluteFile = $project->getAbsoluteFile($f);
-
-            if ($absoluteFile->isInRootDir()) {
-                $relativePath = $absoluteFile->getRelativePath($project->getSrcDirectory());
-
-                if (!FileUtils::equalNames($relativePath, $absoluteFile)) {
-                    $namespace = fs::parent($relativePath);
-                    $namespace = str::replace($namespace, '/', '\\');
-
-                    if (Regex::match('^[a-z\\_]{1}[a-z\\_\\\\]{0,}$', $namespace, 'i')) {
-                        $template->setNamespace($namespace);
-                    }
-                }
-            }
-
-            $project->createFile($absoluteFile, $template);
+            FileUtils::put($f, "Файл успешно создался, не забудьте удалить данную строку. \n\n");
 
             if (!fs::isFile($f)) {
                 UXDialog::showAndWait("Невозможно создать файл с таким названием.\n -> $f", 'ERROR');
@@ -93,7 +71,6 @@ class TreeCssFileCommand extends AbstractMenuCommand
     {
         parent::onBeforeShow($item, $editor);
 
-        $item->disable = !$this->tree->hasSelectedPath() || !Ide::project();
+        $item->disable = !$this->tree->hasSelectedPath();
     }
 }
-?>

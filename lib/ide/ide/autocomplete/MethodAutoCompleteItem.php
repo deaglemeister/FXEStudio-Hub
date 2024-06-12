@@ -30,6 +30,6 @@ class MethodAutoCompleteItem extends AutoCompleteItem
 
     public function getDefaultIcon()
     {
-        return 'icons/redLeaf16.png';
+        return 'icons/xhtml_dark.png';
     }
 }

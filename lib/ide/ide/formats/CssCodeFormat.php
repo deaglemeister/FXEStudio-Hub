@@ -45,7 +45,7 @@ class CssCodeFormat extends AbstractFormat
 
     public function getIcon()
     {
-        return 'res://resources/expui/icons/fileTypes/font_dark.png';
+        return 'icons/font_dark.png';
     }
 
     /**

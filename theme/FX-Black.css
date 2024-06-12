@@ -23,7 +23,6 @@
 }
 
 
-
 .idea-toast-frame
 {
     -fx-background-color: -ui-toasts-frame;
@@ -89,8 +88,17 @@
     -fx-background-color: -ui-hoverd;
 }
 
+.FormEditor {
+            -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
+    -fx-border-width: 0px;
+}
+
 .moduleFormEditor {
     -fx-background-color: -ui-secondary-background;
+        -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
+    -fx-border-width: 0px;
 }
 
 .dn-console-list {
@@ -98,8 +106,8 @@
     -fx-line-spacing: 25px;
     -fx-background-color: -ui-secondary-background; 
     -fx-text-fill: -ui-text;
-    -fx-border-color:-ui-border;
-    -fx-border-width: 0px;
+    -fx-border-color:-ui-context-menu-border;
+    -fx-border-width: 1px;
     -fx-spacing: 10px;
     -fx-padding: 10px; /* Отступы */
 }
@@ -107,6 +115,11 @@
 .ui-text {
     -fx-text-fill: -ui-text;
 }
+.ui-text-secondary {
+    -fx-text-fill: -ui-text-secondary;
+}
+
+
 
 .hyperlink {
     -fx-text-fill: #759CFF;
@@ -114,6 +127,11 @@
 .hyperlink:hover {
     -fx-text-fill: #759cffce;
 }
+
+.ui-hyperlink {
+    -fx-text-fill: #759CFF;
+}
+
 
 
 .fxe-vertical-editor{
@@ -209,7 +227,12 @@
     -fx-text-size: 17px;
 }
 /* Конец контекстного меню */
-
+.split-pane {
+    -fx-background-color: -ui-main-background;
+    -fx-background-radius: 6px;
+    -fx-border-width: 0;
+    -fx-border-color: -ui-border;
+}
 
 .split-pane > .split-pane-divider {
     -fx-padding: 0 0.05em 0 0.05em; /* 0 3 0 3 */
@@ -291,9 +314,37 @@
     -fx-text-fill: -ui-text;
 }
 
+.description {
+    -fx-text-fill: -ui-text;
+}
+
+.title {
+    -fx-text-fill: -ui-text;
+}
+
+.header {
+    -fx-text-fill: -ui-text;
+}
+
+.content .text{
+    -fx-text-fill: -ui-text;
+}
+
+.content .label{
+    -fx-text-fill: -ui-text;
+}
+
+.dn-autocomplete-description-codeEditor {
+    -fx-background-color: -ui-main-background;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-text-fill: -ui-text;
+    -fx-border-radius: 5px;
+} /* Вторая подсказка в коде редакторе когда вызываешь*/
+
 
 .split-menu-button {
-    -fx-background-color: transparent;
+    -fx-background-color: -ui-main-background;
     -fx-border-color: -ui-lines-separators;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
@@ -477,7 +528,7 @@
 {
     -fx-background-radius: 4px;
     -fx-border-radius: 4px;
-    -fx-text-fill: -fx-color-text-fill;
+    -fx-text-fill: -ui-text;
     -fx-background-color: transparent;
 }
 .flow-list-view .list-cell:hover {
@@ -531,7 +582,6 @@
     -fx-pref-width: 0;
     -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
     -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
-    -fx-color: -ui-lines-separators;
 }
 .ui-treeView:focused {
     -fx-background-color: transparent; /* Убираем фон при фокусировке на дереве */

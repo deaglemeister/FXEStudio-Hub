@@ -10,7 +10,6 @@ use ide\autocomplete\MethodAutoCompleteItem;
 use ide\autocomplete\php\PhpAnyAutoCompleteType;
 use ide\autocomplete\PropertyAutoCompleteItem;
 use ide\autocomplete\VariableAutoCompleteItem;
-use ide\editors\CodeEditor;
 use ide\forms\MessageBoxForm;
 use ide\Ide;
 use ide\Logger;
@@ -21,7 +20,6 @@ use php\gui\event\UXKeyEvent;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXVBox;
 use php\gui\paint\UXColor;
-use php\gui\text\UXFont;
 use php\gui\UXApplication;
 use php\gui\UXClipboard;
 use php\gui\UXLabel;
@@ -29,7 +27,6 @@ use php\gui\UXListCell;
 use php\gui\UXListView;
 use php\gui\UXPopupWindow;
 use php\gui\UXSeparator;
-use php\gui\UXWebView;
 use php\lang\IllegalArgumentException;
 use php\lib\arr;
 use php\lib\Char;
@@ -37,8 +34,12 @@ use php\lib\Items;
 use php\lib\Str;
 use php\util\Flow;
 use php\util\Regex;
-use script\TimerScript;
 use timer\AccurateTimer;
+
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
+
 
 class AutoCompletePane
 {
@@ -157,28 +158,31 @@ class AutoCompletePane
                 }
             }
 
-            if ($types) {
-                $done = MessageBoxForm::confirm(
-                    'В тексте есть неподключенные классы (' . str::join(arr::keys($types), ', ') . '), хотите их подключить?',
-                    $this->area
-                );
 
-                if ($done) {
-                    foreach ($types as $type) {
-                        $insert = $type->fulledName;
 
-                        if ($php = PhpProjectBehaviour::get()) {
-                            if ($php->getImportType() == 'package') {
-                                if ($type->packages) {
-                                    $insert = arr::first($type->packages);
+            $tm = new ToasterMessage();
+            $iconGc = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+            $tm
+                ->setIcon($iconGc)
+                ->setTitle('Менеджер подключаемых классов')
+                ->setDescription(_('В тексте есть неподключенные классы (' . str::join(arr::keys($types), ', ') . '), хотите их подключить?'))
+                ->setLink('Подключить классы', function () use ($types) {
+                    if ($types) {
+                        foreach ($types as $type) {
+                            $insert = $type->fulledName;
+                            if ($php = PhpProjectBehaviour::get()) {
+                                if ($php->getImportType() == 'package') {
+                                    if ($type->packages) {
+                                        $insert = arr::first($type->packages);
+                                    }
                                 }
                             }
+                            PhpAnyAutoCompleteType::appendUseClass($this->area, $insert);
                         }
-
-                        PhpAnyAutoCompleteType::appendUseClass($this->area, $insert);
                     }
-                }
-            }
+                })
+                ->setClosable();
+            Toaster::show($tm);
         }
     }
 
@@ -494,34 +498,36 @@ class AutoCompletePane
     public function getString($onlyName = false)
     {
         $text = $this->area->text;
-
         $i = $this->area->caretPosition;
-
         $string = '';
-        $braces = [];
 
+        $braces = [];
+    
         if (Char::isSpace($text[$i - 1])) {
             return $string;
         }
-
+    
         while ($i-- >= 0) {
             $ch = $text[$i];
-
-            if (Char::isPrintable($ch)
-                && (Char::isLetterOrDigit($ch)) || $ch == '_'
-            ) {
+    
+            if (Char::isPrintable($ch) && (Char::isLetterOrDigit($ch) || $ch == '_')) {
                 $string .= $ch;
             } else {
-                if ($onlyName /*&& $ch != '$'*/) { // todo refactor for $
+                if ($onlyName) {
+                    // Изменение: Учитываем только имя, если флаг $onlyName установлен в true
+                    if ($ch == '$') {
+                        $string .= $ch;
+                    }
                     break;
                 } else {
                     $string .= $ch;
                 }
             }
         }
-
+    
         return Str::reverse($string);
     }
+    
 
     public function add($string)
     {
@@ -536,17 +542,23 @@ class AutoCompletePane
 
         if ($item instanceof MethodAutoCompleteItem) {
             $name .= '()';
+          
+            
         }
 
         if ($item instanceof VariableAutoCompleteItem) {
             $name = "\${$name}";
         }
 
+        $this->uiDescription->layout->lookup('.title')->classes->add('ui-text');
         $this->uiDescription->layout->lookup('.title')->text = $name;
+
         $this->uiDescription->layout->lookup('.description')->text = $item->getDescription();
+        
 
         /** @var UXHBox $header */
         $header = $this->uiDescription->layout->lookup('.header');
+        
         if ($header->children->count > 1) {
             $header->children->removeByIndex(0);
         }
@@ -560,11 +572,14 @@ class AutoCompletePane
         $content = $this->uiDescription->layout->lookup('.content');
         $content->children->clear();
 
+      
         $contentValue = $item->getContent();
+      
 
         if ($contentValue['DEF'] || $contentValue['RU']) {
             $content->add(new UXSeparator());
             $content->add(new UXLabel($contentValue['RU'] ?: $contentValue['DEF']));
+            
         }
     }
 
@@ -582,6 +597,7 @@ class AutoCompletePane
 
         $header = new UXHBox([$title]);
         $header->classes->add('header');
+    
         $ui->add($header);
 
         $desc = new UXLabel("Description");
@@ -593,10 +609,12 @@ class AutoCompletePane
         $content->classes->add('content');
         $ui->add($content);
 
-        $ui->classes->add('dn-autocomplete-description');
+        
+        $ui->classes->add('dn-autocomplete-description-codeEditor');
 
         $win = new UXPopupWindow();
         $win->layout = $ui;
+        $win->classes->add('ui-text');
 
         $this->uiDescription = $win;
     }
@@ -606,12 +624,14 @@ class AutoCompletePane
         $this->makeDescriptionUi();
 
         $ui = new UXVBox();
-        $ui->height = 150;
+        $ui->height = 400;
         $ui->maxWidth = 650;
         $ui->focusTraversable = false;
-        $ui->padding = 3;
+        $ui->padding = 5;
+        $ui->classes->add('ui-text');
 
         $list = new UXListView();
+       
         $list->on('action', function () use ($list) {
             /** @var AutoCompleteItem $item */
             if ($item = $list->selectedItem) {
@@ -633,17 +653,19 @@ class AutoCompletePane
 
         $list->maxHeight = 9999;
         $list->fixedCellSize = 20;
-        $list->classes->addAll(['hide-hor-scroll', 'dn-console-list', 'dn-autocomplete']);
-        $list->style = '-fx-background-insets: 0; -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background;';
-        $list->width = 400;
+        $list->classes->addAll(['scroll-pane', 'ui-text', 'dn-autocomplete-description-codeEditor']);
+        #$list->style = '-fx-background-insets: 0; -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background;';
+        $list->width = 600;
 
         $ui->add($list);
+        $ui->classes->add('ui-text');
         $ui->focusTraversable = false;
         UXVBox::setVgrow($list, 'ALWAYS');
 
         $list->setCellFactory(function (UXListCell $cell, AutoCompleteItem $item) {
             $cell->graphic = null;
             $cell->text = null;
+            $cell->classes->add('ui-text');
             $this->makeItemUi($cell, $item);
         });
 
@@ -655,8 +677,6 @@ class AutoCompletePane
 
         $win = new UXPopupWindow();
         $win->layout = $ui;
-        /*$win->style = 'TRANSPARENT';
-        $win->opacity = 0.7;*/
 
         $v = function () {
             $this->uiDescription->x = $this->ui->x + $this->ui->width + 3;
@@ -766,7 +786,7 @@ class AutoCompletePane
     protected function makeItemUi(UXListCell $cell, AutoCompleteItem $item)
     {
         $label = new UXLabel($item->getName());
-        $label->textColor = UXColor::of('black');
+        $label->classes->add('ui-text');
         $label->style = $item->getStyle();
 
         $icon = $this->getImageOfItem($item);
@@ -775,12 +795,12 @@ class AutoCompletePane
             $cell->graphic = $icon ? new UXHBox([$icon, $label]) : $label;
         } else {
             $hintLabel = new UXLabel($item->getDescription() ? ": {$item->getDescription()}" : "");
-            $hintLabel->textColor = UXColor::of('gray');
+            $hintLabel->classes->add('ui-text-secondary');
 
             if ($icon) {
                 if (str::trim($item->getDescription())) {
                     $dots = new UXLabel(": ");
-                    $dots->textColor = $hintLabel->textColor;
+                    $dots->classes->add('ui-text');
                     $hintLabel->text = $item->getDescription();
 
                     $cell->graphic = new UXHBox([$icon, $label, $dots, $hintLabel]);
@@ -794,7 +814,7 @@ class AutoCompletePane
 
         if ($item instanceof VariableAutoCompleteItem) {
             $label->text = "\${$label->text}";
-            $label->textColor = UXColor::of('blue');
+            $label->classes->add('ui-hyperlink');
         }
 
         if ($item instanceof MethodAutoCompleteItem) {
@@ -804,7 +824,7 @@ class AutoCompletePane
                 $label->text = "{$label->text}()";
             }
 
-            $label->textColor = UXColor::of('black');
+            $label->classes->add('ui-text-secondary');
         }
 
         if ($item instanceof PropertyAutoCompleteItem) {

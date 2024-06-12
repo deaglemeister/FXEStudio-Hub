@@ -10,6 +10,7 @@ use ide\commands\tree\TreeCopyPathCommand;
 use ide\commands\tree\TreeDeleteFileCommand;
 use ide\commands\tree\TreeEditFileCommand;
 use ide\commands\tree\TreeEditInWindowFileCommand;
+use ide\commands\tree\TreeRenameFileCommand;
 use ide\commands\tree\TreeScriptHelperMenuCommand;
 use ide\commands\tree\TreeShowInExplorerCommand;
 use ide\editors\menu\ContextMenu;
@@ -28,6 +29,10 @@ use php\gui\UXImageView;
 use php\io\File;
 use php\lang\Process;
 use php\lib\fs;
+
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 use php\lib\str;
 
 
@@ -90,7 +95,7 @@ class ProjectTree
         $this->contextMenu->addSeparator();
         $this->contextMenu->add(new TreeCopyPathCommand($this, true)); //Скопировать путь
         $this->contextMenu->add(new TreeCopyPathCommand($this));
-
+        $this->contextMenu->add(new TreeRenameFileCommand($this));
         $this->contextMenu->add(new TreeDeleteFileCommand($this));
         $this->contextMenu->addSeparator();
         #$this->contextMenu->add(new TreeEditFileCommand($this)); //Редактировать
@@ -265,10 +270,19 @@ class ProjectTree
                                     $desktop->edit($file);
                                     break;
 
-                                case 'exe':
-                                    if (Ide::get()->isWindows() && MessageBoxForm::confirm("Запустить исполняемый файл " . fs::name($file) . '?')) {
-                                        execute($file);
-                                    }
+                                case 'exe':                              
+                                        $tm = new ToasterMessage();
+                                        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/info.png');
+                                        $tm
+                                            ->setIcon($iconImage)
+                                            ->setTitle('Менеджер по работе с открытием')
+                                            ->setDescription(_('Запустить исполняемый файл ' . fs::name($file) . '?'))
+                                            ->setLink('Открыть исполняемый файл', function ($file) {
+                                                execute($file);
+                                            })
+                                            ->setClosable();
+                                        Toaster::show($tm);
+                                        
                                     break;
 
                                 case 'bat':
@@ -287,10 +301,19 @@ class ProjectTree
                                     break;
 
                                 default:
-                                    if (MessageBoxForm::confirm("Файл невозможно открыть, открыть его через системный редактор?")) {
-                                        $desktop = new UXDesktop();
-                                        $desktop->open($file);
-                                    }
+                                        $tm = new ToasterMessage();
+                                        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                                        $tm
+                                            ->setIcon($iconImage)
+                                            ->setTitle('Менеджер по работе с открытием')
+                                            ->setDescription(_('Файл невозможно открыть, открыть его через системный редактор?'))
+                                            ->setLink('Да, открыть файл', function ($file) {
+                                                $desktop = new UXDesktop();
+                                                $desktop->open($file);
+                                            })
+                                            ->setClosable();
+                                        Toaster::show($tm);
+                                    
                             }
                         }
                     }

@@ -135,7 +135,7 @@ class ToasterMessage
             $hFrame->add($this->_createCloseButton());
         }
         
-        waitAsync($this->__closableTime ?: 15000, function () {
+        waitAsync($this->__closableTime ?: 25000, function () {
             if ($this->canClose) {
                 $this->_close();
             }

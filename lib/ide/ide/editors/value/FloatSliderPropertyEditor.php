@@ -130,7 +130,7 @@ class FloatSliderPropertyEditor extends ElementPropertyEditor
         $this->textField->paddingLeft = 2;
         $this->textField->maxWidth = 9999;
         $this->textField->width = 70;
-        $this->textField->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0; -fx-font-size: 11px;";
+      #  $this->textField->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0; -fx-font-size: 11px;";
 
         $this->textField->on('keyUp', function () {
             $this->updateUi($this->textField->text, false, false);

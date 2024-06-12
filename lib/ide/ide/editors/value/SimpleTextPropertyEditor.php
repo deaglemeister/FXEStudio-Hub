@@ -37,7 +37,7 @@ class SimpleTextPropertyEditor extends ElementPropertyEditor
         $this->textField->padding = 2;
         $this->textField->maxWidth = 9999;
         UXHBox::setHgrow($this->textField, 'ALWAYS');
-        $this->textField->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0;";
+     #   $this->textField->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0;";
 
         $this->textField->on('keyUp', function () {
             if ($this->textField->editable) {

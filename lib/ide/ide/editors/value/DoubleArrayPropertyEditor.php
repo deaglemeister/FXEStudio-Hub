@@ -45,7 +45,7 @@ class DoubleArrayPropertyEditor extends ElementPropertyEditor
             $field = $spinner->editor;
             //$field = new UXTextField();
             $field->padding = 2;
-            $field->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0;";
+           # $field->style = "-fx-background-insets: 0; -fx-background-color: -fx-control-inner-background; -fx-background-radius: 0;";
 
             $spinner->on('click', $handle);
             $field->on('keyUp', $handle);

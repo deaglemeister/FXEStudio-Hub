@@ -181,6 +181,8 @@ class IdeTabPane
         $this->select('properties');
     }
 
+
+    
     public function addObjectTreeList(IdeObjectTreeList $list)
     {
         $this->objectTreeList = $list;
