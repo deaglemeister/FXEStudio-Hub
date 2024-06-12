@@ -1,8 +1,10 @@
 <?php
 namespace ide\forms;
 
+use ide\commands\ChangeThemeCommand;
 use ide\forms\mixins\SavableFormMixin;
 use ide\Ide;
+use ide\Logger;
 use ide\project\ProjectConsoleOutput;
 use ide\systems\FileSystem;
 use php\gui\designer\UXCodeAreaScrollPane;
@@ -23,11 +25,16 @@ use php\gui\UXImageView;
 use php\gui\UXLabel;
 use php\gui\UXListCell;
 use php\gui\UXListView;
+use php\gui\UXNode;
+use php\intellij\pty\PtyProcess;
+use php\intellij\tty\PtyProcessConnector;
+use php\intellij\ui\JediTermWidget;
 use php\io\IOException;
 use php\io\Stream;
 use php\lang\Process;
 use php\lang\Thread;
 use php\lang\ThreadPool;
+use php\lib\char;
 use php\lib\str;
 use php\util\Regex;
 use php\util\Scanner;
@@ -38,7 +45,7 @@ use php\util\SharedQueue;
  * @property UXListView $consoleList
  * @property UXCheckbox $closeAfterDoneCheckbox
  * @property UXButton $closeButton
- * @property UXRichTextArea $consoleArea
+ * @property UXNode $consoleArea
  * @property UXHBox $bottomPane
  * @property UXLabel $message
  *
@@ -50,7 +57,7 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
     use SavableFormMixin;
 
     /**
-     * @var Process
+     * @var PtyProcess
      */
     protected $process;
 
@@ -68,9 +75,19 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
     /** @var SharedQueue */
     protected $tasks;
 
+    /**
+     * @var JediTermWidget
+     */
+    protected $term;
+
+    /**
+     * @var bool
+     */
+    protected $ignoreExit1 = false;
+
     protected function init()
     {
-        $this->icon->image = ico('wait32')->image;
+        //$this->icon->image = ico('wait32')->image;
 
         $this->consoleList->setCellFactory(function (UXListCell $cell, $item, $empty) {
             //$cell->font = UXFont::of('Courier New', 12);
@@ -82,21 +99,21 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
         });
 
 
-        $consoleArea = new UXRichTextArea();
-        $consoleArea->style = '-fx-border-width: 1px; -fx-border-color: silver;';
-        $consoleArea->id = 'consoleArea';
-        $consoleArea->classes->add('dn-console-list');
+        $this->term = new JediTermWidget();
+        $this->consoleArea = $this->term->getFXNode();
+        $this->consoleArea->on("click", function () {
+            uiLater(function () {
+                $this->term->requestFocus();
+            });
+        });
 
-        $this->consoleArea = $consoleArea;
+        $this->consoleArea->position = $this->consoleList->position;
+        $this->consoleArea->size = $this->consoleList->size;
+        $this->consoleArea->anchors = $this->consoleList->anchors;
 
-        $scrollPane = new UXCodeAreaScrollPane($consoleArea);
-        $scrollPane->position = $this->consoleList->position;
-        $scrollPane->size = $this->consoleList->size;
-        $scrollPane->anchors = $this->consoleList->anchors;
+        UXVBox::setVgrow($this->consoleArea, 'ALWAYS');
 
-        UXVBox::setVgrow($scrollPane, 'ALWAYS');
-
-        $this->consoleList->parent->children->replace($this->consoleList, $scrollPane);
+        $this->consoleList->parent->children->replace($this->consoleList, $this->consoleArea);
 
         $this->message->on('click', function () {
             $text = $this->message->text;
@@ -127,6 +144,22 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
                 }
             }
         });
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIgnoreExit1(): bool
+    {
+        return $this->ignoreExit1;
+    }
+
+    /**
+     * @param bool $ignoreExit1
+     */
+    public function setIgnoreExit1(bool $ignoreExit1)
+    {
+        $this->ignoreExit1 = $ignoreExit1;
     }
 
     public function reduceHeader()
@@ -172,7 +205,7 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
 
         $process = $tasks->poll();
 
-        if ($process instanceof Process) {
+        if ($process instanceof PtyProcess) {
             // nop
         } else if (is_callable($process)) {
             $process = $process();
@@ -182,7 +215,7 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
             if ($exitCode == 0) {
                 $process = $tasks->poll();
 
-                if ($process instanceof Process) {
+                if ($process instanceof PtyProcess) {
                     // nop.
                 } else if (is_callable($process)) {
                     $process = $process();
@@ -199,7 +232,7 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
         $this->watchProcess($process, $func);
     }
 
-    public function show(Process $process = null)
+    public function show(PtyProcess $process = null)
     {
         if ($process) {
             $this->watchProcess($process);
@@ -225,7 +258,7 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
         });
     }
 
-    public function watchProcess(Process $process, callable $onExit = null)
+    public function watchProcess( $process, callable $onExit = null)
     {
         $thread = new Thread(function () use ($process, $onExit) {
             $this->doProgress($process, $onExit);
@@ -290,60 +323,21 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
     }
 
     /**
+     * @deprecated
      * @param $line
      * @param string $color
      */
-    public function addConsoleLine($line, $color = '#333333')
-    {
-        $this->addConsoleText("$line\n", $color);
+    public function addConsoleLine($line, $color = '#333333') {
+
     }
 
-    public function addConsoleText($text, $color = null)
-    {
-        if (!$color) {
-            $color = '#333333';
-        }
+    /**
+     * @deprecated
+     * @param $text
+     * @param null $color
+     */
+    public function addConsoleText($text, $color = null) {
 
-        if (str::startsWith($text, "[ERROR] ") || str::startsWith($text, "Fatal error: ")) {
-            $color = '#D8000C';
-
-            $this->message->text = $text;
-            $this->message->style = "-fx-text-fill: $color;";
-            $this->message->graphic = ico('error16');
-        }
-
-        if (str::startsWith($text, "[WARN] ") || str::startsWith($text, "[WARNING] ")) {
-            $color = '#9F6000';
-
-            $this->message->text = $text;
-            $this->message->style = "-fx-text-fill: $color;";
-            $this->message->graphic = ico('warning16');
-        }
-
-        if (str::startsWith($text, "[INFO] ")) {
-            $color = '#00529B';
-
-            $this->message->text = $text;
-            $this->message->style = "-fx-text-fill: $color;";
-            $this->message->graphic = ico('information16');
-        }
-
-        if (str::startsWith($text, "[DEBUG] ") || $text[0] == ':' || str::trimLeft($text)[0] == '#') {
-            $color = '#5c5c5c';
-        }
-
-        if ($this->consoleArea) {
-            $this->consoleArea->appendText($text, "-fx-fill: $color");
-            $this->consoleArea->jumpToEndLine(0, 1);
-        } else {
-            $this->consoleList->items->add([$text, $color]);
-
-            $index = $this->consoleList->items->count() - 1;
-
-            $this->consoleList->selectedIndexes = [$index];
-            $this->consoleList->focusedIndex = $index;
-            $this->consoleList->scrollTo($index);
-        }
     }
 
     /**
@@ -352,8 +346,6 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
     public function stopWithException(\Exception $e)
     {
         $this->processDone = true;
-
-        $this->addConsoleLine($e->getMessage(), 'red');
 
         if ($this->progress) {
             $this->progress->progress = 100;
@@ -365,56 +357,24 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
     {
         $this->processDone = true;
 
-        $this->addConsoleLine("");
-        $this->addConsoleLine("BUILD FAILED.");
-
         if ($this->progress) {
             $this->progress->progress = 100;
         }
     }
 
     /**
-     * @param Process $process
      * @param callable $onExit
      *
      */
-    public function doProgress(Process $process, callable $onExit = null)
+    public function doProgress(PtyProcessConnector $process, callable $onExit = null)
     {
-        $self = $this;
-        $input = $process->getInput();
+        $this->term->createTerminalSession($process);
+        $this->term->start();
 
-        $scanner = new Scanner($process->getInput());
-        $scannerErr = new Scanner($process->getError());
-
-        $hasError = false;
-
-        (new Thread(function() use ($scannerErr, &$hasError) {
-            while ($scannerErr->hasNextLine()) {
-                $line = $scannerErr->nextLine();
-
-                $hasError = true;
-
-                UXApplication::runLater(function () use ($line) {
-                    $this->addConsoleLine($line, 'red');
-                });
-            }
-        }))->start();
-
-        while ($scanner->hasNextLine()) {
-            $line = $scanner->nextLine();
-
-            uiLater(function() use ($line) {
-                $this->addConsoleLine($line);
-            });
-        }
-
-        $exitValue = $process->getExitValue();
+        $process->waitFor();
+       
+        $exitValue = $process->getPtyProcess()->getExitValue();
         $this->processDone = true;
-
-        uiLater(function () use ($exitValue) {
-            $this->addConsoleLine("");
-            $this->addConsoleLine("Process shutdown, exit code = $exitValue.", 'blue');
-        });
 
         UXApplication::runLater(function() {
             if ($this->progress) {
@@ -422,30 +382,23 @@ class BuildProgressForm extends AbstractIdeForm implements ProjectConsoleOutput
             }
         });
 
-        $func = function() use ($self, $exitValue, $onExit, $hasError) {
-            if ($exitValue) {
-                $self->addConsoleLine('');
-                $self->addConsoleLine('(!) Ошибка запуска, что-то пошло не так', 'red');
-                $self->addConsoleLine('   --> возможно ошибка в вашей программе или ошибка IDE...', 'gray');
-                $self->addConsoleLine('');
-            }
-
+        $func = function() use ($exitValue, $onExit) {
             if ($onExit) {
-                $nextProcess = $onExit($exitValue, $hasError);
+                $nextProcess = $onExit($exitValue, $exitValue != 0);
 
                 if ($nextProcess) {
                     return;
                 }
             }
 
-            if (!$exitValue && !$hasError && $self->closeAfterDoneCheckbox->selected) {
-                $self->hide();
+            if ($this->closeAfterDoneCheckbox->selected) {
+                $this->hide();
             }
 
             $onExitProcess = $this->onExitProcess;
 
             if ($onExitProcess) {
-                $onExitProcess($exitValue, $hasError);
+                $onExitProcess($exitValue, $exitValue != 0);
 
                 Ide::get()->setUserConfigValue('builder.closeAfterDone', $this->closeAfterDoneCheckbox->selected);
             }

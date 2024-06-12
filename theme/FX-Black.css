@@ -22,7 +22,6 @@
     -ui-toasts-frame: #212224;
 }
 
-
 .idea-toast-frame
 {
     -fx-background-color: -ui-toasts-frame;
@@ -134,6 +133,124 @@
     -fx-text-fill: #759CFF;
 }
 
+.property-editor {
+    -fx-border-width: 0; 
+    -fx-border-radius: 0;
+    -fx-font-style: italic; 
+    -fx-font-weight: bold;
+}
+
+
+/* Начало стилизация кнопок в Welcome */
+
+.ui-hyperlink-welcome-git {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/github_link.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-donate {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/donate.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-tg {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/tg.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-bundles {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/bundle.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-wiki {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/wiki.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.icon-newproect16 {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/add-circle.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-newproect16:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-openproect {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-cursor: hand;
+    -fx-graphic: url("/resources/expui/ui-icons/folder.png");
+    -fx-padding: 10 0 0 10; 
+    -fx-alignment: TOP_LEFT;
+
+}
+.icon-openproect:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-open-github {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/github.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-open-github:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-open-demo {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/Vector.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-open-demo:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+
+.icon-button-fxe-background {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-graphic: url("/resources/expui/ui-icons/log.png");
+}
+
+
+/* Конец стилизации кнопок в Welcome */
 
 
 .fxe-vertical-editor{
@@ -289,6 +406,11 @@
 }
 .ui-topBar .label {
     -fx-text-fill:  -ui-text;
+}
+
+.ui-combo-box {
+    -fx-background-color: -ui-main;
+    -fx-background-radius: 8px;
 }
 
 .ui-search-component {
@@ -546,6 +668,14 @@
     -fx-border-color:-ui-lines-separators;
 }
 
+.ui-tansparent{
+    -fx-background-color: transparent;
+}
+
+.ui-tansparent:hover{
+    -fx-background-color: -ui-hoverd;
+}
+
 .ui-paneVbox {
     -fx-background-color:  -ui-main-background;
     -fx-border-width: 1px;
@@ -562,6 +692,8 @@
 }
 .ui-headPane {
     -fx-background-color:  -ui-main-background;
+    -fx-min-height: 25px;
+    -fx-padding: 5 5 5 5;
 }
 
 
@@ -686,3 +818,58 @@
     -fx-padding: 5 10 5 10;
     -fx-cursor: hand;
 }
+/* icons .. */
+.icon-sun{ -fx-graphic: url("/.data/img/icons/sun16.png"); }
+.icon-dark{ -fx-graphic: url("/.data/img/icons/dark16.png"); }
+
+.icon-flat-edit { -fx-graphic: url("/.data/img/icons/flatEdit16.png"); }
+.icon-flat-delete { -fx-graphic: url("/.data/img/icons/flatDelete16.png"); }
+.icon-flat-gallery { -fx-graphic: url("/.data/img/icons/flatGallery16.png"); }
+.icon-flat-refresh { -fx-graphic: url("/.data/img/icons/flatRefresh16.png"); }
+.icon-flat-account { -fx-graphic: url("/.data/img/icons/account16.png"); }
+.icon-flat-search { -fx-graphic: url("/.data/img/icons/flatSearch16.png"); }
+
+.icon-exit { -fx-graphic: url("/.data/img/icons/exit16.png"); }
+.icon-exit32 { -fx-graphic: url("/.data/img/icons/exit32.png"); }
+
+.icon-ok { -fx-graphic: url("/.data/img/icons/ok16.png"); }
+.icon-save { -fx-graphic: url("/.data/img/icons/save16.png"); }
+.icon-ok32 { -fx-graphic: url("/.data/img/icons/ok32.png"); }
+
+.icon-run { -fx-graphic: url("/.data/img/icons/run16.png"); }
+
+.icon-plus { -fx-graphic: url("/.data/img/icons/plus16.png"); }
+.icon-add { -fx-graphic: url("/.data/img/icons/add16.png"); }
+.icon-delete { -fx-graphic: url("/.data/img/icons/delete16.png"); }
+.icon-clear { -fx-graphic: url("/.data/img/icons/clear16.png"); }
+
+.icon-copy { -fx-graphic: url("/.data/img/icons/copy16.png"); }
+.icon-edit { -fx-graphic: url("/.data/img/icons/edit16.png"); }
+.icon-settings { -fx-graphic: url("/.data/img/icons/settings16.png"); }
+.icon-blocks { -fx-graphic: url("/.data/img/icons/blocks16.png"); }
+.icon-vk { -fx-graphic: url("/.data/img/icons/vk16.png"); }
+.icon-login { -fx-graphic: url("/.data/img/icons/login16.png"); }
+.icon-green-document { -fx-graphic: url("/.data/img/icons/greenDocument16.png"); }
+.icon-red-document { -fx-graphic: url("/.data/img/icons/redDocument16.png"); }
+.icon-rabbit-food { -fx-graphic: url("/.data/img/icons/rabbitFood16.png"); }
+.icon-download-ext { -fx-graphic: url("/.data/img/icons/downloadExt16.png"); }
+.icon-youtube { -fx-graphic: url("/.data/img/icons/youtube16.png"); }
+.icon-convert { -fx-graphic: url("/.data/img/icons/convert16.png"); }
+.icon-trash { -fx-graphic: url("/.data/img/icons/trash16.png"); }
+.icon-trash2 { -fx-graphic: url("/.data/img/icons/trash16.gif"); }
+.icon-php { -fx-graphic: url("/.data/img/icons/phpFile16.png"); }
+.icon-share { -fx-graphic: url("/.data/img/icons/share16.png"); }
+.icon-share-ex { -fx-graphic: url("/.data/img/icons/shareEx16.png"); }
+.icon-upload { -fx-graphic: url("/.data/img/icons/upload16.png"); }
+.icon-library { -fx-graphic: url("/.data/img/icons/library16.png"); }
+.icon-square { -fx-graphic: url("/.data/img/icons/square16.png"); }
+.icon-control-panel { -fx-graphic: url("/.data/img/icons/controlPanel16.png"); }
+
+.icon-refresh { -fx-graphic: url("/.data/img/icons/refresh16.png"); }
+.icon-refresh32 { -fx-graphic: url("/.data/img/icons/refresh32.png"); }
+
+.icon-open { -fx-graphic: url("/.data/img/icons/open16.png"); }
+.icon-open32 { -fx-graphic: url("/.data/img/icons/open32.png"); }
+
+.icon-new { -fx-graphic: url("/.data/img/icons/new16.png"); }
+.icon-new32 { -fx-graphic: url("/.data/img/icons/new32.png"); }

@@ -117,31 +117,32 @@ class AutoCompletePane
 
     public function pasteUsesFromCode($text)
     {
+    
         if ($text) {
             $reg = Regex::of('([a-z0-9_]+)\\:\\:|new[ ]+([a-z0-9_]+)|([\w\d\_]+)[ ]+\$', 'ig')->with($text);
-
+        
             /** @var TypeEntry[] $types */
             $types = [];
-
+        
             while ($reg->find()) {
                 $class = $reg->group(1) ?: ($reg->group(2) ?: $reg->group(3));
                 $type = $this->complete->getInspector()->findTypeByShortName($class);
-
+        
                 if ($type) {
                     if (!Regex::of('use[ ]+' . Regex::quote($type->fulledName), 'im')->with($this->area->text)->find()) {
                         $regex = new Regex('use[ ]+([0-9\\,\\ \\_a-z\\\\]+)', 'im', $this->area->text);
-
+        
                         $usePackages = [];
-
+        
                         while ($regex->find()) {
                             foreach (str::split($regex->group(1), ',') as $p) {
                                 $p = str::trim($p);
                                 $usePackages[$p] = $p;
                             }
                         }
-
+        
                         $exists = false;
-
+        
                         if ($usePackages) {
                             foreach ($type->packages as $package) {
                                 if ($usePackages[$package]) {
@@ -150,26 +151,24 @@ class AutoCompletePane
                                 }
                             }
                         }
-
+        
                         if (!$exists) {
                             $types[$class] = $type;
                         }
                     }
                 }
             }
-
-
-
-            $tm = new ToasterMessage();
-            $iconGc = new UXImage('res://resources/expui/icons/fileTypes/info.png');
-            $tm
-                ->setIcon($iconGc)
-                ->setTitle('Менеджер подключаемых классов')
-                ->setDescription(_('В тексте есть неподключенные классы (' . str::join(arr::keys($types), ', ') . '), хотите их подключить?'))
-                ->setLink('Подключить классы', function () use ($types) {
-                    if ($types) {
+        
+            if (!empty($types)) {
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с классами')
+                    ->setDescription(_('В тексте есть неподключенные классы (' . str::join(arr::keys($types), ', ') . '), хотите их подключить?'))
+                    ->setLink('Подключить классы', function () use ($types) {
                         foreach ($types as $type) {
                             $insert = $type->fulledName;
+        
                             if ($php = PhpProjectBehaviour::get()) {
                                 if ($php->getImportType() == 'package') {
                                     if ($type->packages) {
@@ -177,13 +176,33 @@ class AutoCompletePane
                                     }
                                 }
                             }
+        
                             PhpAnyAutoCompleteType::appendUseClass($this->area, $insert);
                         }
+                    })
+                    ->setClosable();
+                Toaster::show($tm);
+        
+                if ($done) {
+                    foreach ($types as $type) {
+                        $insert = $type->fulledName;
+        
+                        if ($php = PhpProjectBehaviour::get()) {
+                            if ($php->getImportType() == 'package') {
+                                if ($type->packages) {
+                                    $insert = arr::first($type->packages);
+                                }
+                            }
+                        }
+        
+                        PhpAnyAutoCompleteType::appendUseClass($this->area, $insert);
                     }
-                })
-                ->setClosable();
-            Toaster::show($tm);
+                }
+            }
         }
+        
+        
+        
     }
 
     protected function init()
@@ -498,34 +517,32 @@ class AutoCompletePane
     public function getString($onlyName = false)
     {
         $text = $this->area->text;
-        $i = $this->area->caretPosition;
-        $string = '';
 
+        $i = $this->area->caretPosition;
+
+        $string = '';
         $braces = [];
-    
+
         if (Char::isSpace($text[$i - 1])) {
             return $string;
         }
-    
+
         while ($i-- >= 0) {
             $ch = $text[$i];
-    
-            if (Char::isPrintable($ch) && (Char::isLetterOrDigit($ch) || $ch == '_')) {
+
+            if (Char::isPrintable($ch)
+                && (Char::isLetterOrDigit($ch)) || $ch == '_') {
                 $string .= $ch;
             } else {
-                if ($onlyName) {
-                    // Изменение: Учитываем только имя, если флаг $onlyName установлен в true
-                    if ($ch == '$') {
-                        $string .= $ch;
-                    }
+                if ($onlyName /*&& $ch != '$'*/) { // todo refactor for $
                     break;
                 } else {
                     $string .= $ch;
                 }
             }
         }
-    
-        return Str::reverse($string);
+
+        return str::reverse($string);
     }
     
 

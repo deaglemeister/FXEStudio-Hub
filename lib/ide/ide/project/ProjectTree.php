@@ -8,7 +8,6 @@ use platform\plugins\traits\FileTypes;
 
 use ide\commands\tree\TreeCopyPathCommand;
 use ide\commands\tree\TreeDeleteFileCommand;
-use ide\commands\tree\TreeEditFileCommand;
 use ide\commands\tree\TreeEditInWindowFileCommand;
 use ide\commands\tree\TreeRenameFileCommand;
 use ide\commands\tree\TreeScriptHelperMenuCommand;
@@ -29,10 +28,8 @@ use php\gui\UXImageView;
 use php\io\File;
 use php\lang\Process;
 use php\lib\fs;
-
 use platform\facades\Toaster;
 use platform\toaster\ToasterMessage;
-use php\gui\UXImage;
 use php\lib\str;
 
 
@@ -499,6 +496,8 @@ class ProjectTree
                         return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/html_dark.png')), null, $file->isDirectory());
                 case "xhtml":
                             return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/xhtml_dark.png')), null, $file->isDirectory());
+                case "jar":
+                            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/java_dark.png')), null, $file->isDirectory());
                 case "dnproject":
                     return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/applicationRemote_dark.png')), null, $file->isDirectory());
             }

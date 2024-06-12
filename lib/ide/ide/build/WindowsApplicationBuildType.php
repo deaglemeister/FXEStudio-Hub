@@ -22,6 +22,8 @@ use php\gui\UXImageView;
 use php\gui\UXLabel;
 use php\gui\UXTextArea;
 use php\gui\UXTextField;
+use php\intellij\tty\PtyProcess;
+use php\intellij\tty\PtyProcessConnector;
 use php\io\File;
 use php\io\FileStream;
 use php\io\Stream;
@@ -69,7 +71,6 @@ class WindowsApplicationBuildType extends AbstractBuildType
 
     public function getLaunch4jConfigPath(Project $project)
     {
-        pre($project);
         return File::of($this->getBuildPath($project) . '/launch4j.xml')->getCanonicalFile();
     }
 
@@ -223,6 +224,14 @@ class WindowsApplicationBuildType extends AbstractBuildType
             return false;
         }
 
+        /*if ($jreHome && $config['jre']) {
+            $alert = new UXAlert('INFORMATION');
+            $alert->contentText = 'Копируем Java VM, это может занять некоторое время ...';
+            $alert->show();
+            $this->copyJre($project);
+            $alert->hide();
+        }*/
+
         $onExitProcess = function ($exitValue) use ($project, $dialog, $finished) {
             Logger::info("Finish executing: exitValue = $exitValue");
 
@@ -256,9 +265,9 @@ class WindowsApplicationBuildType extends AbstractBuildType
                     $args[] = 'copy-jre';
                 }
 
-                $process = new Process($args, $project->getRootDir(), Ide::get()->makeEnvironment());
+                $process = new PtyProcessConnector(PtyProcess::exec($args, Ide::get()->makeEnvironment(), $project->getRootDir()));
 
-                $process = $process->start();
+                //$process = $process->start();
 
                 $dialog->watchProcess($process);
             } else {

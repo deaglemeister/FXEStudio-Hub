@@ -53,21 +53,21 @@ class WelcomeEditor extends AbstractEditor
         $layout->lookup('#openProjectButton')->on('click', function () {
             Ide::get()->executeCommand(OpenProjectCommand::class);
         });
-        $layout->lookup('#openTg')->on('click', function () {
-            browse('https://t.me/fxedition17');
-        });
-        $layout->lookup('#openSupportMoney')->on('click', function () {
-            browse('https://www.donationalerts.com/r/fxedition');
-        });
-        $layout->lookup('#github')->on('click', function () {
-            browse('https://github.com/deaglemeister/FXEdition');
-        });
-        $layout->lookup('#listbundels')->on('click', function () {
-            browse('https://github.com/deaglemeister/bundels');
-        });
-        $layout->lookup('#docymentss')->on('click', function () {
-            browse('https://hub.develnext.org/wiki/');
-        });
+       # $layout->lookup('#openTg')->on('click', function () {
+          #  browse('https://t.me/fxedition17');
+       # });
+       # $layout->lookup('#openSupportMoney')->on('click', function () {
+        #    browse('https://www.donationalerts.com/r/fxedition');
+      #  });
+        #$layout->lookup('#github')->on('click', function () {
+       #     browse('https://github.com/deaglemeister/FXEdition');
+       # });
+       # $layout->lookup('#listbundels')->on('click', function () {
+        #    browse('https://github.com/deaglemeister/bundels');
+        #});
+        #$layout->lookup('#docymentss')->on('click', function () {
+         #   browse('https://hub.develnext.org/wiki/');
+       # });
 
 
         return $layout;

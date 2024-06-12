@@ -13,6 +13,8 @@ use ide\project\ProjectFile;
 use ide\systems\ProjectSystem;
 use ide\utils\FileUtils;
 use php\compress\ZipFile;
+use php\intellij\tty\PtyProcess;
+use php\intellij\tty\PtyProcessConnector;
 use php\io\File;
 use php\io\IOException;
 use php\io\Stream;
@@ -94,11 +96,9 @@ class AntOneJarBuildType extends AbstractBuildType
         if ($config['oneJar']) {
             $content = str::replace($content, '#L4J_JAR_FILE#', '${dist}/' . $project->getName() . '.jar');
             $content = str::replace($content, '#L4J_DONT_WRAP_JAR#', 'false');
-           
         } else {
             $content = str::replace($content, '#L4J_JAR_FILE#', '');
             $content = str::replace($content, '#L4J_DONT_WRAP_JAR#', 'true');
-            
         }
 
         if ($config['jre']) {
@@ -154,7 +154,7 @@ class AntOneJarBuildType extends AbstractBuildType
                 } else {
                     $excl = '';
                 }
-                
+
                 $oneJarContent[] = "<zipfileset src='\${dist}/lib/{$name}' excludes='JPHP-INF/sdk/** $excl' />";
 
                 try {
@@ -223,9 +223,9 @@ class AntOneJarBuildType extends AbstractBuildType
             if ($success) {
                 $this->makeAntBuildFile($project, $this->getConfig());
 
-                $process = new Process([Ide::get()->getApacheAntProgram(), 'onejar'], $project->getRootDir(), Ide::get()->makeEnvironment());
+                $process = new PtyProcessConnector(PtyProcess::exec([Ide::get()->getApacheAntProgram(), 'onejar'], Ide::get()->makeEnvironment(), $project->getRootDir()));
 
-                $process = $process->start();
+              //  $process = $process->start();
 
                 $dialog->watchProcess($process);
             } else {

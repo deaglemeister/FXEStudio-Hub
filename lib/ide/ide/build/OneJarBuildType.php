@@ -12,6 +12,8 @@ use ide\project\Project;
 use ide\systems\ProjectSystem;
 use ide\ui\Notifications;
 use php\gui\UXApplication;
+use php\intellij\tty\PtyProcess;
+use php\intellij\tty\PtyProcessConnector;
 use php\io\File;
 use php\lang\Process;
 use script\TimerScript;
@@ -173,14 +175,16 @@ class OneJarBuildType extends AbstractBuildType
         ProjectSystem::saveOnlyRequired();
         ProjectSystem::compileAll(Project::ENV_PROD, $dialog, 'gradle jar', function ($success) use ($ide, $project, $dialog) {
             if ($success) {
-                $process = new Process([$ide->getGradleProgram(), 'clean', 'splitConfig', 'jar'], $project->getRootDir(), $ide->makeEnvironment());
+                $process = new PtyProcessConnector(PtyProcess::exec([$ide->getGradleProgram(), 'clean', 'splitConfig', 'jar'], $ide->makeEnvironment(), $project->getRootDir()));
 
                 /** @var GradleProjectBehaviour $gradle */
                 $gradle = $project->getBehaviour(GradleProjectBehaviour::class);
 
                 self::appendJarTasks($gradle->getConfig());
 
-                $process = $process->start();
+                //$process = $process->start();
+
+               
 
                 $dialog->watchProcess($process);
             } else {

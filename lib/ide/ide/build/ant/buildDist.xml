@@ -53,24 +53,20 @@
         </copy>
     </target>
 
-<target name="launch4j">
-    <launch4j>
-        <config headerType="gui" 
-                outfile="${dist}/#NAME#-#VERSION#.exe" 
-                dontWrapJar="#L4J_DONT_WRAP_JAR#" 
-                jar="${dist}/#NAME#.jar" 
-                chdir="."
-                downloadUrl="http://java.com/download" 
-                icon="#L4J_ICON_FILE#">
-            <classPath mainClass="org.develnext.jphp.ext.javafx.FXLauncher">
-                <cp>lib/*</cp>
-            </classPath>
-            <jre minVersion="1.8.0" path="#L4J_JRE_PATH#" runtimeBits="64/32">
-                <opt>-Dfile.encoding=UTF-8</opt>
-            </jre>
-        </config>
-    </launch4j>
-    <delete file="${dist}/#NAME#.jar" failonerror="false" />
-    <delete dir="${dist}/gen" failonerror="false" />
-</target>
+    <target name="launch4j">
+        <launch4j>
+            <config headerType="gui" outfile="${dist}/#NAME#.exe"
+                    dontWrapJar="#L4J_DONT_WRAP_JAR#" jarPath="#L4J_JAR_FILE#" chdir="."
+                    downloadUrl="http://java.com/download" icon="#L4J_ICON_FILE#">
+                <classPath mainClass="org.develnext.jphp.ext.javafx.FXLauncher">
+                    <cp>lib/*</cp>
+                </classPath>
+                <jre minVersion="1.8.0" path="#L4J_JRE_PATH#" runtimeBits="64/32">
+                    <opt>-Dfile.encoding=UTF-8</opt>
+                </jre>
+            </config>
+        </launch4j>
+        <delete file="#L4J_JAR_FILE#" failonerror="false" />
+        <delete dir="${dist}/gen" failonerror="false" />
+    </target>
 </project>
