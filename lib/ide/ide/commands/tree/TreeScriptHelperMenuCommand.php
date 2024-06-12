@@ -88,9 +88,13 @@ class TreeScriptHelperMenuCommand extends AbstractMenuCommand
         $dlg->showDialog();
     }
 
-    public function onBeforeShow(UXMenuItem $item, AbstractEditor $editor = null)
+    public function onBeforeShow($item, AbstractEditor $editor = null)
     {
+        parent::onBeforeShow($item, $editor);
 
+
+        $file = $this->tree->getSelectedFullPath();
+        $item->disable = !$file || $file->isDirectory();
     }
 
     public function withBeforeSeparator()
