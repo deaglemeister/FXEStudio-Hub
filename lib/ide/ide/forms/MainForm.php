@@ -79,6 +79,8 @@ use platform\facades\Toaster;
 use platform\plugins\AnAction;
 use platform\toaster\ToasterMessage;
 
+use php\demonck\winfx\WindowManager10;
+
 use ide\forms\malboro\Updates;
 use ide\forms\malboro\DiscordRPC;
 use platform\facades\PluginManager;
@@ -299,7 +301,7 @@ class MainForm extends AbstractIdeForm
         $plugin = new PluginManager();
         $plugin->checkUpdates();
     }
- 
+
     public function show()
     {
        
@@ -308,6 +310,8 @@ class MainForm extends AbstractIdeForm
 
        # MainForm::analyzeMemoryUse();
        # MainForm::getMemoryUsage();
+
+       Ide::setFrame($this->layout);
 
 
         $x = $screen->bounds['x'];

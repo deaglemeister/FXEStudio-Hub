@@ -7,10 +7,8 @@ use ide\Ide;
 use ide\library\IdeLibraryProjectResource;
 use ide\library\IdeLibraryResource;
 use ide\Logger;
-use ide\project\Project;
 use ide\project\ProjectConfig;
 use ide\systems\DialogSystem;
-use ide\systems\FileSystem;
 use ide\systems\ProjectSystem;
 use ide\ui\FlowListViewDecorator;
 use ide\ui\ImageBox;
@@ -19,8 +17,6 @@ use ide\utils\FileUtils;
 use ide\utils\UiUtils;
 use php\gui\event\UXEvent;
 use php\gui\event\UXMouseEvent;
-use php\gui\framework\AbstractForm;
-use php\gui\framework\Preloader;
 use php\gui\layout\UXAnchorPane;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXScrollPane;
@@ -28,14 +24,9 @@ use php\gui\layout\UXVBox;
 use php\gui\UXApplication;
 use php\gui\UXButton;
 use php\gui\UXDialog;
-use php\gui\UXDirectoryChooser;
-use php\gui\UXFileChooser;
-use php\gui\UXForm;
 use php\gui\UXHyperlink;
 use php\gui\UXImageView;
 use php\gui\UXLabel;
-use UXTextArea;
-use php\gui\UXTextArea;
 use php\gui\UXListCell;
 use php\gui\UXListView;
 use php\gui\UXTabPane;
@@ -48,12 +39,6 @@ use php\lib\Items;
 use php\lib\Str;
 use php\time\Time;
 use php\time\Timer;
-use php\time\UXTimer;
-use php\gui\framework\Timer;
-use php\lang\IllegalStateException;
-use timer\AccurateTimer;
-use frameworkd; 
-use script\TimerScript;
 
 /**
  *
@@ -104,6 +89,7 @@ class OpenProjectForm extends AbstractIdeForm
             }
         }
     }
+
 
     public function init()
     {
@@ -367,6 +353,7 @@ class OpenProjectForm extends AbstractIdeForm
         $this->update($this->projectQueryField->text);
         $this->updateLibrary();
         $this->updateShared();
+
     }
 
     /**
@@ -501,6 +488,14 @@ class OpenProjectForm extends AbstractIdeForm
     }
 
 
+
+  /**
+  *  @event show
+  */
+    function doShow($e = null){
+        parent::show();
+        Ide::setFrame($this->layout);
+    }
 
     public function doDelete(UXEvent $e)
     {

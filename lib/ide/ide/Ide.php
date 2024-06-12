@@ -15,7 +15,6 @@ use ide\l10n\L10n;
 use ide\library\IdeLibrary;
 use ide\misc\AbstractCommand;
 use ide\misc\EventHandlerBehaviour;
-use ide\misc\GradleBuildConfig;
 use ide\project\AbstractProjectTemplate;
 use ide\project\control\AbstractProjectControlPane;
 use ide\project\Project;
@@ -27,23 +26,18 @@ use ide\systems\Cache;
 use ide\systems\FileSystem;
 use ide\systems\IdeSystem;
 use ide\systems\ProjectSystem;
-use ide\systems\WatcherSystem;
 use ide\tool\IdeToolManager;
 use ide\ui\LazyLoadingImage;
 use ide\ui\Notifications;
 use ide\utils\FileUtils;
 use ide\utils\Json;
-use php\desktop\SystemTray;
-use php\desktop\TrayIcon;
 use php\gui\event\UXKeyboardManager;
 use php\gui\event\UXKeyEvent;
 use php\gui\framework\Application;
 use php\gui\JSException;
 use php\gui\layout\UXAnchorPane;
 use php\gui\UXAlert;
-use php\gui\UXApplication;
 use php\gui\UXButton;
-use php\gui\UXDialog;
 use php\gui\UXImage;
 use php\gui\UXImageView;
 use php\gui\UXMenu;
@@ -61,16 +55,14 @@ use php\lang\Thread;
 use php\lang\ThreadPool;
 use php\lib\arr;
 use php\lib\fs;
-use php\lib\Items;
 use php\lib\reflect;
 use php\lib\Str;
 use php\time\Time;
 use php\time\Timer;
-use php\util\Configuration;
 use php\util\Scanner;
-use script\TimerScript;
 use timer\AccurateTimer;
-
+use php\demonck\winfx\WindowManager10;
+use Throwable;
 
 /**
  * Class Ide
@@ -1752,6 +1744,21 @@ class Ide extends Application
 
         return $result;
     }
+
+
+    /**
+     * Создание фрейма заголовка окна.
+     */
+    public static function setFrame($layout)
+    {
+        try {
+            WindowManager10::setCaptionColor($layout->scene,'#000000');
+            WindowManager10::setTextColor($layout->scene,'#ffffff');
+        }catch (Throwable $e) {
+            
+        }
+    }
+
 
     /**
      * Restart IDE, запустить рестарт IDE, работает только в production режиме.

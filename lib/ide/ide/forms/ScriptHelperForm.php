@@ -109,6 +109,8 @@ class ScriptHelperForm extends AbstractIdeForm
         $this->displayList($this->searchField->text);
     }
 
+    
+
     /**
      * @event genButton.action
      */

@@ -79,6 +79,8 @@ class ReplaceTextDialogForm extends AbstractIdeForm
         return $options;
     }
 
+    
+
     /**
      * @event inputField.keyUp
      */

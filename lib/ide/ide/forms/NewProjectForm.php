@@ -83,6 +83,8 @@ class NewProjectForm extends AbstractIdeForm
     );
 }
 
+
+
     private function handleDeleteCommand()
     {
         $resource = Items::first($this->templateList->selectedItems);
@@ -186,6 +188,9 @@ class NewProjectForm extends AbstractIdeForm
      */
     public function doShow()
     {
+
+       
+        Ide::setFrame($this->layout);
         $this->templates = Items::toArray(Ide::get()->getProjectTemplates());
         $this->templateList->items->setAll($this->templates ?: []);
         

@@ -6,6 +6,7 @@ use ide\Logger;
 use php\gui\framework\AbstractForm;
 use php\gui\UXForm;
 
+
 /**
  * Class AbstractIdeForm
  * @package ide\forms
@@ -17,7 +18,8 @@ class AbstractIdeForm extends AbstractForm
         parent::__construct($origin);
     
         $ideInstance = Ide::get();
-    
+
+
         if ($ideInstance->isCreated()) {
             $this->owner = $ideInstance->getMainForm();
         }
