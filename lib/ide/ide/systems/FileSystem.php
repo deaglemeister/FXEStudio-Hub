@@ -451,7 +451,8 @@ class FileSystem
 
         $tab->text = $editor->getTitle();
         $tab->tooltip = $editor->getTooltip();
-        $tab->style = UiUtils::fontSizeStyle() . "; " . $editor->getTabStyle();
+      
+        #$tab->style = UiUtils::fontSizeStyle() . "; " . $editor->getTabStyle();
         $tab->graphic = Ide::get()->getImage($editor->getIcon());
         $tab->content = static::makeUiForEditor($editor, 'tab');
         $tab->userData = $editor;
@@ -706,15 +707,15 @@ class FileSystem
             $tab = new UXTab();
             $tab->draggable = false;
             $tab->closable = false;
-            $tab->style = '-fx-cursor: hand; -fx-padding: 1px 0px;';
-            $tab->graphic = Ide::get()->getImage('icons/plus16.png');
+           # $tab->style = '-fx-cursor: hand; -fx-padding: 1px 0px;';
+            $tab->graphic = Ide::get()->getImage('icons/add.png');
 
             $button = new UXButton();
             $tab->graphic = $button;
 
-            $button->graphic = Ide::get()->getImage('icons/plus16.png');
+            $button->graphic = Ide::get()->getImage('icons/add.png');
             $button->classes->add('fxe-button');
-            $button->style = '-fx-background-radius: 0; -fx-border-radius: 12; -fx-border-width: 0';
+           #$button->style = '-fx-background-radius: 0; -fx-border-radius: 12; -fx-border-width: 0';
 
             $button->on('click', function ($e) {
                 call_user_func(self::$addTabClick, $e);

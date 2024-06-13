@@ -7,8 +7,10 @@ ide\commands\ExportProjectCommand
 ide\commands\SaveProjectForLibraryCommand
 ide\commands\CloseProjectCommand
 ide\commands\ExitCommand
-ide\commands\IdeLogShowCommand
+
 ide\commands\IdeSandboxShowCommand
+ide\commands\CreateTerminalCommand
+
 
 ide\commands\TGGroupCommand
 ide\commands\DonateCommand

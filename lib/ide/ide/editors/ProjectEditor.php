@@ -81,7 +81,7 @@ class ProjectEditor extends AbstractEditor
 
     public function getTabStyle()
     {
-        return '-fx-padding: 1px 7px; -fx-font-weight: bold;';
+        return '';
     }
 
     public function isPrependTab()
