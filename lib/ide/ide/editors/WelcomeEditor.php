@@ -35,6 +35,12 @@ class WelcomeEditor extends AbstractEditor
         return _('welcome.title');
     }
 
+
+    public function getIcon()
+    {
+        return 'icons/homeFolder_dark.png';
+    }
+
     public function isAutoClose()
     {
         return false;
