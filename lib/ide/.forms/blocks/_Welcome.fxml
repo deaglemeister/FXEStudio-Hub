@@ -22,7 +22,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button id="" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="415.0" layoutY="165.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="126.0" prefWidth="180.0" styleClass="icon-open-github" text="Клонировать проект с GitHub" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <Button id="cloneProjectFile" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="415.0" layoutY="165.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="126.0" prefWidth="180.0" styleClass="icon-open-github" text="Клонировать проект с GitHub" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

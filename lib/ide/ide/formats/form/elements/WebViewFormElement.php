@@ -9,6 +9,10 @@ use php\gui\event\UXWebEvent;
 use php\gui\UXNode;
 use php\gui\UXTextField;
 use php\gui\UXWebView;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
+
 
 class WebViewFormElement extends AbstractFormElement
 {
@@ -22,7 +26,7 @@ class WebViewFormElement extends AbstractFormElement
 
     public function getElementClass()
     {
-        return UXWebView::class;
+        return null;
     }
 
     public function getGroup()
@@ -45,11 +49,20 @@ class WebViewFormElement extends AbstractFormElement
      */
     public function createElement()
     {
-        $element = new UXWebView();
 
-        Ide::get()->getMainForm()->toast('У браузера есть баги при открытии некоторых страниц');
 
-        return $element;
+        $tm = new ToasterMessage();
+        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/Error.png');
+        $tm
+            ->setIcon($iconImage)
+            ->setTitle('Менеджер по работе с компонентом')
+            ->setDescription(_('Браузер был перенсён в пакет расширений. Данный браузер использует движок: Chromium'))
+            ->setClosable();
+        Toaster::show($tm);
+
+        #$element = new UXWebView();
+
+        return null;
     }
 
     public function getDefaultSize()
@@ -59,7 +72,7 @@ class WebViewFormElement extends AbstractFormElement
 
     public function isOrigin($any)
     {
-        return $any instanceof UXWebView;
+        return null;
     }
 
     public function getScriptGenerators()
