@@ -35,7 +35,7 @@ class SetupWindowsApplicationBuildType extends AbstractBuildType
      */
     function getName()
     {
-        return 'Windows Инсталятор';
+        return 'Windows Инсталятор (Временно не доступен)';
     }
 
     /**

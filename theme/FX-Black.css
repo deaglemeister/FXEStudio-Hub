@@ -51,6 +51,95 @@
     -fx-spacing: 8;
 }
 
+.dn-button-blue {
+    -fx-background-color: -x-default;
+    -fx-border-color: -x-link;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: -x-primary-text;
+    -fx-background-insets: 0, 0, 0, 0;
+    -fx-cursor: hand;
+}
+
+.blur-modal {
+    -fx-background-color: -blur-modal;
+}
+
+
+.pathTextSilver {
+    -fx-text-fill: -ui-text-secondary;
+    -fx-font-size: 12;
+}
+
+.dn-mainTitleName {
+    -fx-font-size: 14;
+    -fx-text-fill: -ui-text;
+ 
+}
+
+.dn-mainTitleVersion {
+    -fx-font-size: 14;
+    -fx-text-fill: -ui-text-secondary;
+}
+
+.dn-welcome-heder {
+    -fx-background-color: -ui-main-background;
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 10 10 0 0;
+}
+
+.dn-anchor-pane-welcome {
+    -fx-background-color: -ui-main-background;
+}
+
+.ui-tab-pane-welcome-hbox {
+
+    -fx-border-color: -ui-context-menu-border;
+}
+
+.dn-welcome-logotype {
+    -fx-background-Color: -ui-main-background;
+}
+
+.dn-tg-button-welcome {
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.dn-tg-button-welcome:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-text-fill: -ui-text;
+}
+.dn-tg-button-welcome:selected {
+    -fx-background-color: -ui-hoverd;
+    -fx-text-fill: -ui-text;
+
+}
+
+.dn-search-name-project {
+    -fx-spacing: 3px;
+    -fx-pref-height: 160px;
+    -fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 25px;
+    -fx-border-insets: -2 0 0 0;
+    -fx-border-radius: 5;
+    -fx-border-color: -ui-border;
+    -fx-text-fill: -ui-text;
+}
+
+
+.dn-toggle-tab-pane {
+    -fx-tab-max-height: 0;
+}
+
+.dn-toggle-tab-pane .tab-header-area {
+    visibility: hidden;
+    enable: false;
+}
 
 
 
@@ -510,20 +599,31 @@
     -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
 }
 
-.scroll-pane {
-    -fx-border-width: 1px;
-    -fx-border-color:  -ui-context-menu-border;
+.dn-scroll-pane {
+    -fx-border-color: -ui-context-menu-border transparent transparent -ui-context-menu-border;
+    -fx-border-width: 1px 0 0 1px;
     -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
     -fx-focus-traversable: false;
 }
-.scroll-pane .viewport {
-    -fx-background-color:  -ui-secondary-background;
+.dn-scroll-pane .viewport {
+    -fx-background-color:  -ui-main-background;
     -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
     -fx-faint-focus-color: -ui-main-background;
-    -fx-border-width: 1px;
     -fx-focus-traversable: false;
 }
 
+.custom-text-field-welcome { 
+    -fx-text-fill: -ui-placeholde-text;
+    -fx-background-color: transparent;
+    -fx-width: 500px;
+    -fx-height: 45;
+    
+}
+
+.custom-text-field-welcome .text{ 
+    -fx-text-fill: -ui-placeholde-text;
+
+}
 
 .scroll-bar:vertical,
 .scroll-bar:horizontal {

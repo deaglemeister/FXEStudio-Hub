@@ -211,7 +211,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
                         return true;
                     }
 
-                    waitAsync(1000, function () use ($editor, $file) {
+                    waitAsync(3000, function () use ($editor, $file) {
                         $editor->delete($file);
 
                         $this->trigger('updateCount');
@@ -239,7 +239,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
 
         $pane = $pane->getPane();
-        $pane->classes->add('ui-topBar');
+      #  $pane->classes->add('ui-topBar');
         UXVBox::setVgrow($pane, 'ALWAYS');
 
 
@@ -251,7 +251,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
 
         $ui->add($pane);
         $ui->spacing = 10;
-        $ui->classes->add('ui-topBar');
+       # $ui->classes->add('ui-topBar');
         return $ui;
     }
 
@@ -313,7 +313,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
         $ui = new UXHBox([$addButton, new UXSeparator('VERTICAL'), $editButton, $cloneButton, $delButton]);
         $ui->spacing = 5;
         $ui->minHeight = 30;
-        $ui->classes->add('ui-topBar');
+        #$ui->classes->add('ui-topBar');
 
         return $ui;
     }

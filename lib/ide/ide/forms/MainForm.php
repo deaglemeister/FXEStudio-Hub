@@ -240,19 +240,20 @@ class MainForm extends AbstractIdeForm
 
             $tree->root->expanded = true;
             $project->getConfig()->loadTreeState($project->getTree());
-
+            $tree->enabled = true;
+            $tree->opacity = 1;
             $label = new UXLabel(fs::normalize($project->getMainProjectFile()));
             $label->paddingLeft = 10;
 
-            $this->statusPane->children->setAll([
-                $label
-            ]);
+            $this->statusPane->children->setAll([$label]);
+
         });
 
         Ide::get()->bind('afterCloseProject', function () use ($tree) {
             $tree->treeSource->shutdown();
             $tree->treeSource = null;
-
+            $tree->enabled = false;
+            $tree->opacity = 0;
             $this->statusPane->children->clear();
         });
     }
@@ -427,8 +428,7 @@ class MainForm extends AbstractIdeForm
             'blur' => app()->form('MainForm')->flowPane, # Объект для размытия
             'title' => _('modals.text.exit.ide'), # Заголовок окна
             'message' => _('modals.text.save.ide'), # Сообщение
-            'color_overlay' => "#ff5252",
-            'close_overlay' => false, # Закрывать при клике мыши на overlay
+            'close_overlay' => true, # Закрывать при клике мыши на overlay
             'buttons' => [['text' => _('modals.text.yes.ide'), 'style' => 'button-red'], ['text' => _('modals.text.cancel.ide'), 'style' => 'button-accent', 'close' => true]]
             ];
         
