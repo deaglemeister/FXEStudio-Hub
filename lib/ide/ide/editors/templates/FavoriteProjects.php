@@ -158,7 +158,7 @@ class FavoriteProjects {
                             $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
                             $tm
                             ->setIcon($iconImage)
-                            ->setTitle('Менеджер по работе с Git')
+                            ->setTitle('Менеджер по работе с проектами')
                             ->setDescription(_('Ваш проект был успешно загружен.'))
                             ->setClosable(2000);
                             Toaster::show($tm);
@@ -172,7 +172,7 @@ class FavoriteProjects {
                 $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
                 $tm
                 ->setIcon($iconImage)
-                ->setTitle('Менеджер по работе с Git')
+                ->setTitle('Менеджер по работе с проектами')
                 ->setDescription(_('Произошла ошибка открытие проекта.'))
                 ->setClosable(2000);
                 Toaster::show($tm);
