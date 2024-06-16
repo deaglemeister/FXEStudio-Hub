@@ -11,22 +11,22 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox id="rootPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
+        <VBox id="rootPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <SplitPane id="contentSplit" dividerPositions="0.5" orientation="VERTICAL" styleClass='ui-paneVbox' AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                <SplitPane id="contentSplit" dividerPositions="0.5" orientation="VERTICAL" styleClass="ui-paneVbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                     <items>
                         <VBox id="contentVBox" layoutX="-86.0" layoutY="-52.0" prefHeight="151.0" prefWidth="1055.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <MenuBar focusTraversable="false" prefHeight="27.0" prefWidth="598.0" styleClass="ui-topBar">
                                     <menus>
                                         <Menu id="menuProject" mnemonicParsing="false" text="{menu.project}" />
-
+            
                                          <Menu id="menuLibrary" mnemonicParsing="false" text="{menu.help.libary}" /> 
                                
                                         <Menu id="menuRun" text="{menu.run}" />
                                         <Menu id="menuHelp" text="{menu.help}" />
                                         <Menu id="menuL10n" text="{menu.help.launges}" />
-
+            
                                     </menus>
                                     <opaqueInsets>
                                         <Insets />
@@ -37,12 +37,12 @@
                                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                     </padding>
                                     <children>
-                                        <HBox id="headRightPane" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0"  HBox.hgrow="ALWAYS" />
+                                        <HBox id="headRightPane" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                     </children>
                                 </HBox>
                                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <SplitPane id="splitTree" dividerPositions="0.2530487804878049" prefHeight="200.0" styleClass="ui-paneVbox" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <SplitPane id="splitTree" dividerPositions="0.2530487804878049" prefHeight="200.0" prefWidth="200.0" styleClass="ui-paneVbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                                 <AnchorPane id="directoryTree" minHeight="0.0" minWidth="0.0" prefWidth="150.0" styleClass="ui-treeView" SplitPane.resizableWithParent="false" />
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -67,9 +67,6 @@
                 </HBox>
             </children>
         </VBox>
-            <VBox id="toasterContainer" maxWidth="360.0" minHeight="20.0" minWidth="360.0"
-            prefWidth="360.0" spacing="10.0"
-            AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0"
-            alignment="BOTTOM_RIGHT"/>
+            <VBox id="toasterContainer" alignment="BOTTOM_RIGHT" maxWidth="360.0" minHeight="20.0" minWidth="360.0" prefWidth="360.0" spacing="10.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" />
     </children>
 </AnchorPane>

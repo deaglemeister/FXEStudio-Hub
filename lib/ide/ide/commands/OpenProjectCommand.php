@@ -2,6 +2,7 @@
 namespace ide\commands;
 
 use ide\editors\AbstractEditor;
+use ide\forms\NewProjectForm;
 use ide\forms\OpenProjectForm;
 use ide\Ide;
 use ide\misc\AbstractCommand;
@@ -66,7 +67,7 @@ class OpenProjectCommand extends AbstractCommand
         static $dialog = null;
 
         if (!$dialog) {
-            $dialog = new OpenProjectForm();
+            $dialog = new NewProjectForm();
             $dialog->owner = Ide::get()->getMainForm();
         }
 

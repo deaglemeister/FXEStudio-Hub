@@ -70,7 +70,7 @@ abstract class AbstractEditor
      * AbstractEditor constructor.
      * @param string $file
      */
-    public function __construct($file)
+    public function __construct($file = null)
     {
         $this->file = $file;
     }

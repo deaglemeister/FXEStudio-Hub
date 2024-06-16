@@ -2,32 +2,25 @@
 
 namespace ide\editors\templates\other;
 
-use fxe\platform\facades\Toaster;
-use fxe\platform\toaster\ToasterMessage;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 use ide\Ide;
 use ide\library\IdeLibraryResource;
 use ide\project\AbstractProjectTemplate;
 use ide\systems\ProjectSystem;
-
-
 use php\gui\UXButton;
 use php\gui\UXLabel;
 use php\gui\layout\UXScrollPane;
-
 use php\gui\UXTextField;
 use php\gui\UXToggleButton;
-
 use kosogroup\liver\ui\components\UIxHBox;
 use kosogroup\liver\ui\components\UIxVBox;
-
-
-
 use php\gui\event\UXEvent;
 use php\gui\framework\Application;
 use php\gui\layout\UXHBox;
 use php\gui\layout\UXVBox;
 use php\gui\UXDirectoryChooser;
-use php\gui\UXTab;
 use php\gui\UXToggleGroup;
 use php\gui\UXTooltip;
 use php\io\File;
@@ -140,23 +133,29 @@ class NewProjectPatternList extends UXVBox{
             $template = $this->__toggleGroup->selected;
 
             if(!$template or !is_object($template)){
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle("Проектный менеджер")
-                ->setDescription(_('project.new.alert.select.template'))
-                ->setClosable(1000, true);
-                Toaster::show($toasterMessage);
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/warning.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с проектами')
+                    ->setDescription(_('project.new.alert.select.template'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
                 return;
             }
 
             $template = $template->data('template');
 
             if(!$template or !is_object($template)){
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle("Проектный менеджер")
-                ->setDescription(_('project.new.alert.select.template'))
-                ->setClosable(1000, true);
-                Toaster::show($toasterMessage);
-                return;
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/warning.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с проектами')
+                    ->setDescription(_('project.new.alert.select.template'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
+                    return;
             }
 
     
@@ -167,21 +166,27 @@ class NewProjectPatternList extends UXVBox{
             $package =  $this->__textFieldPackageName->text;
     
             if (!$name) {
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle("Проектный менеджер")
-                ->setDescription(_('project.new.error.name.required'))
-                ->setClosable(1000, true);
-                Toaster::show($toasterMessage);
-                return;
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с проектами')
+                    ->setDescription(_('project.new.error.name.required'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
+                    return;
             }
     
             if (!fs::valid($name)) {
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle(_('project.new.error.name.invalid'))
-                ->setDescription(_('project.new.error.name.required'))
-                ->setClosable(1000, true);
-                Toaster::show($toasterMessage);
-                return;
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('project.new.error.name.invalid')
+                    ->setDescription(_('project.new.error.name.required'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
+                    return;
             }
     
            
@@ -189,12 +194,15 @@ class NewProjectPatternList extends UXVBox{
             $regex = new Regex('^[a-z\\_]{2,15}$');
     
             if (!$regex->test($package)) {
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle(_('project.new.error.package.invalid') . "\n* " . _('project.new.error.package.invalid.description'))
-                ->setDescription(_('project.new.error.name.required'))
-                ->setClosable(1000, true);
-                Toaster::show($toasterMessage);
-                return;
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle(_('project.new.error.package.invalid') . "\n* " . _('project.new.error.package.invalid.description'))
+                    ->setDescription(_('project.new.error.name.required'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
+                    return;
             }
     
             if ($template instanceof IdeLibraryResource) {

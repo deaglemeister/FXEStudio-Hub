@@ -24,7 +24,7 @@ class ProjectOpenAction extends AnAction
 
     public function onExecute()
     {
-        $dialog = new OpenProjectForm();
+        $dialog = new NewProjectForm();
         $dialog->owner = Ide::get()->getMainForm();
         
         $dialog->showAndWait();

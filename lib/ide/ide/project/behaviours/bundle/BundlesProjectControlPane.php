@@ -209,10 +209,12 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
 
 
         $label = new UXLabel(_('searchbtbgdplace3'));
+        $label->classesString = 'ui-text';
         $label->font->bold = true;
 
         $label2 = new UXLabel(_('searchbtbgdplace4'));
         $label2->font->bold = true;
+        $label2->classesString = 'ui-text';
 
 
         $vbox = new UXVBox([$label2, $pane, new UXSeparator(), $label, $this->makeActionPaneUi(), $this->availableBundleListPane->getPane()], 10);
@@ -230,6 +232,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $box->minHeight = 32;
 
         $searchField = new UXTextField();
+        $searchField->classesString = 'custom-text-field';
         $searchField->promptText = _('searchbtbgdplace');
         $searchField->width = 220;
         $searchField->maxHeight = 999;
@@ -237,6 +240,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $box->add($searchField);
 
         $searchBtn = new UXButton();
+        $searchBtn->classesString = 'custom-text-field';
         $searchBtn->graphic = ico('flatSearch16');
         $searchBtn->maxHeight = 999;
 
@@ -255,11 +259,13 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $box->add(new UXSeparator('VERTICAL'));
 
         $addToLibrary = new UXButton(_('searchbtbgdplace1'), ico('library16'));
+        $addToLibrary->classesString = 'ui-button-create-project';
         $addToLibrary->maxHeight = 999;
         $addToLibrary->on('action', [$this, 'addBundleFile']);
         $box->add($addToLibrary);
 
         $addUrlToLibrary = new UXButton(_('searchbtbgdplace2'), ico('linkAdd16'));
+        $addUrlToLibrary->classesString = 'ui-button-create-project';
         $addUrlToLibrary->maxHeight = 999;
         $addUrlToLibrary->on('action', [$this, 'addBundleUrl']);
         $box->add($addUrlToLibrary);
@@ -294,6 +300,7 @@ class BundlesProjectControlPane extends AbstractProjectControlPane
         $item->setTitle($resource->getName() . ' (' . $resource->getVersion() . ')');
         $item->setDescription($resource->getDescription(), '-fx-text-fill: gray');
         $item->setTooltip($resource->getDescription());
+        
         $item->data('resource', $resource);
 
         $item->on('click', function (UXMouseEvent $e) use ($resource) {

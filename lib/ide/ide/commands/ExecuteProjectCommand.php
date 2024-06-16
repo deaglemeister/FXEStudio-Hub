@@ -74,7 +74,7 @@ class ExecuteProjectCommand extends AbstractCommand
 
     public function getIcon()
     {
-        return 'icons/run16.png';
+        return 'icons/startApp.png';
     }
 
     public function getAccelerator()
@@ -90,13 +90,13 @@ class ExecuteProjectCommand extends AbstractCommand
     public function makeUiForHead()
     {
         $this->stopButton = $this->makeGlyphButton();
-        $this->stopButton->graphic = Ide::get()->getImage('icons/square16.png');
+        $this->stopButton->graphic = Ide::get()->getImage('icons/stopProject.png');
         $this->stopButton->tooltipText = 'Завершить выполнение программы (F9)';
         $this->stopButton->on('action', [$this, 'onStopExecute']);
         $this->stopButton->enabled = false;
 
         $this->startButton = $this->makeGlyphButton();
-        $this->startButton->text = _('RunAppMy');
+        $this->startButton->text = ('Запустить');
 
         return [$this->startButton, $this->stopButton];
     }

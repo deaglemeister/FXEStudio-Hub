@@ -44,9 +44,18 @@ class WelcomeEditor extends AbstractEditor
         // nop.
     }
 
-    public function makeUi()
+    public static function _makeUI($pdLeft, $pdBottom, $pdRight, $pdTop)
     {
+        return (new WelcomeEditor())->makeUi($pdLeft, $pdBottom, $pdRight, $pdTop);
 
+
+    }
+
+
+
+    public function makeUi($pdLeft = 150, $pdBottom = 30, $pdRight= 150, $pdTop = 50)
+    {
+    
 
 
 
@@ -56,10 +65,10 @@ class WelcomeEditor extends AbstractEditor
 
         ]))
             ->_setAlignment('TOP_CENTER')
-            ->_setPaddingLeft(150)
-            ->_setPaddingBottom(30)
-            ->_setPaddingRight(150)
-            ->_setPaddingTop(50);
+            ->_setPaddingLeft($pdLeft)
+            ->_setPaddingBottom($pdBottom)
+            ->_setPaddingRight($pdRight)
+            ->_setPaddingTop($pdTop);
 
         $tab = new UXTab;
         $tab->text = "Избранные проекты()";
@@ -97,4 +106,8 @@ class WelcomeEditor extends AbstractEditor
         #$this->__tabPane->addTab($tab, ['isFake' => true]);
         return $layout;
     }
+
+
+
 }
+

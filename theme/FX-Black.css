@@ -151,7 +151,7 @@
     -fx-text-fill: #70A0FF;
 }
 
-.list-view
+.dn-list-view
 {
     -fx-background-color: -ui-main-background;
     -fx-border-color:   -ui-context-menu-border;
@@ -159,22 +159,22 @@
     -fx-padding: 6; /* увеличение внутренних отступов */
     -fx-spacing: 2;
 }
-.list-view .virtual-flow
+.dn-list-view .virtual-flow
 {
     -fx-background-color: -ui-main-background;
     -fx-border-color:   -ui-context-menu-border;
     -fx-text-fill: -ui-text;
     -fx-border-width: 1;
 }
-.list-cell {
+.dn-list-view .list-cell {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-secondary-background;
 }
-.list-cell:hover {
+.dn-list-view  .list-cell:hover {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-hoverd;
 }
-.list-cell:selected {
+.dn-list-view  .cell:selected {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-hoverd;
 }
@@ -479,6 +479,9 @@
 .ui-topBar .container {
     -fx-background-color: transparent;
 }
+.ui-topBar .menu * {
+    -fx-background-color: transparent;
+}
 .ui-topBar .menu-item:hover,
 .menu:hover, .menu-item:hover {
     -fx-background-color: -ui-hoverd;
@@ -630,10 +633,10 @@
 }
 .ui-button-create-project:hover {
     -fx-text-fill: -ui-text;
+    -fx-background-radius: 5;
     -fx-background-color: -ui-hoverd;
     -fx-min-height: 35;
     -fx-padding: 7px;
-    -fx-min-width: 15px; 
     -fx-cursor: hand;
     -fx-border-color: -ui-context-menu-border;
     -fx-border-radius: 5;
@@ -668,6 +671,16 @@
     -fx-border-radius: 0 5 5 0;
 }
 
+.custom-text-field {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5;
+}
 .ui-project-list-welcome { 
     -fx-background-color: transparent;
    /* -fx-border-color: -ui-context-menu-border; */
@@ -811,38 +824,122 @@
 
 
 
-.flow-list-view
-{
-    -fx-background-color: -ui-secondary-background;
-    -fx-background-insets: 0, 1;
-    -fx-background-radius: 4px;
-    -fx-border-color: -ui-border;
-    -fx-border-radius: 4px;
-    -fx-border-width: 1px;
+.dn-list-menu { 
+    -fx-background-insets: 0; 
+    -fx-focus-color:-ui-main-background; 
+    -fx-faint-focus-color: -ui-main-background; 
+    -fx-text-fill: -ui-text; 
+}
+
+.dn-list-menu-title { 
+    -fx-font-weight: bold;
+     -fx-padding: 0; 
+     -fx-text-fill: -ui-text; 
+    }
+
+.dn-list-menu-count { 
+    -fx-font-weight: bold; 
+    -fx-padding: 2px 5px;
+    -fx-text-fill: -ui-text;  
+    -fx-background-color: #A177F4;
+    -fx-background-radius: 5px;
+}
+
+
+.flow-list-view {
+    -fx-background-color: -ui-main-background;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5px;
     -fx-padding: 6; /* увеличение внутренних отступов */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.0, 0, 0);
     -fx-spacing: 2;
 }
-.flow-list-view .focus-indicator {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
+
+.flow-list-view .virtual-flow {
+    -fx-background-color: -ui-main-background;
 }
-.flow-list-view .list-cell
-{
-    -fx-background-radius: 4px;
-    -fx-border-radius: 4px;
+
+.flow-list-view .clipped-container {
+    -fx-background-color: -ui-main-background;
+}
+
+.flow-list-view .sheet {
+    -fx-background-color: -ui-main-background;
+}
+
+.flow-list-view .corner {
+    -fx-background-color: -ui-main-background;
+}
+
+.flow-list-view .list-cell {
+    -fx-background-color: -ui-main-background;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5px;
     -fx-text-fill: -ui-text;
-    -fx-background-color: transparent;
+    -fx-border-width: 0; /* Удаление границ */
 }
+
 .flow-list-view .list-cell:hover {
+    -fx-cursor: hand;
     -fx-text-fill: -ui-text;
-    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-background-color: -ui-context-menu-hover;
+    -fx-border-width: 0; /* Удаление границ */
 }
+
 .flow-list-view .list-cell:selected {
     -fx-text-fill: -ui-text;
-    -fx-background-color: -ui-tree-selected;
+    -fx-background-color: -ui-lines-separators;
+    -fx-border-width: 0; /* Удаление границ */
 }
+
+.flow-list-view .list-cell:focused {
+    -fx-background-color: -ui-main-background; /* Цвет фона при фокусе */
+    -fx-border-color: -ui-context-menu-border; /* Цвет границы при фокусе */
+    -fx-border-width: 0; /* Удаление границ */
+}
+
+.flow-list-view .list-cell:focused:selected {
+    -fx-background-color: -ui-lines-separators; /* Цвет фона при фокусе и выборе */
+    -fx-border-color: -ui-context-menu-border; /* Цвет границы при фокусе и выборе */
+    -fx-border-width: 0; /* Удаление границ */
+}
+
+.flow-list-view .list-cell:empty {
+    -fx-background-color: -ui-main-background; /* Установка фона для пустых ячеек */
+}
+
+.flow-list-view .list-cell:filled {
+    -fx-background-color: -ui-main-background; /* Установка фона для заполненных ячеек */
+}
+
+.flow-list-view .list-cell:even {
+    -fx-background-color: -ui-main-background; /* Установка фона для четных ячеек */
+}
+
+.flow-list-view .list-cell:odd {
+    -fx-background-color: -ui-main-background; /* Установка фона для нечетных ячеек */
+}
+
+.flow-list-view:focused {
+    -fx-background-color: -ui-main-background; /* Установка фона для фокусированного ListView */
+    -fx-border-color: -ui-context-menu-border;
+}
+
+.flow-list-view .scroll-bar:vertical .thumb, .flow-list-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: -ui-main-background;
+    -fx-border-radius: 5px;
+}
+
+.flow-list-view .scroll-bar .increment-button, .flow-list-view .scroll-bar .decrement-button {
+    -fx-background-color: -ui-main-background;
+}
+
+.flow-list-view .scroll-bar .track {
+    -fx-background-color: -ui-main-background;
+}
+
 
 .separator .line{
     -fx-border-color:-ui-lines-separators;
