@@ -2,8 +2,9 @@
 
 namespace ide\editors\templates;
 
-use fxe\platform\facades\Toaster;
-use fxe\platform\toaster\ToasterMessage;
+use platform\facades\Toaster;
+use platform\toaster\ToasterMessage;
+use php\gui\UXImage;
 use ide\editors\templates\other\ImageBoxOpenProject;
 use ide\editors\templates\other\modalWelcome;
 use ide\editors\templates\other\ProjectList;
@@ -73,15 +74,30 @@ class FavoriteProjects {
 
                             if ($project && $project->exists()) {
                                 $directory = File::of($project)->getParent();
-                
+                                     $tm = new ToasterMessage();
+                                    $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
+                                    $tm
+                                    ->setIcon($iconImage)
+                                    ->setTitle('Менеджер по работе с проектами')
+                                    ->setDescription(_('Ваш проект был успешно удалён.'))
+                                    ->setClosable(2000);
+                                    Toaster::show($tm);
                                 if (Ide::project()
                                     && FileUtils::normalizeName(Ide::project()->getRootDir()) == FileUtils::normalizeName($directory)) {
                                     ProjectSystem::closeWithWelcome();
+                                    
                                 }
                                 (new Thread(function()use($directory,$tab,$projectList){
                                     if (!FileUtils::deleteDirectory($directory)) {
                                         uiLater(function(){
-                                        Notifications::error('project.open.error.delete.title', 'project.open.error.delete.description');
+                                        $tm = new ToasterMessage();
+                                        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                                        $tm
+                                        ->setIcon($iconImage)
+                                        ->setTitle('Менеджер по работе с проектами')
+                                        ->setDescription(_('Папка проекта была не удалена полностью, возможно она занята другими программами.'))
+                                        ->setClosable(2000);
+                                        Toaster::show($tm);
                                     });
                                     }else{
                                         uiLater(function()use($tab,$projectList){
@@ -134,29 +150,32 @@ class FavoriteProjects {
     {
         if ($e->clickCount > 1) {
             if ($file && $file->exists()) {
+                Ide::get()->getMainForm()->showPreloader(_('Открываем проект..'));
                 waitAsync(100, function () use ($file) {
                     try {
                         if (ProjectSystem::open($file)) {
-                            $toasterMessage = (new ToasterMessage())
-                                ->setTitle("Проектный менеджер")
-                                ->setDescription("Проект успешно загружен.")
-                                ->setClosable(1000, true);
-
-
-                            Toaster::show($toasterMessage);
+                            $tm = new ToasterMessage();
+                            $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
+                            $tm
+                            ->setIcon($iconImage)
+                            ->setTitle('Менеджер по работе с Git')
+                            ->setDescription(_('Ваш проект был успешно загружен.'))
+                            ->setClosable(2000);
+                            Toaster::show($tm);
                         }
                     } finally {
-                        //TO-DO
+                        Ide::get()->getMainForm()->hidePreloader();
                     }
                 });
             } else {
-                $toasterMessage = (new ToasterMessage())
-                ->setTitle("Проектный менеджер")
-                ->setDescription("Произошла ошибка открытие проекта.")
-                ->setClosable(1000, true);
-
-
-            Toaster::show($toasterMessage);
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm
+                ->setIcon($iconImage)
+                ->setTitle('Менеджер по работе с Git')
+                ->setDescription(_('Произошла ошибка открытие проекта.'))
+                ->setClosable(2000);
+                Toaster::show($tm);
             }
         }
     }

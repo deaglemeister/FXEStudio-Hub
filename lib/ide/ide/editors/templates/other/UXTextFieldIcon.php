@@ -17,16 +17,18 @@ class UXTextFieldIcon extends UXHBox
             
         parent::__construct();
         
-        $this->spacing = -696;
+       $this->paddingLeft = 3;
         
         $this->UXImageView = $image;
         $this->UXTextField = new UXTextField;
         $this->UXTextField->width = 700;
-        $this->UXTextField->paddingLeft = 30;
+        $this->UXTextField->paddingBottom = 5; 
+       # $this->UXTextField->paddingLeft = 32;
         $this->UXTextField->classesString = 'custom-text-field-welcome';
-        $this->add($this->UXTextField);
         $this->add($this->UXImageView);
-        
+        $this->add($this->UXTextField);
+
+        UXHBox::setHgrow($this->UXTextField, 'ALWAYS');
         
         
         

@@ -33,7 +33,7 @@ class ImageBoxOpenProject extends UXHBox
 
         parent::__construct();
 
-        
+
         $this->padding = 4;
         $this->spacing = 4;
 
@@ -45,7 +45,7 @@ class ImageBoxOpenProject extends UXHBox
             $this->backgroundColor = 'transparent';
         });
 
-        $this->on('click',function(){
+        $this->on('click', function () {
             $this->backgroundColor = $this->_clickSelected;
         });
         $this->project = $project;
@@ -67,26 +67,27 @@ class ImageBoxOpenProject extends UXHBox
 
         $nameLabel = new UXLabel();
         $nameLabel->tooltipText = fs::nameNoExt($project->getName());
-        $nameLabel->size = [500,10];
+        $nameLabel->size = [500, 10];
         $nameLabel->textAlignment = 'LEFT';
         $nameLabel->alignment = 'TOP_LEFT';
         $nameLabel->text = fs::pathNoExt($project->getName());
         $nameLabel->font->bold = fs::pathNoExt($project->getName());
         $nameLabel->paddingLeft = 5;
+        $nameLabel->classesString = 'ui-text';
 
         $pathLabel = new UXLabel();
         $pathLabel->textAlignment = 'LEFT';
-        $pathLabel->size = [500,10];
+        $pathLabel->size = [500, 10];
         $pathLabel->alignment = 'TOP_LEFT';
         $pathLabel->paddingTop = 5;
-        $pathLabel->text = '~\\'.$project->getPath();
+        $pathLabel->text = '~\\' . $project->getPath();
         $pathLabel->classesString = 'pathTextSilver';
         $pathLabel->paddingLeft = 5;
 
         $vbox->add($nameLabel);
         $vbox->add($pathLabel);
         $this->add($vbox);
-        UXHBox::setHgrow($vbox,'ALWAYS');
+        UXHBox::setHgrow($vbox, 'ALWAYS');
         $this->titleLabel = $nameLabel;
     }
 
@@ -105,7 +106,7 @@ class ImageBoxOpenProject extends UXHBox
         } else {
             $item = new UXLabel();
             $item->size = [24, 24];
-        
+
             $item->text = substr(fs::pathNoExt($this->project->getName()), 0, 1);
             $colorForInputLetter = $this->_getColor($item->text);
             $item->style = "-fx-background-color: linear-gradient(to top left, {$colorForInputLetter['primary']}, {$colorForInputLetter['secondary']}); -fx-background-radius: 4;";

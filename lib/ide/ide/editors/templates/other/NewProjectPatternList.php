@@ -50,6 +50,8 @@ class NewProjectPatternList extends UXVBox{
     public function __construct($tab)
     {
         parent::__construct();
+
+       
         
         $this->__tab = $tab;
 
@@ -57,15 +59,21 @@ class NewProjectPatternList extends UXVBox{
             (new UIxHBox([
                 ($this->__TextFieldNameProject = new UXTextField),
                 ($this->__textFieldPackageName = new UXTextField),
+                
             ])),
 
-            ($labelPattern = new UXLabel('Выберите шаблон для создания проекта:')),
+          
             ($this->__scrollPane = new UXScrollPane(
                 (new UIxHBox([
-                    ($this->__listPatternVbox = (new UIxVBox()))->_setHgrow('ALWAYS')
+                    
+                    ($this->__listPatternVbox = (new UIxVBox([($labelPattern = new UXLabel('Выберите шаблон для создания проекта:'))])))->_setHgrow('ALWAYS')
+                    
                     ->_setVgrow('ALWAYS')
                     ->_setSpacing(10)
                     ->_setPaddingTop(10)
+                    ->_setPaddingLeft(7)
+                    ->_setPaddingRight(7)
+                   # ->_setClassesString('ui-project-list-welcome')
                 ]))
 
             )),
@@ -75,14 +83,29 @@ class NewProjectPatternList extends UXVBox{
                 ($this->__buttonCreateProject = new UXButton('Создать новый проект'))
                 
 
-            ]))->_setPaddingBottom(10)
+            ]))->_setPaddingBottom(3)
+            ->_setPaddingBottom(6)
+           
             
             
 
         ]))->_setVgrow('ALWAYS')
-
+            ->_setPaddingLeft(8)
+            ->_setPaddingRight(8)
+            ->_setMinWidth(10)
+            ->_setPaddingBottom(10)
         );
+        $this->__scrollPane->classesString = 'ui-project-list-welcome';
         
+        $this->__buttonCreateProject->classesString = 'ui-button-create-project';
+
+        $labelPattern->classesString = 'ui-text';
+  
+        $this->__labelPathFolder->classesString = 'ui-text-secondary';
+
+        $this->__TextFieldNameProject->classesString = 'custom-text-field-welcome-create';
+        $this->__textFieldPackageName->classesString = 'custom-text-field-welcome-namespace';
+
         $this->__textFieldPackageName->text  = 'app';
         $this->__textFieldPackageName->promptText = 'namespace';
         $this->__pathFolder = Ide::get()->getUserConfigValue('projectDirectory');
@@ -106,6 +129,7 @@ class NewProjectPatternList extends UXVBox{
 
 
         $this->__TextFieldNameProject->promptText = 'Введите название для вашего проекта';
+        
         $this->__buttonCreateProject->minWidth = '200';
         $this->__buttonCreateProject->font->bold;
         $this->__buttonCreateProject->cursor = 'HAND';
@@ -201,6 +225,8 @@ class NewProjectPatternList extends UXVBox{
         {
             
             $tgb = new UXToggleButton($template->getName());
+            $tgb->classesString = 'ui-tgb-new-project';
+            $tgb->padding = 10;
             $tgb->graphic = $template instanceof AbstractProjectTemplate ? Ide::get()->getImage($template->getIcon32()) : ico('programEx32');
             $tooltip = new UXTooltip();
             $tooltip->text = $template->getDescription();

@@ -6,6 +6,7 @@ use ide\editors\templates\FavoriteProjects;
 use ide\editors\templates\NewProject;
 use ide\editors\templates\other\WelcomeTabPane;
 use ide\editors\templates\ProjectLibrary;
+use ide\editors\templates\CloneRepository;
 use kosogroup\liver\ui\components\UIxVBox;
 use php\gui\UXImage;
 use php\gui\UXImageView;
@@ -83,14 +84,17 @@ class WelcomeEditor extends AbstractEditor
         //меняем местами,чтобы в data сохранилось
         $tab->content = (new ProjectLibrary)->makeLibraly($tab);
 
-        $tab = new UXTab;
-        $tab->text = "Обучение для новичков";
-       
 
-        $content = new UXLabel("Обучение для новичков");
-        
+        $tab = new UXTab;
+        $tab->text = "Cклонировать с Git (Новое)";
+        $this->__tabPane->addTab($tab);
+        $content = (new CloneRepository())->makeClone();
         $tab->content = $content;
-        $this->__tabPane->addTab($tab, ['isFake' => true]);
+
+      #  $content = new UXLabel("Обучение для новичков");
+        
+       # $tab->content = $content;
+        #$this->__tabPane->addTab($tab, ['isFake' => true]);
         return $layout;
     }
 }

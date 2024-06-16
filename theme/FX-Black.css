@@ -20,6 +20,7 @@
     -ui-border-tab:-ui-main-background, 50% ;
     -ui-main-titled: #2B2D30; /* цвет заголовка спойлера*/
     -ui-toasts-frame: #212224;
+    -blur-modal: #000000ae;
 }
 
 .idea-toast-frame
@@ -612,18 +613,67 @@
     -fx-focus-traversable: false;
 }
 
-.custom-text-field-welcome { 
-    -fx-text-fill: -ui-placeholde-text;
+.blur-modal {
+    -fx-background-color: -blur-modal;
+}
+
+
+.ui-button-create-project {
+    -fx-text-fill: -ui-text;
     -fx-background-color: transparent;
-    -fx-width: 500px;
-    -fx-height: 45;
-    
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5;
+}
+.ui-button-create-project:hover {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5;
 }
 
-.custom-text-field-welcome .text{ 
-    -fx-text-fill: -ui-placeholde-text;
-
+.custom-text-field-welcome { 
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 25;
+    -fx-cursor: hand;
 }
+
+.custom-text-field-welcome-create {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5 0 0 5;
+}
+
+.custom-text-field-welcome-namespace {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 0 5 5 0;
+}
+
+.ui-project-list-welcome { 
+    -fx-background-color: transparent;
+   /* -fx-border-color: -ui-context-menu-border; */
+    /* -fx-border-raduius:10 10 0 0 ; */
+}
+
 
 .scroll-bar:vertical,
 .scroll-bar:horizontal {
@@ -668,7 +718,34 @@
 }
 
 
+.ui-tgb-new-project {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
 
+.ui-tgb-new-project:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radis: 5px;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+
+.ui-tgb-new-project:selected {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-background-radis: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
 
 
 .dn-file-tab-pane .dn-file-tab-pane-components {
