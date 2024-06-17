@@ -28,7 +28,7 @@ class IdeSandboxShowCommand extends AbstractCommand
 
     public function getName()
     {
-        return 'IDE Sandbox';
+        return 'Sandbox';
     }
 
     public function getCategory()
@@ -53,7 +53,7 @@ class IdeSandboxShowCommand extends AbstractCommand
         $file = IdeSystem::getFile("sandbox.php");
         $editor = new CodeEditor($file, 'php');
         $editor->setEmbedded(true);
-        pre($file);
+        #pre($file);
         $editor->setSourceFile(false);
         $editor->registerDefaultCommands();
         $editor->loadContentToArea();

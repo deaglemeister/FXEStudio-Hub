@@ -78,12 +78,14 @@ class FlowListViewDecorator implements \Countable
     {
         if ($pane == null) {
             $pane = new UXFlowPane();
+            $pane->classes->add('dn-list-view');
         }
 
         $this->scrollPane = new UXScrollPane();
         $this->scrollPane->content = $pane;
         $this->scrollPane->fitToWidth = true;
         $this->scrollPane->fitToHeight = true;
+        $this->scrollPane->classesString = 'dn-list-view';
 
         $this->pane = $pane;
 

@@ -19,7 +19,7 @@ class TGGroupCommand extends AbstractCommand
 
     public function getCategory()
     {
-        return 'help';
+        return '';
     }
 
     public function getIcon()

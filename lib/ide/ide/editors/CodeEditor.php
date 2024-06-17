@@ -551,13 +551,13 @@ class CodeEditor extends AbstractEditor
         $label = new UXLabel("* Только для чтения");
         $label->font = $label->font->withBold();
         $label->textColor = 'red';
-        $statusBar->backgroundColor = 'white';
+        $statusBar->classesString = 'ui-context-menu';
 
         $statusBar->add($label);
         $statusBar->padding = 5;
 
         $this->textAreaScrollPane = $scrollPane = new UXCodeAreaScrollPane($this->textArea);
-        $scrollPane->classes->add('scroll-pane');
+        $scrollPane->classes->add('dn-scroll-pane');
         $ui->add($scrollPane);
 
         if ($this->isReadOnly()) {

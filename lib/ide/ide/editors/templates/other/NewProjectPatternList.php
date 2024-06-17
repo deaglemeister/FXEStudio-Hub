@@ -166,6 +166,22 @@ class NewProjectPatternList extends UXVBox{
             $package =  $this->__textFieldPackageName->text;
     
             if (!$name) {
+                $this->__TextFieldNameProject->classesString = 'ui-error-btn';
+                $tm = new ToasterMessage();
+                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
+                $tm
+                    ->setIcon($iconImage)
+                    ->setTitle('Менеджер по работе с проектами')
+                    ->setDescription(_('project.new.error.name.required'))
+                    ->setClosable(3000, true);
+                    Toaster::show($tm);
+                    return;
+            }else {
+                 $this->__TextFieldNameProject->classesString = 'custom-text-field-welcome-create';
+            }
+    
+            if (!fs::valid($name)) {
+                $this->__TextFieldNameProject->classesString = 'custom-text-field-welcome-create';
                 $tm = new ToasterMessage();
                 $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
                 $tm
@@ -177,23 +193,14 @@ class NewProjectPatternList extends UXVBox{
                     return;
             }
     
-            if (!fs::valid($name)) {
-                $tm = new ToasterMessage();
-                $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
-                $tm
-                    ->setIcon($iconImage)
-                    ->setTitle('project.new.error.name.invalid')
-                    ->setDescription(_('project.new.error.name.required'))
-                    ->setClosable(3000, true);
-                    Toaster::show($tm);
-                    return;
-            }
-    
            
     
             $regex = new Regex('^[a-z\\_]{2,15}$');
     
             if (!$regex->test($package)) {
+
+                $this->__TextFieldNameProject->classesString = 'ui-error-btn';
+
                 $tm = new ToasterMessage();
                 $iconImage = new UXImage('res://resources/expui/icons/fileTypes/error.png');
                 $tm

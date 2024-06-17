@@ -77,14 +77,17 @@ class BackupProjectControlPane extends AbstractProjectControlPane
     {
         $list = $this->uiList = new UXListView();
         $masterList = $this->uiMasterList = new UXListView();
+        $list->classes->add('dn-list-view');
 
         $cellFactory = function (UXListCell $cell, Backup $backup = null) {
             $cell->text = null;
             $cell->graphic = null;
+          
 
             if ($backup) {
                 $title = new UXLabel($backup->getName());
                 $title->style = UiUtils::fontSizeStyle() . "; -fx-font-weight: bold;";
+                $title->classes->add('ui-text');
                 $createdAt = new Time($backup->getCreatedAt());
 
                 $createdAtText = $createdAt->toString('dd MMM, HH:mm:ss, yyyy г.', Locale::RUSSIAN());
@@ -99,10 +102,11 @@ class BackupProjectControlPane extends AbstractProjectControlPane
                 }
 
                 if ($backup->isNew()) {
-                    $title->style = '-fx-text-fill: blue';
+                    $title->classes->add('ui-text-backup-copy-master-new');
                 }
 
-                $description->style = '-fx-text-fill: gray; ' . UiUtils::fontSizeStyle();
+                #$description->style = '-fx-text-fill: gray; ' . UiUtils::fontSizeStyle();
+                $description->classes->add('ui-text-secondary');
 
                 $cell->graphic = new UXHBox([
                     ico('archive32'),
@@ -112,6 +116,7 @@ class BackupProjectControlPane extends AbstractProjectControlPane
             }
         };
         $masterList->setCellFactory($cellFactory);
+        $masterList->classes->add('dn-list-view');
         $list->setCellFactory($cellFactory);
 
         $list->fixedCellSize = $masterList->fixedCellSize = 45;
@@ -129,7 +134,9 @@ class BackupProjectControlPane extends AbstractProjectControlPane
         UXVBox::setVgrow($list, 'ALWAYS');
 
         $label1 = new UXLabel("Мастер-копии");
+        $label1->classes->add('ui-text');
         $label2 = new UXLabel("Автоматические копии");
+        $label2->classes->add('ui-text');
 
         $label1->font->bold = $label2->font->bold = true;
 

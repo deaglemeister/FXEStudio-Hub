@@ -3,7 +3,6 @@
 namespace ide\editors\templates;
 
 use ide\editors\templates\other\NewProjectPatternList;
-use ide\Ide;
 
 use php\gui\UXTextField;
 use php\gui\UXLabel;
@@ -17,6 +16,9 @@ use platform\toaster\ToasterMessage;
 use php\lang\Thread;
 use script\DirectoryChooserScript;
 use git\Git;
+use ide\Ide;
+use php\io\File;
+use php\lib\fs;
 
 class CloneRepository
 {

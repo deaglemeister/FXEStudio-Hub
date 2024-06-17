@@ -670,7 +670,7 @@ class AutoCompletePane
 
         $list->maxHeight = 9999;
         $list->fixedCellSize = 20;
-        $list->classes->addAll(['scroll-pane', 'ui-text', 'dn-autocomplete-description-codeEditor']);
+        $list->classes->addAll(['dn-scroll-pane', 'ui-text', 'dn-autocomplete-description-codeEditor', 'dn-list-view']);
         #$list->style = '-fx-background-insets: 0; -fx-focus-color: -fx-control-inner-background; -fx-faint-focus-color: -fx-control-inner-background;';
         $list->width = 600;
 

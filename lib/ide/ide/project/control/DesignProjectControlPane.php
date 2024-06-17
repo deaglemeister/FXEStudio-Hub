@@ -114,7 +114,7 @@ class DesignProjectControlPane extends AbstractProjectControlPane
 
                     if (fs::isFile($skinFile)) {
                         $tm = new ToasterMessage();
-                        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/Succes.png');
+                        $iconImage = new UXImage('res://resources/expui/icons/fileTypes/succes.png');
                         $tm
                         ->setIcon($iconImage)
                         ->setTitle('Менеджер стилей скинов')
