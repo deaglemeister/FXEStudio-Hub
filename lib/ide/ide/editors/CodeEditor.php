@@ -207,6 +207,10 @@ class CodeEditor extends AbstractEditor
                         $this->executeCommand('replace');
                         $e->consume();
                         return;
+                        case 'T': 
+                            $this->executeCommand('jumptolie');
+                            $e->consume();
+                            return;
                 }
             }
 
@@ -362,6 +366,9 @@ class CodeEditor extends AbstractEditor
             case 'copy': $this->textArea->copy(); break;
             case 'cut': $this->textArea->cut(); break;
             case 'paste': $this->textArea->paste(); break;
+            case 'jumptolie': 
+                $this->textArea->jumpToLine($line, $offset);
+                break;
 
             case 'find':
                 if ($this->textArea instanceof UXAbstractCodeArea) {
@@ -978,6 +985,7 @@ class CodeEditor extends AbstractEditor
         Ide::get()->setUserConfigValue(__CLASS__ . '#' . $lang . '.highlight', $value);
     }
 }
+
 
 class SetDefaultCommand extends AbstractCommand
 {

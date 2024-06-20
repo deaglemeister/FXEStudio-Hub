@@ -349,7 +349,7 @@ abstract class AbstractEditor
 
     public function hide()
     {
-        ;
+
     }
 
     public function delete($silent = false)

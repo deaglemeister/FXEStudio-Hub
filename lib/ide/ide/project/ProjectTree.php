@@ -2,11 +2,13 @@
 
 namespace ide\project;
 
+use ide\commands\tree\TreeCopyFileName;
 use platform\facades\PluginManager;
 use platform\plugins\traits\FileTypes;
 
 
 use ide\commands\tree\TreeCopyPathCommand;
+use ide\commands\tree\TreeCutFileCommand;
 use ide\commands\tree\TreeDeleteFileCommand;
 use ide\commands\tree\TreeEditInWindowFileCommand;
 use ide\commands\tree\TreeRenameFileCommand;
@@ -92,6 +94,10 @@ class ProjectTree
         $this->contextMenu->addSeparator();
         $this->contextMenu->add(new TreeCopyPathCommand($this, true)); //Скопировать путь
         $this->contextMenu->add(new TreeCopyPathCommand($this));
+        $this->contextMenu->add(new TreeCopyFileName($this));
+        $this->contextMenu->addSeparator();
+        $this->contextMenu->add(new TreeCutFileCommand($this));
+        $this->contextMenu->addSeparator();
         $this->contextMenu->add(new TreeRenameFileCommand($this));
         $this->contextMenu->add(new TreeDeleteFileCommand($this));
         $this->contextMenu->addSeparator();

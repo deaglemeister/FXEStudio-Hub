@@ -170,7 +170,9 @@
     -fx-text-fill: #70A0FF;
 }
 
-.dn-list-view {
+
+
+.list-view {
     -fx-background-color: -ui-main-background;
     /* -fx-border-color:   -ui-context-menu-border; */
     -fx-text-fill: -ui-text;
@@ -179,24 +181,24 @@
     -fx-spacing: 2;
 }
 
-.dn-list-view .virtual-flow {
+.list-view .virtual-flow {
     -fx-background-color: -ui-main-background;
     -fx-border-color: -ui-context-menu-border;
     -fx-text-fill: -ui-text;
 
 }
 
-.dn-list-view .list-cell {
+.list-view .list-cell {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-secondary-background;
 }
 
-.dn-list-view .list-cell:hover {
+.list-view .list-cell:hover {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-hoverd;
 }
 
-.dn-list-view .cell:selected {
+.list-view .cell:selected {
     -fx-text-fill: -ui-text;
     -fx-background-color: -ui-hoverd;
 }
@@ -662,22 +664,34 @@
     -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
 }
 
-.dn-scroll-pane {
+.scroll-pane {
     -fx-background-color: -ui-main-background;
     -fx-border-color: -ui-context-menu-border transparent transparent -ui-context-menu-border;
     -fx-border-width: 1px 0 0 1px;
-    -fx-focus-color: -ui-main-background;
+    -fx-focus-color: transparent;
     /* Убираем цвет фокуса */
     -fx-focus-traversable: false;
 }
 
-.dn-scroll-pane .viewport {
+.scroll-pane:focused {
+    -fx-background-color: -ui-main-background;
+    -fx-border-color: -ui-context-menu-border transparent transparent -ui-context-menu-border;
+    -fx-border-width: 1px 0 0 1px;
+    -fx-focus-color: transparent;
+    /* Убираем цвет фокуса */
+    -fx-focus-traversable: false;
+}
+
+.scroll-pane .viewport {
     -fx-background-color: -ui-main-background;
     -fx-focus-color: -ui-main-background;
     /* Убираем цвет фокуса */
-    -fx-faint-focus-color: -ui-main-background;
+    -fx-faint-focus-color: transparent;
     -fx-focus-traversable: false;
 }
+
+
+
 
 .blur-modal {
     -fx-background-color: -blur-modal;
@@ -904,6 +918,8 @@
     -fx-border-color: transparent;
     -fx-border-width: 0;
 }
+
+
 
 
 
