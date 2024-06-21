@@ -49,6 +49,7 @@ class WelcomeTabPane extends UXVBox
         $this->__titleLabel = new UXLabel(); //текст шапки
         $this->__titleLabel->text = "Добро пожаловать в {$name}!";
         $this->__titleLabel->font->bold = "Добро пожаловать в {$name}!";
+        $this->__titleLabel->classes->add('h1');
         $this->__titleLabel->classesString = 'ui-text';
         $this->__titleLabel->autoSize = true;    
         $this->__titlePane->add($this->__titleLabel);

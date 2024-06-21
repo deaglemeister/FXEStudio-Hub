@@ -31,11 +31,6 @@
                <children>
                   <HBox minHeight="30.0" prefHeight="30.0" prefWidth="520.0" spacing="5.0">
                      <children>
-                        <Button id="searchBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" prefHeight="35.0" styleClass="icon-flat-search">
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </Button>
                         <TextField id="searchField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="296.0" promptText="поиск генератора скрипта ..." HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

@@ -28,7 +28,6 @@
     /* Цвет при наведении на айтем */
     -ui-hoverd: derive(-ui-main-background, 20%);
     -fx-background-color: -ui-main-background;
-    -fx-font-family: 'JetBrains Mono';
     -ui-border-tab: -ui-main-background, 50%;
     -ui-main-titled: #2B2D30;
     /* цвет заголовка спойлера*/
@@ -39,6 +38,33 @@
 
     -ui-text-backup-copy-master-new: #3160bdb6;
     /* Текст для бекапа когда он новый во вкладке архив проекта*/
+}
+
+
+
+.h1 {
+    -fx-text-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: -ui-text;
+    -fx-font-family: 'JetBrains Mono';
+}
+
+.h2 {
+    -fx-text-size: 16;
+    -fx-font-weight: bold;
+    -fx-font-family: 'JetBrains Mono';
+}
+
+.h3 {
+    -fx-text-size: 14;
+    -fx-font-weight: bold;
+    -fx-font-family: 'JetBrains Mono';
+}
+
+.h4 {
+    -fx-text-size: 12;
+    -fx-font-weight: bold;
+    -fx-font-family: 'JetBrains Mono';
 }
 
 
@@ -117,6 +143,8 @@
 
 .dn-welcome-logotype {
     -fx-background-Color: -ui-main-background;
+    -fx-font-family: 'JetBrains Mono';
+    -fx-text-fill: -ui-text;
 }
 
 .dn-tg-button-welcome {

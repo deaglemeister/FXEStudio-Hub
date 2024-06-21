@@ -31,7 +31,7 @@ class TreeCutFileCommand extends AbstractMenuCommand
 
     public function getIcon()
     {
-        return '';
+        return 'icons/folder_dark.png';
     }
 
     public function getName()

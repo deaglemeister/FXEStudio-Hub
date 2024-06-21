@@ -68,7 +68,7 @@ class ScriptHelperForm extends AbstractIdeForm
 
         $this->context = $context;
         $this->model = $model;
-
+       
         new EscapeShutdownBehaviour($this);
         $this->param = $param;
     }
@@ -91,6 +91,15 @@ class ScriptHelperForm extends AbstractIdeForm
 
         UXVBox::setVgrow($list, 'ALWAYS');
     }
+
+    /**
+     * @event show
+     */
+    public function doShow()
+    {
+        Ide::setFrame($this->layout);
+    }
+
 
     /**
      * @event showing

@@ -28,6 +28,7 @@ class ToasterMessage
     public function setTitle(string $title)
     {
         $this->__title = new UXLabelEx($title);
+        $this->__title->classes->add('h1');
         $this->__title->wrapText = true;
         return $this;
     }
@@ -36,6 +37,7 @@ class ToasterMessage
     public function setDescription(string $description)
     {
         $this->__description = new UXLabelEx($description);
+        $this->__description->classes->add('h2');
         $this->__description->wrapText = true;
         return $this;
     }

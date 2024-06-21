@@ -177,6 +177,14 @@ class ActionArgumentsDialog extends AbstractIdeForm
 
         return $editor;
     }
+    /**
+     * @event show
+     */
+    public function doShow()
+    {
+        Ide::setFrame($this->layout);
+
+    }
 
     /**
      * @event okButton.action

@@ -1752,8 +1752,8 @@ class Ide extends Application
     public static function setFrame($layout)
     {
         try {
-            WindowManager10::setCaptionColor($layout->scene,'#000000');
-            WindowManager10::setTextColor($layout->scene,'#ffffff');
+            WindowManager10::setCaptionColor($layout->scene,'#1E1F22');
+            WindowManager10::setTextColor($layout->scene,'#DFE1E5');
         }catch (Throwable $e) {
             
         }
