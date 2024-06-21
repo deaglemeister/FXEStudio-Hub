@@ -11,7 +11,7 @@ use php\io\ResourceStream;
 use php\lang\System;
 
 
-$fontStream = new ResourceStream("theme/fonts/JetBrainsMono-Regular.ttf");
+$fontStream = new ResourceStream("application/fonts/JetBrainsMono-Regular.ttf");
 UXFont::load($fontStream, 14);
 
 PluginManager::resolvePlugins("./plugins");
@@ -27,12 +27,12 @@ if (!IdeSystem::isDevelopment()) {
 }
 
 
-$THEME = file_get_contents('theme\style.ini');
+$THEME = file_get_contents('application\app.conf');
 $THEME = json_decode($THEME, true);
 
-$THEME = $THEME['Style'];
+$THEME = $THEME['app.style'];
 $app = new Ide();
-$app->addStyle("theme/$THEME");
+$app->addStyle("application/$THEME");
 $app->launch();
 $app->form('NewSplashForm')->hide();
 

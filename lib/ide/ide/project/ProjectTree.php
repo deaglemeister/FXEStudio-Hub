@@ -422,97 +422,75 @@ class ProjectTree
     private function processPhpFile(File $file)
     {
         $content = file_get_contents($file->getPath());
-        if (strpos($content, 'interface') !== false) {
-            return true;
-        } else {
-            return false;
-        }
+        return strpos($content, 'interface') !== false;
     }
-
+    
+    private function getIconPath($folderName)
+    {
+        $icons = [
+            "src_generated" => 'res://resources/expui/icons/excludeRoot_dark.png',
+            "src" => 'res://resources/expui/icons/sourceRoot_dark.png',
+            "resources" => 'res://resources/expui/icons/resourcesRoot_dark.png',
+            "app" => 'res://resources/expui/icons/excludeRoot_dark.png',
+            "img" => 'res://resources/expui/icons/generatedSource_dark.png',
+            "vendor" => 'res://resources/expui/icons/flattenModules_dark.png',
+            "defaultFolder" => 'res://resources/expui/icons/folder_dark.png',
+            "defaultFile" => 'res://resources/expui/icons/fileTypes/anyType_dark.png'
+        ];
+    
+        return $icons[$folderName] ?? $icons['defaultFolder'];
+    }
+    
+    private function getFileIconPath($extFile, $isInterface = false)
+    {
+        $icons = [
+            "php" => $isInterface ? 'res://resources/expui/icons/fileTypes/interface_dark.png' : 'res://resources/expui/icons/class_dark.png',
+            "gitignore" => 'res://resources/expui/icons/fileTypes/gitignore.png',
+            "xml" => 'res://resources/expui/icons/fileTypes/xml_dark.png',
+            "js" => 'res://resources/expui/icons/fileTypes/javaScript_dark.png',
+            "json" => 'res://resources/expui/icons/fileTypes/json_dark.png',
+            "ini" => 'res://resources/expui/icons/fileTypes/config_dark.png',
+            "csv" => 'res://resources/expui/icons/fileTypes/csv_dark.png',
+            "java" => 'res://resources/expui/icons/fileTypes/java_dark.png',
+            "ttf" => 'res://resources/expui/icons/fileTypes/font_dark.png',
+            "sql" => 'res://resources/expui/icons/fileTypes/sql_dark.png',
+            "yaml" => 'res://resources/expui/icons/fileTypes/yaml_dark.png',
+            "css" => 'res://resources/expui/icons/fileTypes/xhtml_dark.png',
+            "rar" => 'res://resources/expui/icons/fileTypes/archive_dark.png',
+            "zip" => 'res://resources/expui/icons/fileTypes/archive_dark.png',
+            "png" => 'res://resources/expui/icons/fileTypes/image_dark.png',
+            "jpeg" => 'res://resources/expui/icons/fileTypes/image_dark.png',
+            "html" => 'res://resources/expui/icons/fileTypes/html_dark.png',
+            "xhtml" => 'res://resources/expui/icons/fileTypes/xhtml_dark.png',
+            "jar" => 'res://resources/expui/icons/fileTypes/java_dark.png',
+            "dnproject" => 'res://resources/expui/icons/fileTypes/applicationRemote_dark.png'
+        ];
+    
+        return $icons[$extFile] ?? 'res://resources/expui/icons/fileTypes/anyType_dark.png';
+    }
+    
     private function createValueForFile($path, File $file, $ide)
     {
         if ($file->isDirectory()) {
             $folderNames = explode("\\", $file->getPath());
             $folderName = array_pop($folderNames);
-
-            switch ($folderName) {
-                case "src_generated":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/excludeRoot_dark.png')), null, $file->isDirectory());
-                case "src":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/sourceRoot_dark.png')), null, $file->isDirectory());
-                case "resources":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/resourcesRoot_dark.png')), null, $file->isDirectory());
-                case "app":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/excludeRoot_dark.png')), null, $file->isDirectory());
-                case "img":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/generatedSource_dark.png')), null, $file->isDirectory());
-                case "vendor":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/flattenModules_dark.png')), null, $file->isDirectory());
+    
+            $iconPath = $this->getIconPath($folderName);
+    
+            // Special case for nested vendor folder
+            if ($folderName == "vendor" && end($folderNames) == "vendor") {
+                $iconPath = 'res://resources/expui/icons/module_dark.png';
             }
-
-            $folderName = array_pop($folderNames);
-
-            if ($folderName == "vendor") {
-                return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/module_dark.png')), null, $file->isDirectory());
-            }
-
-            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/folder_dark.png')), null, $file->isDirectory());
+    
+            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage($iconPath)), null, $file->isDirectory());
         } else {
-
             $extFile = fs::ext($file->getName());
-
-            switch ($extFile) {
-                case "php":
-                    if ($this->processPhpFile($file)) {
-                        return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/interface_dark.png')), null, $file->isDirectory());
-                    } else {
-                        return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/class_dark.png')), null, $file->isDirectory());
-                    }
-                case "gitignore":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/gitignore.png')), null, $file->isDirectory());
-                case "xml":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/xml_dark.png')), null, $file->isDirectory());
-                case "js":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/javaScript_dark.png')), null, $file->isDirectory());
-                case "json":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/json_dark.png')), null, $file->isDirectory());
-                case "ini":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/config_dark.png')), null, $file->isDirectory());
-                case "csv":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/csv_dark.png')), null, $file->isDirectory());
-                case "java":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/java_dark.png')), null, $file->isDirectory());
-                case "ttf":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/font_dark.png')), null, $file->isDirectory());
-                case "sql":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/sql_dark.png')), null, $file->isDirectory());
-                case "yaml":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/yaml_dark.png')), null, $file->isDirectory());
-                case "css":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/xhtml_dark.png')), null, $file->isDirectory());
-                case "rar":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/archive_dark.png')), null, $file->isDirectory());
-                case "zip":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/archive_dark.png')), null, $file->isDirectory());
-                case "png":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/image_dark.png')), null, $file->isDirectory());
-                case "jpeg":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/image_dark.png')), null, $file->isDirectory());
-                case "html":
-                        return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/html_dark.png')), null, $file->isDirectory());
-                case "xhtml":
-                            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/xhtml_dark.png')), null, $file->isDirectory());
-                case "jar":
-                            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/java_dark.png')), null, $file->isDirectory());
-                case "dnproject":
-                    return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/applicationRemote_dark.png')), null, $file->isDirectory());
-            }
-
-            $extFile = array_pop($extFile);
-
-            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage('res://resources/expui/icons/fileTypes/anyType_dark.png')), null, $file->isDirectory());
+            $isInterface = $extFile == "php" ? $this->processPhpFile($file) : false;
+            $iconPath = $this->getFileIconPath($extFile, $isInterface);
+    
+            return new UXDirectoryTreeValue($path, fs::name($path), fs::name($path), new UXImageView(new UXImage($iconPath)), null, $file->isDirectory());
         }
-
+ 
 
 
 

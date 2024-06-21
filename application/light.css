@@ -1,0 +1,1055 @@
+.root {
+    -ui-main-background: #f5f4f4 ; /* Основной фон  */
+    -ui-secondary-background: #f1f2f3; /* Вторичный фон  */
+    -ui-lines-separators: #EBECF0; /* Линии и разделители  */
+    -ui-invactive: #a2a6ad; /* Не активный выбор */
+    -ui-disabled: #81848f; /* Не активный текст и placeholder */
+    -ui-text-secondary: #3d3d3d; /* Вторичный текст  */
+    -ui-text: #0c0c0c; /* Основной текст */
+    -ui-placeholder-text: #45464d; /* PlaceHolder текст */
+    -ui-text-link: #315FBD; /* Цвет ссылки */
+    -ui-tree-selected: #7faaf8c9;
+    -ui-tree-focused: #a0bdf8d0;
+    -ui-border: #d3d4d6;
+    -ui-context-menu: #ffffff; /* Цвет контекстного меню */
+    -ui-context-menu-border: #575b63; /* Бордер контекстного меню */
+    -ui-context-menu-hover: #3e4146e6; /* Цвет при наведении на айтем */
+    -ui-hoverd: derive(-ui-main-background, 20%);
+    -fx-background-color: -ui-main-background;
+    -fx-font-family: 'JetBrains Mono';
+    -ui-border-tab:-ui-main-background, 50% ;
+    -ui-main-titled: #4f5358; /* цвет заголовка спойлера*/
+    -ui-toasts-frame: #f1f2f3;
+    -blur-modal: #aaa8a86b;
+}
+
+.idea-toast-frame
+{
+    -fx-background-color: -ui-toasts-frame;
+    -fx-padding: 10px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-text-fill:  -ui-text;
+    -fx-text-size: 15px;
+    -fx-effect: dropshadow(gaussian, #393b402d, 15, 0.0, 0, 0);
+}
+
+.idea-toast-frame .label
+{
+    -fx-text-fill: -ui-text;
+    -fx-text-size: 15px;
+}
+
+.idea-toast-frame .content-box
+{
+    -fx-spacing: 8;
+}
+
+.idea-toast-frame .button-bar
+{
+    -fx-spacing: 8;
+}
+
+.dn-button-blue {
+    -fx-background-color: -x-default;
+    -fx-border-color: -x-link;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: -x-primary-text;
+    -fx-background-insets: 0, 0, 0, 0;
+    -fx-cursor: hand;
+}
+
+.blur-modal {
+    -fx-background-color: -blur-modal;
+}
+
+
+.pathTextSilver {
+    -fx-text-fill: -ui-text-secondary;
+    -fx-font-size: 12;
+}
+
+.dn-mainTitleName {
+    -fx-font-size: 14;
+    -fx-text-fill: -ui-text;
+ 
+}
+
+.dn-mainTitleVersion {
+    -fx-font-size: 14;
+    -fx-text-fill: -ui-text-secondary;
+}
+
+.dn-welcome-heder {
+    -fx-background-color: -ui-main-background;
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 10 10 0 0;
+}
+
+.dn-anchor-pane-welcome {
+    -fx-background-color: -ui-main-background;
+}
+
+.ui-tab-pane-welcome-hbox {
+
+    -fx-border-color: -ui-context-menu-border;
+}
+
+.dn-welcome-logotype {
+    -fx-background-Color: -ui-main-background;
+}
+
+.dn-tg-button-welcome {
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.dn-tg-button-welcome:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-text-fill: -ui-text;
+}
+.dn-tg-button-welcome:selected {
+    -fx-background-color: -ui-hoverd;
+    -fx-text-fill: -ui-text;
+
+}
+
+.dn-search-name-project {
+    -fx-spacing: 3px;
+    -fx-pref-height: 160px;
+    -fx-border-width: 1 1 1 1;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 25px;
+    -fx-border-insets: -2 0 0 0;
+    -fx-border-radius: 5;
+    -fx-border-color: -ui-border;
+    -fx-text-fill: -ui-text;
+}
+
+
+.dn-toggle-tab-pane {
+    -fx-tab-max-height: 0;
+}
+
+.dn-toggle-tab-pane .tab-header-area {
+    visibility: hidden;
+    enable: false;
+}
+
+
+
+.idea-toast-frame .hyperlink {
+    -fx-text-fill: -ui-text-link;
+}
+.idea-toast-frame .hyperlink:hover {
+    -fx-text-fill: #70A0FF;
+}
+
+.list-view
+{
+    -fx-background-color: -ui-main-background;
+    -fx-border-color:   -ui-context-menu-border;
+    -fx-text-fill: -ui-text;
+    -fx-padding: 6; /* увеличение внутренних отступов */
+    -fx-spacing: 2;
+}
+.list-view .virtual-flow
+{
+    -fx-background-color: -ui-main-background;
+    -fx-border-color:   -ui-context-menu-border;
+    -fx-text-fill: -ui-text;
+    -fx-border-width: 1;
+}
+.list-cell {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-secondary-background;
+}
+.list-cell:hover {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+}
+.list-cell:selected {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+}
+
+.FormEditor {
+            -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
+    -fx-border-width: 0px;
+}
+
+.moduleFormEditor {
+    -fx-background-color: -ui-secondary-background;
+        -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
+    -fx-border-width: 0px;
+}
+
+.dn-console-list {
+    -fx-font: 14px "JetBrains Mono";
+    -fx-line-spacing: 25px;
+    -fx-background-color: -ui-secondary-background; 
+    -fx-text-fill: -ui-text;
+    -fx-border-color:-ui-context-menu-border;
+    -fx-border-width: 1px;
+    -fx-spacing: 10px;
+    -fx-padding: 10px; /* Отступы */
+}
+
+.ui-text {
+    -fx-text-fill: -ui-text;
+}
+.ui-text-secondary {
+    -fx-text-fill: -ui-text-secondary;
+}
+
+
+
+.hyperlink {
+    -fx-text-fill: #759CFF;
+}
+.hyperlink:hover {
+    -fx-text-fill: #759cffce;
+}
+
+.ui-hyperlink {
+    -fx-text-fill: #759CFF;
+}
+
+.property-editor {
+    -fx-border-width: 0; 
+    -fx-border-radius: 0;
+    -fx-font-style: italic; 
+    -fx-font-weight: bold;
+}
+
+
+/* Начало стилизация кнопок в Welcome */
+
+.ui-hyperlink-welcome-git {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/github_link.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-donate {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/donate.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-tg {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/tg.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-bundles {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/bundle.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.ui-hyperlink-welcome-wiki {
+    -fx-text-fill: #759cffce;
+    -fx-graphic: url("/resources/expui/ui-icons/wiki.png");
+    -fx-graphic-text-gap: 6;
+}
+
+.icon-newproect16 {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/add-circle.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-newproect16:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-openproect {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-cursor: hand;
+    -fx-graphic: url("/resources/expui/ui-icons/folder.png");
+    -fx-padding: 10 0 0 10; 
+    -fx-alignment: TOP_LEFT;
+
+}
+.icon-openproect:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-open-github {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/github.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-open-github:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+.icon-open-demo {
+    -fx-background-color:  #292A2C;
+    -fx-text-fill: -ui-text;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-graphic: url("/resources/expui/ui-icons/Vector.png");
+    -fx-cursor: hand;
+    -fx-padding: 10 0 0 10;
+    -fx-alignment: TOP_LEFT;
+}
+.icon-open-demo:hover{
+    -fx-background-color:  #292a2c3f;
+    -fx-text-fill: -ui-text;
+}
+
+
+.icon-button-fxe-background {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-graphic: url("/resources/expui/ui-icons/log.png");
+}
+
+
+/* Конец стилизации кнопок в Welcome */
+
+
+.fxe-vertical-editor{
+    -fx-background-color: -ui-secondary-background;
+    -fx-border-color: -ui-border;
+    -fx-border-radis: 3px;
+    -fx-border-width: 1;
+    -fx-background-radius: 3px;
+}
+
+
+.titled-pane {
+    -fx-text-fill: -ui-text;
+    -fx-margin: 60 0 0 0 ; 
+}
+.titled-pane:focused {
+    -fx-border-width: 0;
+}
+.titled-pane > .title {
+    -fx-margin: 60 0 0 0 ; 
+    -fx-background-color: -ui-main-titled;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 4 4 0 0, 3 3 0 0, 4 4 0 0;
+    -fx-padding: 0.3333em 0.75em 0.3333em 0.75em; /* 4 9 4 9 */
+}
+
+.titled-pane:focused > .title > .arrow-button > .arrow {
+    -fx-background-color: transparent;
+    -fx-background-insets: -1, 0;
+    -fx-effect: dropshadow(two-pass-box , -ui-text-link, 5, 0.2 , 0, 0);
+}
+.titled-pane > .title > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 0.0em 0.583em 0.0em 0.0em; /* 0 7 0 0 */
+}
+.titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-text;
+    -fx-border-width: 1.3;
+    -fx-shape: "M6 13L11 8L6 3";
+    -fx-padding: 0.4em 0.2em;
+    -fx-rotate: 90;
+}
+.titled-pane > .title:hover {
+    -fx-color: rgb(245, 245, 245);
+}
+.titled-pane > *.content {
+    -fx-border-color: -ui-secondary-background;
+    -fx-border-insets: -1 0 0 0;
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+}
+
+/* Начало контекстного меню */
+.context-menu {
+    -fx-background-color: -ui-secondary-background;
+    -fx-background-radius: 8px;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-min-width: 140px;
+    -fx-padding: 7px 7px 7px 7px;
+    -fx-spacing: 3px;
+    -fx-font-size: 13px;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, #393b402d, 15, 0.0, 0, 0);
+    -fx-background-insets: 1, 1;
+}
+
+.context-menu .menu-item:hover,
+.context-menu .menu-item:focused {
+    -fx-background-color: derive(-ui-context-menu, 20%);
+    -fx-background-radius: 3px;
+}
+.context-menu .separator:horizontal .line {
+    -fx-border-color: -ui-lines-separators transparent transparent transparent;
+    -fx-border-insets: 1px 0 0 0;
+}
+
+.context-menu > .scroll-arrow {
+    -fx-padding: 4px; /* увеличение внутренних отступов */
+    -fx-background-color: transparent;
+}
+
+.context-menu > .scroll-arrow:hover {
+    -fx-background-color: -ui-context-menu-hover;
+    -fx-text-fill: -ui-text;
+}
+.context-menu .label {
+    -fx-text-fill:  -ui-text;
+    -fx-text-size: 17px;
+}
+/* Конец контекстного меню */
+.split-pane {
+    -fx-background-color: -ui-main-background;
+    -fx-background-radius: 6px;
+    -fx-border-width: 0;
+    -fx-border-color: -ui-border;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-padding: 0 0.05em 0 0.05em; /* 0 3 0 3 */
+    -fx-background-color: transparent;
+}
+/* horizontal the two nodes are placed to the left/right of each other. */
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: -ui-lines-separators;
+   -fx-background-insets: 0 0 0 0;
+   -fx-border-color: -ui-border;
+   -fx-border-style: segments(0.166667em, 0.166667em);
+}
+/* vertical the two nodes are placed on top of each other. */
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: -ui-lines-separators;
+   -fx-background-insets: 0 0 0 0;
+   -fx-border-color: -ui-border;
+   -fx-border-style: segments(0.166667em, 0.166667em);
+}
+
+
+
+.ui-topBar .context-menu {
+    -fx-background-color: -ui-secondary-background;
+    -fx-background-radius: 8px;
+    -fx-border-color: -ui-border;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-min-width: 140px;
+    -fx-padding: 5px 5px 5px 5px;
+    -fx-spacing: 3px;
+    -fx-font-size: 13px;
+    -fx-alignment: center-left;
+}
+.ui-topBar .container {
+    -fx-background-color: transparent;
+}
+.ui-topBar .menu-item:hover,
+.menu:hover, .menu-item:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radius: 3;
+}
+.ui-topBar .menu-button:focused,
+.ui-menu-bar .menu-button:showing{
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radius: 3;
+}
+.ui-topBar .menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: -ui-text;
+    -fx-padding: 3px 7px;
+}
+.ui-topBar .label {
+    -fx-text-fill:  -ui-text;
+}
+
+.ui-combo-box {
+    -fx-background-color: -ui-main;
+    -fx-background-radius: 8px;
+}
+
+.ui-search-component {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+
+.fxe-button {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+
+.fxe-button:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+
+.description {
+    -fx-text-fill: -ui-text;
+}
+
+.title {
+    -fx-text-fill: -ui-text;
+}
+
+.header {
+    -fx-text-fill: -ui-text;
+}
+
+.content .text{
+    -fx-text-fill: -ui-text;
+}
+
+.content .label{
+    -fx-text-fill: -ui-text;
+}
+
+.dn-autocomplete-description-codeEditor {
+    -fx-background-color: -ui-main-background;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-text-fill: -ui-text;
+    -fx-border-radius: 5px;
+} /* Вторая подсказка в коде редакторе когда вызываешь*/
+
+
+.split-menu-button {
+    -fx-background-color: -ui-main-background;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+.split-menu-button:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-border;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+.split-menu-button > .label {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-background-insets: 1 0 1 1, 2 1 2 2;
+    -fx-background-radius: 2 0 0 2, 1 0 0 1;
+    -fx-padding: 0.333333em 0.667em 0.333333em 0.667em; /* 4 8 4 8 */
+}
+.split-menu-button > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1, 2;
+    -fx-background-radius: 0 2 2 0, 0 1 1 0;
+    -fx-padding: 0.5em 0.667em 0.5em 0.667em; /* 6 8 6 8 */
+}
+.split-menu-button:focused {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-insets: -0.2;
+    -fx-background-radius: 3;
+}
+.split-menu-button:focused > .label {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1 0 1 1, 2 1 2 2, -1.4 0 -1.4 -1.4, 2.6 1.6 2.6 2.6;
+    -fx-background-radius: 2 0 0 2, 1 0 0 1, 4 0 0 4, 0;
+}
+.split-menu-button:focused > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1, 2, -1.4, 2.6;
+    -fx-background-radius: 0 2 2 0, 0 1 1 0, 0 4 4 0, 0;
+}
+
+.dn-scroll-pane {
+    -fx-border-color: -ui-context-menu-border transparent transparent -ui-context-menu-border;
+    -fx-border-width: 1px 0 0 1px;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-focus-traversable: false;
+}
+.dn-scroll-pane .viewport {
+    -fx-background-color:  -ui-main-background;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background;
+    -fx-focus-traversable: false;
+}
+
+.blur-modal {
+    -fx-background-color: -blur-modal;
+}
+
+
+.ui-button-create-project {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5;
+}
+.ui-button-create-project:hover {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5;
+}
+
+.custom-text-field-welcome { 
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 25;
+    -fx-cursor: hand;
+}
+
+.custom-text-field-welcome-create {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 5 0 0 5;
+}
+
+.custom-text-field-welcome-namespace {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-min-height: 35;
+    -fx-padding: 7px;
+    -fx-min-width: 15px; 
+    -fx-cursor: hand;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-radius: 0 5 5 0;
+}
+
+.ui-project-list-welcome { 
+    -fx-background-color: transparent;
+   /* -fx-border-color: -ui-context-menu-border; */
+    /* -fx-border-raduius:10 10 0 0 ; */
+}
+
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-font-size: 8px;
+    -fx-background-color: -ui-main-background; /* Прозрачный фон для самой полосы прокрутки */
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+}
+
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+    visibility: hidden;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    visibility: hidden;
+        -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -ui-lines-separators;
+    -fx-background-radius: 4px; /* Закругленные углы для скроллбара */
+    -fx-background-insets: 2; /* Внутренние отступы */
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-radius: 4px; /* Закругленные углы для границы */
+    -fx-border-width: 1px; /* Ширина границы */
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -ui-hoverd; /* Цвет при наведении */
+}
+
+.scroll-bar:vertical .thumb:pressed,
+.scroll-bar:horizontal .thumb:pressed {
+    -fx-background-color: -ui-tree-focused; /* Цвет при нажатии */
+}
+
+
+.ui-tgb-new-project {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+
+.ui-tgb-new-project:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radis: 5px;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+
+.ui-tgb-new-project:selected {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-background-radis: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+
+
+.dn-file-tab-pane .dn-file-tab-pane-components {
+    -fx-background-color: -ui-secondary-background; 
+}
+
+
+.dn-file-tab-pane {
+    -fx-border-width: 0;
+    -fx-background-color: -ui-border-tab;
+}
+
+
+.dn-file-tab-pane  .tab-header-area {
+   -fx-background-color:  -ui-border-tab;
+    
+}
+
+.dn-file-tab-pane .tab-header-background {
+
+     -fx-background-color: -ui-border-tab;
+}
+
+.dn-file-tab-pane .tab {
+    -fx-background-color: -ui-border-tab;
+    -fx-background-radius: 3px;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: -ui-border;
+    -fx-text-fill: -ui-text;
+    -fx-padding: 6 4 0 6;
+
+}
+
+.dn-file-tab-pane  .tab:selected {
+    -fx-border-color: -ui-tree-selected;
+    -fx-border-width: 0 0 2 0;
+    -fx-text-fill: -ui-text;
+}
+
+.dn-file-tab-pane .tab:selected:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-hoverd;
+    -fx-border-width: 0 0 2 0;
+    -fx-text-fill: -ui-text;
+}
+
+.dn-file-tab-pane .tab:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-hoverd;
+    -fx-text-fill: -ui-text;
+    -fx-border-width: 0 0 2 0;
+}
+
+.dn-file-tab-pane .tab-label {
+    -fx-text-fill: -ui-text;
+}
+
+.dn-file-tab-pane .focus-indicator {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+
+
+.flow-list-view
+{
+    -fx-background-color: -ui-secondary-background;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 4px;
+    -fx-border-color: -ui-border;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-padding: 6; /* увеличение внутренних отступов */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.0, 0, 0);
+    -fx-spacing: 2;
+}
+.flow-list-view .focus-indicator {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.flow-list-view .list-cell
+{
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+}
+.flow-list-view .list-cell:hover {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-hoverd;
+}
+.flow-list-view .list-cell:selected {
+    -fx-text-fill: -ui-text;
+    -fx-background-color: -ui-tree-selected;
+}
+
+.separator .line{
+    -fx-border-color:-ui-lines-separators;
+}
+
+.ui-tansparent{
+    -fx-background-color: transparent;
+}
+
+.ui-tansparent:hover{
+    -fx-background-color: -ui-hoverd;
+}
+
+.ui-paneVbox {
+    -fx-background-color:  -ui-main-background;
+    -fx-border-width: 1px;
+    -fx-border-color:  -ui-context-menu-border;
+}
+.ui-components-right {
+    -fx-background-color:  -ui-secondary-background;
+    -fx-text-fill: -ui-text;
+}
+.ui-topBar {
+    -fx-background-color:  -ui-secondary-background;
+    -fx-text-fill: -ui-text;
+    -fx-text-size: 14px;
+}
+.ui-headPane {
+    -fx-background-color:  -ui-main-background;
+    -fx-min-height: 25px;
+    -fx-padding: 5 5 5 5;
+}
+
+
+/* Цвет дерева */
+.ui-treeView {
+    -fx-background-color: -ui-main-background;
+    -fx-padding: 5px;
+    -fx-border-width: 0; /* Убираем границы */
+    -fx-pref-width: 0;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-background-insets: 0; /* Убираем внутренние отступы */
+    -fx-color: -ui-lines-separators;
+}
+.ui-treeView .tree-cell {
+    -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
+    -fx-font-size: 13px;
+    -fx-border-width: 0; /* Убираем границы */
+    -fx-pref-width: 0;
+    -fx-focus-color: -ui-main-background; /* Убираем цвет фокуса */
+    -fx-faint-focus-color: -ui-main-background /* Убираем цвет фокуса */
+}
+.ui-treeView:focused {
+    -fx-background-color: transparent; /* Убираем фон при фокусировке на дереве */
+}
+.ui-treeView .tree-cell:focused {
+    -fx-background-color: -ui-secondary-background; /* Задаем фон при фокусировке на ячейке */
+    -fx-text-fill: -ui-text;
+    -fx-border-width: 0; /* Убираем границы */
+    -fx-pref-width: 0;
+}
+.ui-treeView .tree-cell:selected {
+    -fx-background-color: -ui-secondary-background; /* Задаем фон для выбранной ячейки */
+    -fx-text-fill: -ui-text;
+    -fx-pref-width: 0;
+}
+.tree-disclosure-node > .arrow {
+    -fx-shape: "M0,0 L7,4 L0,8 L2,4 Z";
+    -fx-background-color:  -ui-text;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-shape-padding: 0;
+    -fx-border-width: 0;
+}
+.ui-treeView .scroll-bar:horizontal {
+    -fx-background-color: -ui-secondary-background;
+}
+.ui-treeView .scroll-bar:vertical {
+    -fx-background-color: -ui-secondary-background;
+}
+.ui-treeView .scroll-bar .thumb {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radius: 1px;
+}
+.ui-treeView .scroll-bar .thumb:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-background-radius: 1px;
+    -fx-padding: 30px;
+}
+.ui-treeView .scroll-bar .increment-button,
+.ui-treeView .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+.ui-treeView .scroll-bar .increment-arrow,
+.ui-treeView .scroll-bar .decrement-arrow {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-width: 0;
+}
+/* Конец дерева */
+
+.fullscreen-modal {
+    -fx-alignment: center;
+}
+.fullscreen-modal .content {
+    -fx-alignment: center;
+}
+.fullscreen-modal .content .anchor {
+    -fx-alignment: center;
+    -fx-padding: 10;
+
+}
+.fullscreen-modal .content .dialog-container {
+    -fx-alignment: center;
+    -fx-max-width: 350;
+    -fx-padding: 15;
+    -fx-spacing: 15;
+    -fx-border-radius: 5;
+    -fx-background-color: rgba(22, 22, 22, 0.95);
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.5), 10, 0.0 , 0, 0);
+}
+
+/* Контейнер диалога на главной форме */
+.fullscreen-modal .content .title {
+
+}
+.fullscreen-modal .content .message {
+
+}
+.fullscreen-modal .content .title {
+    
+}
+.fullscreen-modal .content .button-container {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+.fullscreen-modal .content .button-container .button {
+    -fx-min-width: 75;
+    -fx-min-height: 32;
+}
+
+/* Контейнер просмотра превью на главной форме */
+.fullscreen-modal .content .image {
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.3), 10, 0.0 , 0, 0);
+}
+.fullscreen-modal .content .box-param {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.5), 10, 0.0 , 0, 0);
+    -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
+}
+/* icons .. */
+.icon-sun{ -fx-graphic: url("/.data/img/icons/sun16.png"); }
+.icon-dark{ -fx-graphic: url("/.data/img/icons/dark16.png"); }
+
+.icon-flat-edit { -fx-graphic: url("/.data/img/icons/flatEdit16.png"); }
+.icon-flat-delete { -fx-graphic: url("/.data/img/icons/flatDelete16.png"); }
+.icon-flat-gallery { -fx-graphic: url("/.data/img/icons/flatGallery16.png"); }
+.icon-flat-refresh { -fx-graphic: url("/.data/img/icons/flatRefresh16.png"); }
+.icon-flat-account { -fx-graphic: url("/.data/img/icons/account16.png"); }
+.icon-flat-search { -fx-graphic: url("/.data/img/icons/flatSearch16.png"); }
+
+.icon-exit { -fx-graphic: url("/.data/img/icons/exit16.png"); }
+.icon-exit32 { -fx-graphic: url("/.data/img/icons/exit32.png"); }
+
+.icon-ok { -fx-graphic: url("/.data/img/icons/ok16.png"); }
+.icon-save { -fx-graphic: url("/.data/img/icons/save16.png"); }
+.icon-ok32 { -fx-graphic: url("/.data/img/icons/ok32.png"); }
+
+.icon-run { -fx-graphic: url("/.data/img/icons/run16.png"); }
+
+.icon-plus { -fx-graphic: url("/.data/img/icons/plus16.png"); }
+.icon-add { -fx-graphic: url("/.data/img/icons/add16.png"); }
+.icon-delete { -fx-graphic: url("/.data/img/icons/delete16.png"); }
+.icon-clear { -fx-graphic: url("/.data/img/icons/clear16.png"); }
+
+.icon-copy { -fx-graphic: url("/.data/img/icons/copy16.png"); }
+.icon-edit { -fx-graphic: url("/.data/img/icons/edit16.png"); }
+.icon-settings { -fx-graphic: url("/.data/img/icons/settings16.png"); }
+.icon-blocks { -fx-graphic: url("/.data/img/icons/blocks16.png"); }
+.icon-vk { -fx-graphic: url("/.data/img/icons/vk16.png"); }
+.icon-login { -fx-graphic: url("/.data/img/icons/login16.png"); }
+.icon-green-document { -fx-graphic: url("/.data/img/icons/greenDocument16.png"); }
+.icon-red-document { -fx-graphic: url("/.data/img/icons/redDocument16.png"); }
+.icon-rabbit-food { -fx-graphic: url("/.data/img/icons/rabbitFood16.png"); }
+.icon-download-ext { -fx-graphic: url("/.data/img/icons/downloadExt16.png"); }
+.icon-youtube { -fx-graphic: url("/.data/img/icons/youtube16.png"); }
+.icon-convert { -fx-graphic: url("/.data/img/icons/convert16.png"); }
+.icon-trash { -fx-graphic: url("/.data/img/icons/trash16.png"); }
+.icon-trash2 { -fx-graphic: url("/.data/img/icons/trash16.gif"); }
+.icon-php { -fx-graphic: url("/.data/img/icons/phpFile16.png"); }
+.icon-share { -fx-graphic: url("/.data/img/icons/share16.png"); }
+.icon-share-ex { -fx-graphic: url("/.data/img/icons/shareEx16.png"); }
+.icon-upload { -fx-graphic: url("/.data/img/icons/upload16.png"); }
+.icon-library { -fx-graphic: url("/.data/img/icons/library16.png"); }
+.icon-square { -fx-graphic: url("/.data/img/icons/square16.png"); }
+.icon-control-panel { -fx-graphic: url("/.data/img/icons/controlPanel16.png"); }
+
+.icon-refresh { -fx-graphic: url("/.data/img/icons/refresh16.png"); }
+.icon-refresh32 { -fx-graphic: url("/.data/img/icons/refresh32.png"); }
+
+.icon-open { -fx-graphic: url("/.data/img/icons/open16.png"); }
+.icon-open32 { -fx-graphic: url("/.data/img/icons/open32.png"); }
+
+.icon-new { -fx-graphic: url("/.data/img/icons/new16.png"); }
+.icon-new32 { -fx-graphic: url("/.data/img/icons/new32.png"); }
