@@ -601,11 +601,12 @@ class PhpProjectBehaviour extends AbstractProjectBehaviour
         $byteCodeCheckbox->padding = 5;
         $this->uiByteCodeCheckbox->on('mouseUp', [$this, 'doSave']);
         $byteCodeCheckbox->tooltipText = _('checkboxsesdf2');
+        $byteCodeCheckbox->classes->add('ui-text');
         $opts->add($byteCodeCheckbox);
 
         $importTitle = new UXLabel(_('checkboxsesdf3'));
         $importTypeSelect = new UXComboBox(self::$importTypes);
-
+        $importTypeSelect->classes->add('ui-combo-box');
         $importTypeSelect->on('action', function () {
             uiLater(function () {
                 $this->setImportType(arr::keys(static::$importTypes)[$this->uiImportTypesSelect->selectedIndex]);

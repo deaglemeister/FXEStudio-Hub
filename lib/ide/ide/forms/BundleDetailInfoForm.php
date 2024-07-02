@@ -101,6 +101,14 @@ class BundleDetailInfoForm extends AbstractIdeForm
         }
     }
 
+  /**
+  *  @event show
+  */
+  function doShow($e = null){
+    parent::show();
+    Ide::setFrame($this->layout);
+}
+
     /**
      * @event cancelButton.action
      */

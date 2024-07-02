@@ -186,7 +186,7 @@ abstract class AbstractEditorsProjectControlPane extends AbstractProjectControlP
     protected function makeUi()
     {
         $pane = new FlowListViewDecorator();
-        $pane->setEmptyListText($this->getName() . _('edit.btns.tree4'));
+        $pane->setEmptyListText($this->getName() . _(' список пуст'));
         $pane->setMultipleSelection(true);
 
         $pane->addMenuCommand(new AbstractEditorsProjectControlPaneEditCommand($this));

@@ -142,6 +142,7 @@ class FormElementTypePane
         if (!$elements) {
             $noLabel = new UXLabel("Список пуст.");
             $noLabel->padding = 10;
+            $noLabel->classes->add('ui-text-secondary')
             $this->layout->add($noLabel);
         }
 

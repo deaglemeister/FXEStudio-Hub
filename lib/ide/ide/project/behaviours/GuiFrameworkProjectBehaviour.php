@@ -449,7 +449,7 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
         $label = new UXLabel(_('no.img'));
         $label->classes->add('ui-text');
         $button = new UXButton( _('no.img2'));
-        $button->classes->add('icon-open');
+        $button->classes->add('fxe-button');
 
         $this->uiSplashLabel = $label;
 
@@ -468,8 +468,11 @@ class GuiFrameworkProjectBehaviour extends AbstractProjectBehaviour
         $UXHBox->alignment = 'CENTER_LEFT';
 
         $this->uiSplashOnTop = $fxSplashOnTop = new UXCheckbox(_('no.img3'));
+        $this->uiSplashAutoHide = $fxSplashOnTop->classes->add('ui-text');
+        
         $this->uiSplashAutoHide = $fxSplashAutoHide = new UXCheckbox(_('no.img4'));
         $fxSplashAutoHide->tooltipText = 'Чтобы скрыть заставку через код используйте app()->hideSplash()';
+        $fxSplashAutoHide->classes->add('ui-text');
 
         $fxSplashOnTop->on('mouseUp', function () {
             $this->splashData['alwaysOnTop'] = $this->uiSplashOnTop->selected;

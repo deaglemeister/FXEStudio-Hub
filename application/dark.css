@@ -588,10 +588,7 @@
     -fx-text-fill: -ui-text;
 }
 
-.ui-combo-box {
-    -fx-background-color: -ui-main;
-    -fx-background-radius: 8px;
-}
+
 
 .ui-search-component {
     -fx-background-color: transparent;
@@ -600,6 +597,84 @@
     -fx-border-radius: 5px;
     -fx-text-fill: -ui-text;
 }
+
+
+/* ComboBox */
+.ui-combo-box {
+
+    -fx-background-color: -ui-main;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-family: 'JetBrains Mono';
+}
+
+.ui-combo-box:hover {
+    -fx-background-color: -ui-main;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+
+.ui-combo-box:focused {
+    -fx-background-color: -ui-main;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+}
+
+.ui-combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 5 0 0;
+}
+
+.ui-combo-box .arrow-button .arrow {
+    -fx-background-color: -ui-context-menu-border;
+    -fx-padding: 0;
+}
+
+.ui-combo-box:hover .arrow-button .arrow {
+    -fx-background-color: -ui-context-menu-border;
+}
+
+.ui-combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5 10;
+}
+
+.ui-combo-box .list-cell:selected {
+    -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
+}
+
+.ui-combo-box .list-cell:filled:selected {
+    -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
+}
+
+.ui-combo-box .list-cell:hover {
+    -fx-background-color: -ui-context-menu-hover;
+}
+
+.ui-combo-box .list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.ui-combo-box .text {
+    -fx-fill: -ui-text;
+    -fx-padding: 0 0 0 5;
+}
+
+
 
 .fxe-button {
     -fx-background-color: transparent;
@@ -986,6 +1061,14 @@
     -fx-text-fill: -ui-text-secondary;
 }
 
+.flow-list-view .label {
+    -fx-text-fill: -ui-text;
+}
+
+.flow-list-view .text {
+    -fx-text-fill: -ui-text;
+}
+
 .flow-list-view {
     -fx-background-color: -ui-main-background;
     -fx-background-insets: 0;
@@ -995,22 +1078,27 @@
     -fx-padding: 6;
     /* увеличение внутренних отступов */
     -fx-spacing: 2;
+    -fx-text-fill: -ui-text;
 }
 
 .flow-list-view .virtual-flow {
     -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
 }
 
 .flow-list-view .clipped-container {
     -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
 }
 
 .flow-list-view .sheet {
     -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
 }
 
 .flow-list-view .corner {
     -fx-background-color: -ui-main-background;
+    -fx-text-fill: -ui-text;
 }
 
 .flow-list-view .list-cell {
@@ -1346,6 +1434,8 @@
     -fx-graphic: url("/.data/img/icons/plus16.png");
 }
 
+
+
 .icon-add {
     -fx-graphic: url("/.data/img/icons/add16.png");
 }
@@ -1364,6 +1454,19 @@
 
 .icon-edit {
     -fx-graphic: url("/.data/img/icons/edit16.png");
+    -fx-background-color: transparent;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
+    -fx-cursor: hand;
+}
+.icon-edit:hover {
+    -fx-background-color: -ui-hoverd;
+    -fx-border-color: -ui-lines-separators;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: -ui-text;
 }
 
 .icon-settings {

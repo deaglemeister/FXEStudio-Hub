@@ -183,6 +183,7 @@ class IdeBehaviourPane
 
         if ($box->children->count == 0) {
             $hint = new UXLabel('Поведений нет.');
+            $hint->classes->add('ui-text-secondary');
             $hint->padding = 10;
             $hint->style = '-fx-font-style: italic';
 
@@ -266,6 +267,7 @@ class IdeBehaviourPane
     protected function initButtonAdd(UXPane $pane, $targetId)
     {
         $button = new UXButton('Добавить поведение');
+        $button->classes->add('fxe-button');
         $button->graphic = ico('plugin16');
 
         $button->height = 30;
