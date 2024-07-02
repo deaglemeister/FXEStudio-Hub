@@ -34,11 +34,15 @@
     -ui-toasts-frame: #212224;
     -blur-modal: #0000006b;
 
-
+    -ui-centertab-text-hover: -ui-text-secondary;
+    -ui-selected-link: #2E436E; /* Синий прозрачный цвет для дерева для селекта */
+    -ui-tabs-active: #3574F0; /* Активный таб цвет */
 
     -ui-text-backup-copy-master-new: #3160bdb6;
     /* Текст для бекапа когда он новый во вкладке архив проекта*/
 }
+
+
 
 
 
@@ -895,63 +899,63 @@
 }
 
 
+/* Начало css табпейна */
 .dn-file-tab-pane {
-    -fx-border-width: 0;
-    -fx-background-color: -ui-border-tab;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
 }
-
-
-.dn-file-tab-pane .tab-header-area {
-    -fx-background-color: -ui-border-tab;
+.dn-file-tab-pane .tab-header-background{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -ui-context-menu-border;
+    -fx-background-color: transparent;
+}
+.dn-file-tab-pane .tab-pane {
 
 }
-
-.dn-file-tab-pane .tab-header-background {
-
-    -fx-background-color: -ui-border-tab;
-}
-
 .dn-file-tab-pane .tab {
-    -fx-background-color: -ui-border-tab;
-    -fx-background-radius: 3px;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-color: -ui-border;
-    -fx-text-fill: -ui-text;
-    -fx-padding: 6 4 0 6;
-
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+    -fx-border-radius: 0 0 3 0;
+    -fx-border-width: 0 0 3 0;
+    -fx-border-color: -ui-context-menu-border;
 }
-
+.dn-file-tab-pane .tab-header-area>.headers-region>.tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
 .dn-file-tab-pane .tab:selected {
-    -fx-border-color: -ui-tree-selected;
-    -fx-border-width: 0 0 2 0;
-    -fx-text-fill: -ui-text;
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+    -fx-border-radius: 0 0 3 0;
+    -fx-border-width: 0 0 3 0;
+    -fx-border-color: -ui-tabs-active;
 }
-
-.dn-file-tab-pane .tab:selected:hover {
+.dn-file-tab-pane .tab:focused {
     -fx-background-color: -ui-hoverd;
-    -fx-border-color: -ui-hoverd;
-    -fx-border-width: 0 0 2 0;
-    -fx-text-fill: -ui-text;
+    -fx-padding: 5px;
+    -fx-background-radius: 0;
 }
-
+.dn-file-tab-pane .tab-content-area {
+    -fx-padding: 0 2px 0 3px;
+}
 .dn-file-tab-pane .tab:hover {
-    -fx-background-color: -ui-hoverd;
-    -fx-border-color: -ui-hoverd;
-    -fx-text-fill: -ui-text;
-    -fx-border-width: 0 0 2 0;
+    -fx-background-color: transparent;
 }
-
+.dn-file-tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+}
 .dn-file-tab-pane .tab-label {
     -fx-text-fill: -ui-text;
+    -fx-alignment: center;
+    -fx-text-size: 15;
+    -fx-font-weight: medium;
+
+    
 }
 
-.dn-file-tab-pane .focus-indicator {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
+
+.center-tab-pane .tab-graphic {
+    -fx-alignment: center-left;
 }
-
-
 
 
 
