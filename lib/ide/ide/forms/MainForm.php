@@ -83,7 +83,9 @@ use php\demonck\winfx\WindowManager10;
 
 use ide\forms\malboro\Updates;
 use ide\forms\malboro\DiscordRPC;
+
 use platform\facades\PluginManager;
+use plugins\checkJava\JavaEnvironmentChecker;
 
 /**
  * @property UXTabPane $fileTabPane
@@ -106,6 +108,8 @@ class MainForm extends AbstractIdeForm
 {
     use IdeConfigurable;
     
+
+
     /**
      * @var UXMenuBar
      */
@@ -117,15 +121,26 @@ class MainForm extends AbstractIdeForm
      * @var UXAnchorPane
      */
     private $bottom;
+   
 
     /**
      * MainForm constructor.
      */
     public $doubleClickHandler;
 
+    protected $__currentTime;
+
+
     public function __construct()
     {
         parent::__construct();
+        $this->__currentTime = Time::now();
+        try {
+            JavaEnvironmentChecker::checkJavaEnvironment();
+        } catch (\Exception $e) {
+            JavaEnvironmentChecker::showErrorToast("Ошибка: " . $e->getMessage());
+        }
+        
         $this->modalClass = new Modals;
         $this->doubleClickHandler = new doubleClickHandler(function () {
             print_r('Завершение работы..');
@@ -145,6 +160,8 @@ class MainForm extends AbstractIdeForm
             throw new IdeException("Cannot find main menu on main form");
         }
     }
+
+
 
     /**
      * @param $string
@@ -308,6 +325,8 @@ class MainForm extends AbstractIdeForm
        
         parent::show();
         $screen = UXScreen::getPrimary();
+     
+        
 
        # MainForm::analyzeMemoryUse();
        # MainForm::getMemoryUsage();
