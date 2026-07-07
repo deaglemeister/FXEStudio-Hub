@@ -1,0 +1,14 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.develnext.ide.Launcher'
+        )
+    }
+}

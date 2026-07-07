@@ -1,0 +1,9 @@
+repositories {
+    mavenCentral()
+}
+
+project.version = '1.0'
+
+dependencies {
+    compile project(':fxe-process-core')
+}

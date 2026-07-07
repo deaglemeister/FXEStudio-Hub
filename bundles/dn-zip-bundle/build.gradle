@@ -1,0 +1,18 @@
+
+project.version = ''
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+sourceSets {
+    main.resources.srcDirs = ['src']
+}
+
+dependencies {
+    compile "org.develnext.jphp:jphp-zip-ext:$jphpVersion"
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+}
+

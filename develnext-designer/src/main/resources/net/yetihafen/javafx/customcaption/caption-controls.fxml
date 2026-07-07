@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.yetihafen.javafx.customcaption.internal.ControlsController"
+      fx:id="root"
+      alignment="CENTER_RIGHT"
+      styleClass="caption">
+    <Button mnemonicParsing="false" text="&#xE921;" fx:id="minimizeButton"/>
+    <Button mnemonicParsing="false" text="&#xE922;" fx:id="maximizeRestoreButton"/>
+    <Button mnemonicParsing="false" text="&#xE8BB;" fx:id="closeButton"/>
+</HBox>

@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'Consolas';
+    src: url('/Consolas.ttf');
+}
+
+@font-face {
+    font-family: 'ConsolasBold';
+    src: url('/ConsolasBold.ttf');
+}
+
+@font-face {
+    font-family: 'ConsolasItalic';
+    src: url('/ConsolasItalic.ttf');
+}
+
+.syntax-text-area {
+    -fx-font: 14px 'JetBrains Mono', 'Consolas', monospace;
+}
+
+.syntax-text-area .gutter .note {
+    -fx-pref-width: 14px;
+    -fx-min-width: 14px;
+    -fx-cursor: hand;
+}
+
+.syntax-text-area .gutter .note.empty {
+    -fx-opacity: 0;
+}
+
+.syntax-text-area .gutter .error {
+    -fx-graphic: url("errorLink.png");
+}
+
+.syntax-text-area .gutter .warning {
+    -fx-graphic: url("errorLink.png");
+    -fx-opacity: 0.85;
+}
+
+.syntax-text-area .gutter .note.color-swatch {
+    -fx-pref-width: 11px;
+    -fx-min-width: 11px;
+    -fx-pref-height: 11px;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-background-insets: 2px;
+    -fx-border-insets: 2px;
+}
+
+.syntax-text-area .gutter .note.color-swatch:hover {
+    -fx-border-color: fxe-text-primary;
+}
+
+.syntax-text-area .lineno .text {
+    -fx-font-style: normal;
+}
+
+.syntax-text-area .context-menu {
+    -fx-background-color: fxe-surface-popup;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+}
+
+.syntax-text-area .context-menu .text {
+    -fx-fill: fxe-text-primary;
+    -fx-font: 13px 'JetBrains Mono', 'Consolas', monospace;
+}
+
+.syntax-text-area .context-menu .menu-item:focused {
+    -fx-background-color: fxe-selection;
+}
+
+.styled-text-area .caret {
+    -fx-stroke-width: 2px;
+}
+
+.code-area-popup {
+    -fx-font: 13px 'JetBrains Mono', 'Consolas', monospace;
+    -fx-background-color: fxe-surface-popup;
+    -fx-border-color: fxe-border;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.code-area-popup .list-cell {
+    -fx-background-color: fxe-surface-popup;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.code-area-popup .list-cell:filled:selected {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+}
+
+.fxe-diagnostic-tooltip {
+    -fx-background-color: fxe-surface-popup;
+    -fx-text-fill: fxe-error-text;
+    -fx-font: 12px 'JetBrains Mono', 'Consolas', monospace;
+    -fx-border-color: fxe-error-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-padding: 6 8 6 8;
+}

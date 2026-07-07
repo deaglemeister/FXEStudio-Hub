@@ -1,0 +1,422 @@
+apply plugin: 'application'
+
+project.version = '1.0'
+
+project.ext.distVersion = System.getProperty("version", "SNAPSHOT");
+
+repositories {
+    maven {
+        url uri("${rootProject.projectDir}/vendor/maven-repo")
+    }
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+}
+
+sourceSets {
+    main.resources.srcDirs = ['src']
+}
+
+run {
+    mainClassName = 'php.runtime.launcher.Launcher'
+    jvmArgs += ["-Dfile.encoding=UTF-8", "-Xms256m", "-Xms1280m"]
+}
+
+jar.archiveName = 'DevelNext.jar'
+
+clean {
+    delete = [] //clear out existing files to delete
+    delete 'build/install', 'build/libs', 'build/tmp', 'build/resources', 'build/scripts'
+}
+
+manifest {
+    attributes 'Main-Class': 'org.develnext.jphp.ext.javafx.FXLauncher'
+}
+
+def buildISS = { issFile ->
+    def innoSetupBin = "$project.rootDir/develnext-tools/innoSetup/ISCC.exe".replace("\\", "/")
+
+    if (System.properties['os.name'].toLowerCase().contains('linux')) {
+        exec {
+            commandLine 'wine', innoSetupBin, '/Qp', issFile
+        }
+    } else {
+        exec {
+            commandLine innoSetupBin, '/Qp', issFile
+        }
+    }
+}
+
+def makeExe = { file ->
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        exec {
+            commandLine "$project.rootDir/develnext-tools/Launch4j/launch4jc.exe"
+            args file
+        }
+    } else if (System.properties['os.name'].toLowerCase().contains('linux')) {
+        new File("$project.rootDir/develnext-tools/Launch4jLinux/launch4j").setExecutable(true, true);
+        new File("$project.rootDir/develnext-tools/Launch4jLinux/bin/windres").setExecutable(true, true);
+        new File("$project.rootDir/develnext-tools/Launch4jLinux/bin/ld").setExecutable(true, true);
+
+        exec {
+            commandLine "$project.rootDir/develnext-tools/Launch4jLinux/launch4j"
+            args file
+        }
+    }
+}
+
+task copyInstallAssets(dependsOn: ['installDist']) {
+    doLast {
+        def installDir = file("$project.buildDir/install/$project.name")
+        def miscDir = file("$project.rootDir/develnext/misc")
+
+        copy {
+            from miscDir
+            into installDir
+        }
+
+        patchDevelnextStartBat(file("$installDir/bin/develnext.bat"))
+        patchDevelnextStartBat(file("$project.buildDir/scripts/develnext.bat"))
+    }
+}
+
+def patchDevelnextStartBat = { File startBat ->
+    if (startBat.exists()) {
+        def content = startBat.getText('UTF-8')
+        if (!content.contains('cd /d "%APP_HOME%"')) {
+            content = content.replaceFirst(
+                    /:init\r?\n/,
+                    ':init\r\n@rem FXE Studio: cwd = install\r\ncd /d "%APP_HOME%"\r\n'
+            )
+        }
+        content = content.replaceAll(
+                /set CLASSPATH=%APP_HOME%\\lib\\[^\r\n]+/,
+                'set CLASSPATH=%APP_HOME%\\lib\\DevelNext.jar;%APP_HOME%\\lib\\*'
+        )
+        startBat.write(content, 'UTF-8')
+    }
+}
+
+startScripts {
+    doLast {
+        patchDevelnextStartBat(file("$buildDir/scripts/develnext.bat"))
+    }
+}
+
+installDist.finalizedBy copyInstallAssets
+
+task prepareDist(dependsOn: ['installDist']) {
+    doLast {
+        fileTree("$project.buildDir/install/$project.name/lib").visit { FileVisitDetails el ->
+            def name = el.getName()
+            name = name.replaceAll(/(-[0-9]+|\.[0-9]+|-SNAPSHOT)/, "");
+
+            if (name.startsWith("develnext-control-")) {
+                el.file.delete();
+            } else {
+                if (!name.equals(el.getName())) {
+                    println "Rename '" + el.file.parent + "/" + name + "' file"
+
+                    if (name == "develnext-launcher.jar") {
+                        copy {
+                            from el.file
+                            into "$project.buildDir/install/$project.name"
+                            rename(/develnext-launcher-.*\.jar/, "DevelNext.jar")
+                        }
+
+                        el.file.delete();
+                        el.file.deleteOnExit();
+                    } else {
+                        el.file.renameTo(file(el.file.parent + "/" + name));
+                    }
+                }
+            }
+        }
+    }
+}
+
+task distWindowsPatch(type: Zip, dependsOn: ['clean', 'distPatch']) {
+    from "$project.buildDir/install/$project.name"
+    archiveName "DevelNext.WindowsPatch-${project.ext.distVersion}.zip"
+
+    doLast {
+        def issFile = "$project.rootDir/develnext/windowsSetup/innopatchsetup.iss".replace("\\", "/")
+
+        if (System.properties['os.name'].toLowerCase().contains('linux')) {
+            issFile = "windowsSetup/innopatchsetup.iss"
+        }
+
+        buildISS(issFile)
+
+        file("$project.buildDir/distributions/DevelNext.WindowsPatch-${project.ext.distVersion}.exe").delete()
+
+        file("$project.buildDir/distributions/DevelNext.WindowsPatch.exe")
+                .renameTo(file("$project.buildDir/distributions/DevelNext.WindowsPatch-${project.ext.distVersion}.exe"))
+    }
+}
+
+task distLinuxPatch(type: Tar, dependsOn: ['clean', 'distPatch']) {
+    def installDir = "$project.buildDir/install/$project.name"
+
+    compression = Compression.GZIP
+    archiveName "DevelNext.LinuxPatch-${project.ext.distVersion}.tar.gz"
+
+    from(installDir) {
+        exclude('*.sh')
+        exclude('DevelNext')
+        exclude('DevelNext.jar')
+        exclude('bin/develnext')
+        exclude('tools/apache-ant/bin/ant')
+        //exclude('tools/gradle/bin/gradle')
+        exclude('tools/jre/bin/java')
+        exclude('tools/Launch4jLinux/launch4j')
+        exclude('tools/Launch4jLinux/bin/windres')
+        exclude('tools/Launch4jLinux/bin/ld')
+    }
+
+    from(installDir) {
+        include('*.sh')
+        include('DevelNext')
+        include('DevelNext.jar')
+        include('bin/develnext')
+        include('tools/apache-ant/bin/ant')
+        //include('tools/gradle/bin/gradle')
+        include('tools/jre/bin/java')
+        include('tools/Launch4jLinux/launch4j')
+        include('tools/Launch4jLinux/bin/windres')
+        include('tools/Launch4jLinux/bin/ld')
+
+        fileMode = 0755
+    }
+
+    doLast {
+        def uploadPath = System.getProperty("uploadPath", "E:/Upload")
+
+        if (new File(uploadPath).isDirectory()) {
+            copy {
+                from distLinuxPatch.archivePath
+                into "$uploadPath/YandexDisk"
+            }
+        }
+    }
+}
+
+
+task distPatch(dependsOn: ['prepareDist']) {
+    doLast {
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            exec {
+                commandLine "$project.rootDir/develnext-tools/Launch4j/launch4jc.exe"
+                args "$project.rootDir/develnext/launcher/winLauncher.xml"
+            }
+        }
+
+        copy {
+            from "$project.rootDir/develnext/launcher/DevelNext.exe"
+            into "$project.buildDir/install/$project.name"
+        }
+
+        copy {
+            from "$project.rootDir/develnext/misc"
+            into "$project.buildDir/install/$project.name"
+        }
+    }
+}
+
+
+
+task distIdeWindows(dependsOn: ['distIde']) {
+    doLast {
+        delete "$project.buildDir/install/$project.name/tools/jre"
+        delete "$project.buildDir/install/$project.name/tools/Launch4j"
+        delete "$project.buildDir/install/$project.name/tools/Launch4jLinux"
+
+        copy {
+            from "$project.rootDir/develnext-tools/jre"
+            into "$project.buildDir/install/$project.name/tools/jre"
+        }
+
+        copy {
+            from "$project.rootDir/develnext-tools/Launch4j"
+            into "$project.buildDir/install/$project.name/tools/Launch4j"
+        }
+    }
+}
+
+task distIdeLinux(dependsOn: ['distIde']) {
+    doLast {
+        delete "$project.buildDir/install/$project.name/tools/jre"
+        delete "$project.buildDir/install/$project.name/tools/Launch4j"
+        delete "$project.buildDir/install/$project.name/tools/Launch4jLinux"
+
+        copy {
+            from "$project.rootDir/develnext-tools/jreLinux"
+            into "$project.buildDir/install/$project.name/tools/jre"
+        }
+
+        copy {
+            from "$project.rootDir/develnext-tools/Launch4jLinux"
+            into "$project.buildDir/install/$project.name/tools/Launch4jLinux"
+        }
+    }
+}
+
+task distIde(dependsOn: ['prepareDist']) {
+    doLast {
+        makeExe("$project.rootDir/develnext/launcher/winLauncher.xml")
+        makeExe("$project.rootDir/develnext/launcher/winLauncher-debug.xml")
+
+        copy {
+            from "$project.rootDir/develnext-tools"
+            into "$project.buildDir/install/$project.name/tools"
+            exclude "gradle"
+            exclude "jre"
+            exclude "jreLinux"
+            exclude "Launch4j"
+            exclude "Launch4jLinux"
+        }
+
+        copy {
+            from "$project.rootDir/develnext/launcher/DevelNext.exe"
+            into "$project.buildDir/install/$project.name"
+        }
+
+        copy {
+            from "$project.rootDir/develnext/launcher/DevelNext-debug.exe"
+            into "$project.buildDir/install/$project.name"
+        }
+
+        copy {
+            from "$project.rootDir/develnext/misc"
+            into "$project.buildDir/install/$project.name"
+        }
+    }
+}
+
+task distIdeWindowsSetup(dependsOn: ['clean', 'distIdeWindows']) {
+    doLast {
+        def issFile = "$project.rootDir/develnext/windowsSetup/innosetup.iss".replace("\\", "/")
+
+        if (System.properties['os.name'].toLowerCase().contains('linux')) {
+            issFile = 'windowsSetup/innosetup.iss'
+        }
+
+        buildISS(issFile);
+
+
+        file("$project.buildDir/distributions/DevelNextSetup-${project.ext.distVersion}.exe").delete()
+
+        file("$project.buildDir/distributions/DevelNextSetup.exe")
+                .renameTo(file("$project.buildDir/distributions/DevelNextSetup-${project.ext.distVersion}.exe"))
+    }
+}
+
+task distIdeWindowsArchive(type: Zip, dependsOn: ['clean', 'distIdeWindows']) {
+    def installDir = "$project.buildDir/install/$project.name"
+    def timeStamp = new Date().format("dd-MM-yyyy-HH-mm")
+
+    archiveName "DevelNextWindows-${project.ext.distVersion}.${timeStamp}.zip"
+    includeEmptyDirs true
+
+    from installDir
+}
+
+task distIdeWindowsArchiveWithoutJRE(type: Zip, dependsOn: ['clean', 'distIdeWindows']) {
+    doFirst {
+        delete "$project.buildDir/install/$project.name/tools/jre"
+    }
+
+    def installDir = "$project.buildDir/install/$project.name"
+    def timeStamp = new Date().format("dd-MM-yyyy-HH-mm")
+
+    archiveName "DevelNextWindows-${project.ext.distVersion}.${timeStamp}.Without-JRE.zip"
+    includeEmptyDirs true
+
+    from installDir
+}
+
+task distIdeLinuxSetupWithoutJRE(type: Zip, dependsOn: ['clean', 'distIdeLinux']) {
+    doFirst {
+        delete "$project.buildDir/install/$project.name/tools/jre"
+    }
+
+    def installDir = "$project.buildDir/install/$project.name"
+    def timeStamp = new Date().format("dd-MM-yyyy-HH-mm")
+
+    archiveName "DevelNextLinux-${project.ext.distVersion}.${timeStamp}.Without-JRE.zip"
+    includeEmptyDirs true
+
+    from(installDir) {
+        exclude('*.sh')
+        exclude('DevelNext')
+        exclude('DevelNext.jar')
+        exclude('bin/develnext')
+        exclude('tools/apache-ant/bin/ant')
+        //exclude('tools/gradle/bin/gradle')
+        exclude('tools/jre/bin/java')
+        exclude('tools/Launch4jLinux/launch4j')
+        exclude('tools/Launch4jLinux/bin/windres')
+        exclude('tools/Launch4jLinux/bin/ld')
+    }
+
+    from(installDir) {
+        include('*.sh')
+        include('DevelNext')
+        include('DevelNext.jar')
+        include('bin/develnext')
+        include('tools/apache-ant/bin/ant')
+        //include('tools/gradle/bin/gradle')
+        include('tools/jre/bin/java')
+        include('tools/Launch4jLinux/launch4j')
+        include('tools/Launch4jLinux/bin/windres')
+        include('tools/Launch4jLinux/bin/ld')
+
+        fileMode = 0755
+    }
+}
+
+
+task distIdeLinuxSetup(type: Tar, dependsOn: ['clean', 'distIdeLinux']) {
+    def installDir = "$project.buildDir/install/$project.name"
+
+    compression = Compression.GZIP
+    archiveName "DevelNextLinux-${project.ext.distVersion}.tar.gz"
+
+    from(installDir) {
+        exclude('*.sh')
+        exclude('DevelNext')
+        exclude('DevelNext.jar')
+        exclude('bin/develnext')
+        exclude('tools/apache-ant/bin/ant')
+        //exclude('tools/gradle/bin/gradle')
+        exclude('tools/jre/bin/java')
+        exclude('tools/Launch4jLinux/launch4j')
+        exclude('tools/Launch4jLinux/bin/windres')
+        exclude('tools/Launch4jLinux/bin/ld')
+    }
+
+    from(installDir) {
+        include('*.sh')
+        include('DevelNext')
+        include('DevelNext.jar')
+        include('bin/develnext')
+        include('tools/apache-ant/bin/ant')
+        //include('tools/gradle/bin/gradle')
+        include('tools/jre/bin/java')
+        include('tools/Launch4jLinux/launch4j')
+        include('tools/Launch4jLinux/bin/windres')
+        include('tools/Launch4jLinux/bin/ld')
+
+        fileMode = 0755
+    }
+}
+
+task distAll(dependsOn: ['distIdeWindowsSetup', 'distIdeLinuxSetup']) {
+
+}

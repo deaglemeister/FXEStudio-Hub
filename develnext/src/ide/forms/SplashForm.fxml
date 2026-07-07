@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView id="image" fitHeight="430.0" fitWidth="698.0" mouseTransparent="true" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="/.data/img/splash.png" />
+         </image>
+      </ImageView>
+      <VBox spacing="4.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="39.0" AnchorPane.bottomAnchor="70.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <ProgressIndicator id="loadingIndicator" maxHeight="18.0" maxWidth="18.0" minHeight="18.0" minWidth="18.0" prefHeight="18.0" prefWidth="18.0" progress="-1.0" />
+                  <Label id="loadingText" style="-fx-font-size: 13px; -fx-font-family: 'Segoe UI', 'Consolas'; -fx-font-weight: bold; -fx-text-fill: #111111;" text="LOAD ..." textFill="#111111" wrapText="true" maxWidth="1.7976931348623157E308" />
+               </children>
+            </HBox>
+            <Label id="loadingDetail" style="-fx-font-size: 11px; -fx-font-family: 'Consolas'; -fx-text-fill: #333333;" text="" textFill="#333333" wrapText="true" maxWidth="1.7976931348623157E308" minHeight="14.0" prefHeight="14.0" maxHeight="28.0" visible="false" managed="false" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,15 @@
+<element extends="LabeledFormElement">
+    <properties group="style" title="Стиль" sort="100">
+        <property code="badgeType" name="Тип" editor="enum" defaultValue="default">
+            <variants>
+                <variant value="default">По умолчанию</variant>
+                <variant value="new">NEW</variant>
+                <variant value="beta">BETA</variant>
+                <variant value="count">Счётчик</variant>
+            </variants>
+        </property>
+        <property code="backgroundColor" name="Цвет фона" editor="color" />
+        <property code="borderRadius" name="Радиус закругления" editor="float" />
+        <property code="textColor" name="Цвет текста" editor="color" defaultValue="#ffffff" />
+    </properties>
+</element>

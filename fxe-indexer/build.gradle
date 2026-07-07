@@ -1,0 +1,20 @@
+repositories {
+    mavenCentral()
+}
+
+project.version = '1.0'
+
+dependencies {
+    compile project(':fxe-process-core')
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'org.fxe.indexer.FxeIndexerMain')
+    }
+    archiveName = 'fxe-indexer.jar'
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

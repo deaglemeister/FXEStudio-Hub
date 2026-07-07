@@ -1,0 +1,17 @@
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.develnext.jphp:jphp-gui-ext:$jphpVersion"
+    compile project(':develnext-lexer')
+
+    //compile 'com.fifesoft:rsyntaxtextarea:2.5.8'
+    //compile 'com.fifesoft:rstaui:2.5.7'
+    //compile 'com.fifesoft:autocomplete:2.5.8'
+
+    //compile group: 'org.dockfx', name: 'DockFX', version: '1.0-SNAPSHOT'
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.8.2'
+    compile 'net.java.dev.jna:jna-platform:5.12.1'
+}

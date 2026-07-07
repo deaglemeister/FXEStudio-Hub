@@ -1,0 +1,15 @@
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+sourceSets {
+    main.resources.srcDirs = ['src']
+}
+
+
+dependencies {
+    compile project(":stubs/dn-jphp-stub")
+    compile project(":stubs/dn-php-stub")
+}

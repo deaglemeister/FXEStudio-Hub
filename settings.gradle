@@ -1,0 +1,49 @@
+
+include 'develnext-designer';
+
+include 'jphp-desktop-hotkey-ext',
+        'dn-app-framework',
+        'develnext';
+
+include 'develnext-doc';
+include 'develnext-lexer';
+include 'develnext-launcher';
+
+include 'jphp-gui-richtext-ext';
+include 'jphp-gui-tabs-ext';
+include 'fxe-gui-ext';
+include 'fxe-console';
+include 'fxe-process-core';
+include 'fxe-process-host';
+include 'fxe-runner';
+include 'fxe-indexer';
+include 'fxe-analyzer';
+include 'fxe-language-server';
+include 'fxe-builder';
+
+// platforms
+file("$rootDir.path/platforms").listFiles().each { file ->
+    if (file.directory && file.name.startsWith("develnext-") && file.name.endsWith("-platform")) {
+        println "include 'platforms/$file.name'"
+
+        include "platforms/$file.name"
+    }
+}
+
+// bundles
+file("$rootDir.path/bundles").listFiles().each { file ->
+    if (file.directory && file.name.endsWith("-bundle")) {
+        println "include 'bundles/$file.name'"
+
+        include "bundles/$file.name"
+    }
+}
+
+// stubs
+file("$rootDir.path/stubs").listFiles().each { file ->
+    if (file.directory && file.name.endsWith("-stub")) {
+        println "include 'stubs/$file.name'"
+
+        include "stubs/$file.name"
+    }
+}

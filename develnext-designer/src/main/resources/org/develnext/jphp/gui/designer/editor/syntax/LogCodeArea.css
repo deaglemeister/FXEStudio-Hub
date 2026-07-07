@@ -1,0 +1,38 @@
+/* FXE Studio — log console syntax */
+
+.syntax-text-area.fxe-log-console-area {
+    -fx-background-color: #16181d;
+    -fx-background-fill: #16181d;
+}
+
+.syntax-text-area.fxe-log-console-area .gutter {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0 6 0 4;
+}
+
+.syntax-text-area.fxe-log-console-area .gutter .lineno {
+    -fx-text-fill: #f0f0f0;
+    -fx-background-color: transparent;
+    -fx-font-size: 11px;
+}
+
+.syntax-text-area.fxe-log-console-area .gutter .note {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.syntax-text-area.fxe-log-console-area .text.log-c-default { -fx-fill: #d4d4d4; }
+.syntax-text-area.fxe-log-console-area .text.log-c-trace { -fx-fill: #888888; }
+.syntax-text-area.fxe-log-console-area .text.log-c-debug { -fx-fill: #9ca3af; }
+.syntax-text-area.fxe-log-console-area .text.log-c-info { -fx-fill: #60a5fa; }
+.syntax-text-area.fxe-log-console-area .text.log-c-warn { -fx-fill: #fbbf24; }
+.syntax-text-area.fxe-log-console-area .text.log-c-red { -fx-fill: #f87171; }
+.syntax-text-area.fxe-log-console-area .text.log-c-blue { -fx-fill: #3b82f6; }
+.syntax-text-area.fxe-log-console-area .text.log-c-violet { -fx-fill: #8b5cf6; }
+.syntax-text-area.fxe-log-console-area .text.log-c-green { -fx-fill: #22c55e; }
+.syntax-text-area.fxe-log-console-area .text.log-c-cyan { -fx-fill: #06b6d4; }
+.syntax-text-area.fxe-log-console-area .text.log-c-purple { -fx-fill: #a855f7; }
+.syntax-text-area.fxe-log-console-area .text.log-c-muted { -fx-fill: #64748b; }
+.syntax-text-area.fxe-log-console-area .text.log-c-orange { -fx-fill: #f59e0b; }

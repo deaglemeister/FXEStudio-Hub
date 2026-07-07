@@ -1,0 +1,5 @@
+<element extends="NodeFormElement">
+    <properties>
+        <property code="backgroundColor" name="Цвет фона" editor="color" />
+    </properties>
+</element>

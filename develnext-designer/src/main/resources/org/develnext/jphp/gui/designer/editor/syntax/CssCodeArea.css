@@ -1,0 +1,107 @@
+/* FXE Studio — IntelliJ IDEA Darcula (CSS editor) */
+
+.syntax-text-area {
+    -fx-background-color: fxe-surface-editor;
+    -fx-background-fill: fxe-surface-editor;
+    -fx-cursor: text;
+}
+
+.syntax-text-area .paragraph-box:has-caret {
+    -fx-background-color: fxe-surface-line-highlight;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.syntax-text-area .paragraph-box.folded {
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    visibility: hidden;
+}
+
+.syntax-text-area .text {
+    -fx-fill: fxe-text-editor;
+}
+
+.syntax-text-area .gutter {
+    -fx-border-color: fxe-border-subtle;
+    -fx-background-color: fxe-surface-gutter;
+    -fx-border-width: 0 1px 0 0;
+    -fx-padding: 0 8 0 6;
+}
+
+.syntax-text-area .gutter .lineno {
+    -fx-text-fill: fxe-text-lineno;
+}
+
+.syntax-text-area .caret {
+    -fx-stroke: fxe-caret;
+}
+
+.syntax-text-area .text.control {
+    -fx-fill: fxe-syntax-operator;
+}
+
+.syntax-text-area .text.comment {
+    -fx-fill: fxe-syntax-comment;
+    -fx-font-style: italic;
+}
+
+.syntax-text-area .text.selector {
+    -fx-fill: fxe-syntax-selector;
+}
+
+.syntax-text-area .text.keyword {
+    -fx-fill: fxe-syntax-keyword;
+}
+
+.syntax-text-area .text.attribute {
+    -fx-fill: fxe-syntax-attribute;
+}
+
+.syntax-text-area .text.pseudo-class {
+    -fx-fill: fxe-syntax-variable;
+}
+
+.syntax-text-area .text.color {
+    -fx-fill: fxe-syntax-color-literal;
+}
+
+.syntax-text-area .text.number {
+    -fx-fill: fxe-syntax-number;
+}
+
+.syntax-text-area .text.string {
+    -fx-fill: fxe-syntax-string;
+}
+
+.syntax-text-area .text.syntax-error {
+    -fx-underline: true;
+    -fx-stroke: fxe-error-border;
+    -fx-stroke-width: 1.6px;
+    -fx-fill: fxe-error-text;
+}
+
+.syntax-text-area .gutter .note.error,
+.syntax-text-area .gutter .note.warning {
+    -fx-graphic: null;
+}
+
+.syntax-text-area .gutter .note.color-swatch {
+    -fx-pref-width: 11px;
+    -fx-min-width: 11px;
+    -fx-pref-height: 11px;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-background-insets: 2px;
+    -fx-border-insets: 2px;
+    -fx-opacity: 1;
+}
+
+.syntax-text-area .gutter .note.color-swatch:hover {
+    -fx-border-color: fxe-text-primary;
+}

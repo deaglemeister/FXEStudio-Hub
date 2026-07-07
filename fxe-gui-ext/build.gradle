@@ -1,0 +1,10 @@
+repositories {
+    mavenCentral()
+}
+
+project.version = '1.0'
+
+dependencies {
+    compile "org.develnext.jphp:jphp-runtime:$jphpVersion"
+    compile "org.develnext.jphp:jphp-gui-ext:$jphpVersion"
+}

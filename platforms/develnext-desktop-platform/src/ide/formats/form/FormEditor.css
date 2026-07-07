@@ -1,0 +1,16 @@
+
+/* FormEditor — цвета из .root (intellij-darcula-vars.css) */
+
+.FormEditor {
+    -fx-background-color: fxe-surface-base;
+}
+
+.FormEditor HBox,
+.FormEditor VBox,
+.FormEditor FlowPane,
+.FormEditor TilePane,
+.FormEditor GridPane,
+.FormEditor AnchorPane,
+.FormEditor StackPane {
+    -fx-background-color: transparent;
+}

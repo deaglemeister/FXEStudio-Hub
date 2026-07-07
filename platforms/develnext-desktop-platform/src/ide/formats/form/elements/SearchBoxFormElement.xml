@@ -1,0 +1,9 @@
+<element extends="NodeFormElement">
+    <properties>
+        <property code="text" name="Текст" editor="text" />
+        <property code="promptText" name="Подсказка" editor="text" defaultValue="Поиск..." />
+    </properties>
+    <properties group="style" title="Стиль" sort="100">
+        <property code="borderRadius" name="Радиус закругления" editor="float" defaultValue="6" />
+    </properties>
+</element>

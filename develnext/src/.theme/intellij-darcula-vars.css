@@ -1,0 +1,150 @@
+/**
+ * FXE Studio — палитра IntelliJ IDEA New UI Dark
+ */
+.root {
+
+    /* --- Base surfaces --- */
+
+    fxe-surface-base: #1E1F22;
+    fxe-surface-canvas: #1E1F22;
+    fxe-surface-window: #2B2D30;
+    fxe-surface-sidebar: #1E1F22;
+    fxe-surface-card: #2B2D30;
+    fxe-surface-overlay: #2B2D30;
+    fxe-surface-section: #232529;
+    fxe-surface-section-header: #35373B;
+    fxe-surface-card-soft: #313438;
+    fxe-surface-input: #1E1F22;
+    fxe-surface-hover: #393B40;
+    fxe-surface-code: #1E1F22;
+    fxe-surface-line-highlight: #26282E;
+
+    fxe-surface-secondary: fxe-surface-window;
+    fxe-surface-editor: fxe-surface-code;
+    fxe-surface-raised: fxe-surface-overlay;
+    fxe-surface-panel: fxe-surface-card;
+    fxe-surface-popup: fxe-surface-overlay;
+    fxe-surface-titlebar: fxe-surface-window;
+    fxe-surface-statusbar: fxe-surface-window;
+    fxe-surface-gutter: fxe-surface-code;
+    fxe-surface-minimap: fxe-surface-code;
+
+    /* --- Borders --- */
+
+    fxe-border-subtle: #393B40;
+    fxe-border: #43454A;
+    fxe-border-strong: #55585E;
+    fxe-accent-border: #3574F073;
+
+    /* --- Text --- */
+
+    fxe-text-primary: #DFE1E5;
+    fxe-text-secondary: #9DA0A8;
+    fxe-text-muted: #6F737A;
+    fxe-text-disabled: #5A5D63;
+    fxe-text-link: #548AF7;
+    fxe-text-on-selection: #FFFFFF;
+    fxe-text-inverse: #1E1F22;
+    fxe-text-editor: #BCBEC4;
+    fxe-text-lineno: #6F737A;
+    fxe-text-lineno-active: #9DA0A8;
+    fxe-prop-label: #9DA0A8;
+    fxe-prop-value: #DFE1E5;
+    fxe-prop-value-muted: #6F737A;
+
+    /* --- Accent & tabs --- */
+
+    fxe-accent: #3574F0;
+    fxe-accent-hover: #4682FA;
+    fxe-accent-active: #315FBD;
+    fxe-tab-inactive: #5A5D63;
+    fxe-tab-active: #3574F0;
+
+    fxe-selection: #2E436E;
+    fxe-selection-strong: #35538F;
+    fxe-selection-inactive: #393B40;
+    fxe-caret: #CED0D6;
+
+    /* --- Tree --- */
+
+    fxe-tree-line: #393B40;
+    fxe-tree-folder: #DFE1E5;
+    fxe-tree-file: #BCBEC4;
+    fxe-tree-file-php: #548AF7;
+
+    /* --- Properties --- */
+
+    fxe-prop-section-bg: #232529;
+    fxe-prop-row-hover: #2E3033;
+    fxe-prop-control-bg: #1E1F22;
+    fxe-prop-control-border: #43454A;
+
+    /* --- Status --- */
+
+    fxe-success: #5FAD65;
+    fxe-warning: #D6AE58;
+    fxe-danger: #F75464;
+    fxe-info: #548AF7;
+
+    /* --- Spacing & radius --- */
+
+    fxe-space-gutter: 8;
+    fxe-radius-card: 8;
+    fxe-radius-section: 8;
+    fxe-radius-cell: 6;
+
+    /* --- Syntax (Darcula) --- */
+
+    fxe-syntax-keyword: #CC7832;
+    fxe-syntax-class: #FFC66D;
+    fxe-syntax-function: #FFC66D;
+    fxe-syntax-variable: #9876AA;
+    fxe-syntax-string: #6A8759;
+    fxe-syntax-number: #6897BB;
+    fxe-syntax-comment: #7A7E85;
+    fxe-syntax-operator: #BCBEC4;
+    fxe-syntax-attribute: #BABABA;
+    fxe-syntax-type: #FFC66D;
+    fxe-syntax-doc: #629755;
+    fxe-syntax-annotation: #BBB529;
+    fxe-syntax-selector: #FFC66D;
+    fxe-syntax-color-literal: #6897BB;
+
+    fxe-error-text: #F75464;
+    fxe-error-bg: #402929;
+    fxe-error-border: #F75464;
+    fxe-warning-text: #D6AE58;
+    fxe-warning-border: #D6AE58;
+
+    fxe-ac-default: #DFE1E5;
+    fxe-ac-hint: #6F737A;
+    fxe-ac-variable: #9876AA;
+    fxe-ac-method: #FFC66D;
+    fxe-ac-property: #9876AA;
+    fxe-ac-constant: #6897BB;
+    fxe-ac-class: #FFC66D;
+
+    fxe-orange-accent: #FFC66D;
+    fxe-purple-accent: #9876AA;
+    fxe-cyan-accent: #299999;
+
+    /* --- JavaFX --- */
+
+    -fx-base: #1E1F22;
+    -fx-background: #1E1F22;
+    -fx-control-inner-background: #1E1F22;
+    -fx-accent: #3574F0;
+    -fx-default-button: #315FBD;
+    -fx-focus-color: #3574F066;
+    -fx-faint-focus-color: #3574F024;
+    -fx-text-base-color: #DFE1E5;
+    -fx-text-background-color: #DFE1E5;
+    -fx-outer-border: #393B40;
+    -fx-inner-border: #43454A;
+    -fx-body-color: #2B2D30;
+    -fx-color: #2B2D30;
+    -fx-hover-base: #393B40;
+    -fx-pressed-base: #1E1F22;
+    -fx-mark-color: #DFE1E5;
+    -fx-shadow-highlight-color: transparent;
+}

@@ -1,0 +1,18 @@
+project.version = ''
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+sourceSets {
+    main.resources.srcDirs = ['src']
+}
+
+dependencies {
+    compile ("org.develnext.jphp:jphp-gui-jfoenix-ext:$jphpVersion") {
+        exclude group: 'org.develnext', module: 'jphp-gui-ext'
+    }
+}
+

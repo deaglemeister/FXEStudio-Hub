@@ -1,0 +1,100 @@
+/* FXE Studio — VS Code Dark+ for JavaFX CSS */
+
+.syntax-text-area {
+    -fx-background-color: #1e1e1e;
+    -fx-background-fill: #1e1e1e;
+    -fx-cursor: text;
+    -fx-highlight-fill: #264f78;
+    -fx-highlight-text-fill: #d4d4d4;
+}
+
+.syntax-text-area .paragraph-box:has-caret {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent transparent #264f78;
+    -fx-border-width: 0 0 0 2px;
+}
+
+.syntax-text-area .text {
+    -fx-fill: #d4d4d4;
+}
+
+.syntax-text-area .gutter {
+    -fx-border-color: #2b2b2b;
+    -fx-background-color: #1e1e1e;
+    -fx-border-width: 0 1px 0 0;
+    -fx-padding: 0 8 0 6;
+}
+
+.syntax-text-area .gutter .lineno {
+    -fx-text-fill: #858585;
+    -fx-font-size: 13px;
+    -fx-font-family: 'Consolas';
+}
+
+.syntax-text-area .gutter .note.error,
+.syntax-text-area .gutter .note.warning {
+    -fx-background-color: transparent;
+    -fx-graphic: null;
+}
+
+.syntax-text-area .caret {
+    -fx-stroke: #aeafad;
+    -fx-stroke-width: 2px;
+}
+
+.syntax-text-area .text.selector {
+    -fx-fill: #d7ba7d;
+}
+
+.syntax-text-area .text.attribute {
+    -fx-fill: #9cdcfe;
+}
+
+.syntax-text-area .text.color {
+    -fx-fill: #ce9178;
+}
+
+.syntax-text-area .text.string {
+    -fx-fill: #ce9178;
+}
+
+.syntax-text-area .text.number {
+    -fx-fill: #b5cea8;
+}
+
+.syntax-text-area .text.comment {
+    -fx-fill: #6a9955;
+    -fx-font-style: italic;
+}
+
+.syntax-text-area .text.keyword {
+    -fx-fill: #569cd6;
+}
+
+.syntax-text-area .text.pseudo-class {
+    -fx-fill: #c586c0;
+}
+
+.syntax-text-area .text.control {
+    -fx-fill: #d4d4d4;
+}
+
+.syntax-text-area .text.syntax-error {
+    -fx-underline: true;
+    -fx-stroke: #f14c4c;
+    -fx-stroke-width: 1.6px;
+    -fx-fill: #f48771;
+}
+
+.syntax-text-area .text.syntax-warning {
+    -fx-underline: true;
+    -fx-stroke: #cca700;
+    -fx-stroke-width: 1.6px;
+    -fx-fill: #cca700;
+}
+
+.fxe-minimap {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #2b2b2b;
+    -fx-border-width: 0 0 0 1px;
+}

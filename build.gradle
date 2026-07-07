@@ -1,0 +1,247 @@
+import org.gradle.internal.os.OperatingSystem;
+
+def javaVersion = '1.8';
+
+buildscript {
+    ext {
+        projectGroup = "org.develnext"
+        projectVersion = '0.9.3' + (Boolean.getBoolean("release") ? "" : "-SNAPSHOT");
+        jphpVersion = "0.9.3-SNAPSHOT"
+        wizardVersion = "1.0.0-SNAPSHOT";
+    }
+}
+
+buildscript {
+    repositories {
+        maven {
+            url uri("${rootProject.projectDir}/vendor/maven-repo")
+        }
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = 2.12;
+}
+
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    project.group = 'org.develnext'
+    project.version = projectVersion
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    repositories {
+        maven {
+            url uri("${rootProject.projectDir}/vendor/maven-repo")
+        }
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+
+    task sourcesJar(type: Jar, dependsOn: 'classes') {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    configurations {
+        provided
+    }
+
+    sourceSets {
+        main { compileClasspath += configurations.provided }
+    }
+}
+
+subprojects {
+    def dirName = file(it.name).name;
+    def bundleDirRoot = "${projectDir}/../../develnext/misc/library/bundles/";
+    def bundleDir = "${bundleDirRoot}/${dirName}/";
+    def pkgFile = file("$projectDir/package.php.yml")
+
+    if (pkgFile.exists()) {
+        task publish(type: Exec) {
+            if (OperatingSystem.current().isWindows()) {
+                commandLine 'cmd', '/c', 'jppm', 'publish', '-yes'
+            } else {
+                commandLine 'jppm', 'publish', '-yes'
+            }
+
+            workingDir = projectDir
+        }
+
+        task hubPublish(type: Exec, dependsOn: 'docBuild') {
+            doFirst {
+                if (!file(rootDir.path + "/package.hub.yml").isFile()) {
+                    throw new GradleException("'package.hub.yml' is not found, please run 'jppm hub:login' in root dir before 'hubPublish'!")
+                }
+
+                copy {
+                    from rootDir.path + "/package.hub.yml"
+                    into projectDir.path
+                }
+            }
+
+            if (OperatingSystem.current().isWindows()) {
+                commandLine 'cmd', '/c', 'jppm', 'hub:publish', '-yes', '-f'
+            } else {
+                commandLine 'jppm', 'hub:publish', '-yes', '-f'
+            }
+
+            workingDir = projectDir
+        }
+
+        task docBuild(type: Exec) {
+            if (OperatingSystem.current().isWindows()) {
+                commandLine 'cmd', '/c', 'jppm', 'doc:build', '-yes'
+            } else {
+                commandLine 'jppm', 'doc:build', '-yes'
+            }
+
+            workingDir = projectDir
+        }
+    }
+
+    if (it.name.startsWith("bundles/") || it.name.endsWith("-bundle")) {
+        println "-> Detecting bundle '$it.name' ...";
+
+        def resFile = file("$projectDir/.resource")
+
+        if (!resFile.exists()) {
+            resFile = file("$projectDir/src/.resource")
+        }
+
+        if (resFile.exists()) {
+            clean {
+                delete bundleDir
+            }
+
+            def pr = it;
+
+            jar {
+                doLast {
+                    copy {
+                        from jar.archivePath
+                        from(pr.configurations.runtime) {
+                            exclude '**/jphp-runtime-*.jar'
+                        }
+
+                        into bundleDir
+                    }
+
+                    copy {
+                        from resFile
+                        into "$bundleDir/.."
+                        rename ".resource", "${dirName}.resource"
+                    }
+
+                    fileTree(bundleDir).visit { FileVisitDetails el ->
+                        def name = el.getName()
+
+                        if (name.endsWith(".jar")) {
+                            name = name.replaceAll(/(-[0-9]+|\.[0-9]+|-SNAPSHOT)/, "");
+
+                            if (!name.equals(el.getName())) {
+                                println "Rename '" + el.file.parent + "/" + name + "' file"
+
+                                def file = file(el.file.parent + "/" + name)
+
+                                if (file.exists()) {
+                                    file.delete()
+                                }
+
+                                if (!el.file.renameTo(file)) {
+                                    el.file.delete()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            println "WARNING, Bundle '$it.name' doesn't have '$projectDir/.resource' file!";
+        }
+    }
+
+    if (it.name.startsWith("stubs/")) {
+        sourceSets {
+            main {
+                resources.srcDirs = ['src']
+            }
+        }
+    }
+}
+
+project(':jphp-desktop-hotkey-ext') {
+    dependencies {
+        compile "org.develnext.jphp:jphp-runtime:$jphpVersion"
+        compile fileTree(dir: 'lib', include: ['*.jar'])
+    }
+}
+
+project(':dn-app-framework') {
+    dependencies {
+        compile "org.develnext.jphp:jphp-core:$jphpVersion"
+        compile "org.develnext.jphp:jphp-gui-ext:$jphpVersion"
+    }
+}
+
+project(':develnext') {
+    apply plugin: 'application'
+
+    dependencies {
+        compile "org.develnext.jphp:jphp-core:$jphpVersion"
+        compile "org.develnext.jphp:jphp-gui-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-gui-desktop-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-gui-systemtray-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-parser-ext:$jphpVersion"
+
+        compile project(':jphp-gui-tabs-ext')
+        compile project(':fxe-gui-ext')
+        compile project(':fxe-console')
+        compile project(':fxe-process-host')
+
+        compile project(':develnext-launcher')
+        compile project(':develnext-designer')
+        compile project(':jphp-gui-richtext-ext')
+        compile project(':dn-app-framework')
+        compile project(':develnext-doc')
+
+        compile 'net.java.dev.jna:jna-platform:5.12.1'
+
+        // platforms
+        file("$rootDir.path/platforms").listFiles().each { file ->
+            if (file.directory && file.name.startsWith("develnext-") && file.name.endsWith("-platform")) {
+                compile project(":platforms/$file.name")
+            }
+        }
+
+        // bundles
+        file("$rootDir.path/bundles").listFiles().each { file ->
+            if (file.directory && file.name.startsWith("dn-") && file.name.endsWith("-bundle")) {
+                provided project(":bundles/$file.name")
+            }
+        }
+
+        compile "org.develnext.jphp:jphp-xml-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-zip-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-json-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-yaml-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-zend-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-sql-ext:$jphpVersion"
+        compile "org.develnext.jphp:jphp-debugger:$jphpVersion"
+
+        compile "org.develnext.framework:modules/wizard-localization:$wizardVersion"
+
+        //compile fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+

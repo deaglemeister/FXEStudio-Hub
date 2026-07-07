@@ -1,44 +1,91 @@
+# DevelNext
 
-FXE Studio — это высокоэффективная и интуитивно понятная среда разработки (IDE), основанная на платформе DevelNext, предназначенная для создания и редактирования программного обеспечения. FXE Studio предоставляет широкий набор функций, упрощающих процесс разработки приложений, и идеально подходит как для начинающих, так и для опытных разработчиков.
+> GUI and IDE for php based on jphp, for beginners only.
 
-<p align="center">
-  <img alt="FXEdition White" src="https://github.com/deaglemeister/FXEdition/assets/82234313/09efd85b-bab6-4214-935d-5407f063353e" width="400">
-</p>
+![DevelNext Logo](https://github.com/jphp-compiler/develnext/raw/master/develnext/src/.data/img/splash.png)
 
-## О модификации программного обеспечения
+---
 
-**FXEdition - это мощный инструмент для редактирования и обработки своих программ.**  
-**Содержит широкий набор функций для создания профессиональных программ, визуальных эффектов и мощный конструктор.**  
-**FXEdition предоставляет пользователям удобный интерфейс, интуитивно понятный рабочий процесс и многочисленные возможности для создания.**
+**Dependencies**
 
-**Для получения дополнительной информации, пожалуйста, посетите наш телеграмм канал: [@fxedition17](https://t.me/fxedition17)**
+- jphp 0.9.+ (not published yet, you can build it from the jphp sources!)
+- java 1.8+ (jre)
+- gradle 2.4+
+- launch4j 3.8
 
-## FXEdition модификация к DevelNext
+### How to get the DevelNext IDE distrubutive?
 
-### 🌟 Преимущества использования FXE Studio:
+Install JDK, clone repo and use the following console commands:
 
-- Богатый набор инструментов для редактирования и обработки программ.
-- Современный и интуитивно понятный интерфейс.
-- Легко применяемые компоненты.
-- Доступ к богатой библиотеке стандартных функций и классов, упрощающих и ускоряющих процесс разработки.
-- Поддержка нескольких языков программирования, включая PHP, Java, C++, HTML, CSS и JavaScript.
-- Удобная система навигации по проекту, а также возможность легко добавлять, удалять и изменять файлы и папки.
-- Интегрированная система отладки с точками останова, отображением значений переменных и трассировкой стека вызовов.
-- Подходит для профессионалов и любителей, желающих создавать уникальные и качественные программы.
-- Мощная и простая в использовании интегрированная среда разработки (IDE) для различных программных приложений.
+```
+cd /path/to/repo
 
-**Мы приглашаем вас ознакомиться с этой новой версией модификации программного обеспечения FXEdition. Уверены, что она полностью превзойдет ваши ожидания и станет вашим незаменимым помощником в повседневной работе!**
+// fetch all submodules (jphp, richtextfx, etc.)
+git submodule update --init
 
-## 🔧 Установка среды
+// install rich text fx
+cd 3rd-party/RichTextFX
+./gradlew install
 
-Если вы хотите установить FXEdition без настройки среды разработки, вы можете использовать наши бинарные [**Версии**](https://github.com/deaglemeister/FXEdition/releases). Рекомендуется всегда скачивать последние версии для получения наиболее стабильного и оптимизированного опыта.
+// install jphp
+cd ../3rd-party/jphp
+./gradlew install
 
-| Windows 7+ Zip |
-|:---:|
-| [x64](https://github.com/deaglemeister/FXEdition/releases/) |
+// install wizard-framework
+cd ../3rd-party/wizard-framework
+./gradlew npmInstall installGulp install
 
-#### Документация в реализации для сборки
-[Перейти в документацию](https://fxe-documents.gitbook.io/api-docs/)
+cd ../../
 
-#### Как установить данную версию сборки?
-[Просмотреть установку сборки](https://www.youtube.com/watch?v=_IwR8deSkBo)
+// for windows
+./gradlew distIdeWindows
+
+// for linux
+./gradlew distIdeLinux
+```
+
+You can find the builded distrubutive in `develnext/build/install/develnext`.
+
+### License
+
+Under MPL 2.0 (https://www.mozilla.org/MPL/2.0/)
+
+### Как получить дистрибутив DevelNext?
+
+Установите JDK (Java), склонируйте репозиторий и используйте следующие консольные команды:
+
+```
+cd /path/to/repo
+
+// fetch all submodules (jphp, richtextfx, etc.)
+git submodule update --init
+
+// install rich text fx
+cd 3rd-party/RichTextFX
+gradlew install
+
+// install jphp
+cd ../3rd-party/jphp
+gradlew install
+
+// install wizard-framework for web
+cd ../3rd-party/wizard-framework
+gradlew npmInstall installGulp install
+
+cd ../../
+
+// for windows
+gradlew distIdeWindows
+
+// for linux
+gradlew distIdeLinux
+```
+
+Найти собранный дистрибутив можно будет в папке `develnext/build/install/develnext`.
+
+Если проект не собирается, значит на текущем этапе в develnext используется еще неопубликованная версия jphp,
+поэтому ее нужно собрать вручную с нужной ветки (см. версию), выполнив команду `gradlew install` в папке исходников jphp.
+
+### Лицензия
+
+Under MPL 2.0 (https://www.mozilla.org/MPL/2.0/)

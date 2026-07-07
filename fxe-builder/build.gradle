@@ -1,0 +1,20 @@
+repositories {
+    mavenCentral()
+}
+
+project.version = '1.0'
+
+dependencies {
+    compile project(':fxe-process-core')
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'org.fxe.builder.FxeBuilderMain')
+    }
+    archiveName = 'fxe-builder.jar'
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

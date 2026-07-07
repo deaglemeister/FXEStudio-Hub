@@ -1,0 +1,68 @@
+/* Titlebar — явные цвета (не зависят от .root vars) */
+
+.fxe-window-root {
+    -fx-background-color: #252729;
+}
+
+.fxe-titlebar {
+    -fx-background-color: #2B2D30;
+    -fx-border-color: #393B40;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 0;
+    -fx-min-height: 34px;
+    -fx-pref-height: 34px;
+    -fx-max-height: 34px;
+}
+
+.fxe-titlebar-title {
+    -fx-text-fill: #abb8c8;
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI", "JetBrains Sans", sans-serif;
+    -fx-padding: 0 8 0 10px;
+}
+
+.fxe-titlebar-menu {
+    -fx-background-color: #2B2D30;
+}
+
+.fxe-titlebar-menu .menu-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.fxe-titlebar-menu .menu-bar .label {
+    -fx-text-fill: #abb8c8;
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI", "JetBrains Sans", sans-serif;
+}
+
+.fxe-titlebar-menu .menu-bar .menu:hover,
+.fxe-titlebar-menu .menu-bar .menu:showing {
+    -fx-background-color: #373b40;
+}
+
+.fxe-titlebar-buttons {
+    -fx-spacing: 0;
+    -fx-background-color: #2B2D30;
+}
+
+.fxe-chrome-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #abb8c8;
+    -fx-font-size: 10px;
+    -fx-font-family: "Segoe Fluent Icons", "Segoe MDL2 Assets", sans-serif;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.fxe-chrome-button:hover {
+    -fx-background-color: #373b40;
+}
+
+.fxe-chrome-close:hover {
+    -fx-background-color: #e81123;
+    -fx-text-fill: white;
+}

@@ -1,0 +1,81 @@
+﻿include 'platforms/develnext-desktop-platform'
+include 'platforms/develnext-java-platform'
+include 'platforms/develnext-js-platform'
+include 'platforms/develnext-php-platform'
+include 'platforms/develnext-web-platform'
+include 'platforms/develnext-wizard-platform'
+include 'bundles/dn-firebirdsql-bundle'
+include 'bundles/dn-game2d-bundle'
+include 'bundles/dn-hotkey-bundle'
+include 'bundles/dn-httpclient-bundle'
+include 'bundles/dn-jfoenix-bundle'
+include 'bundles/dn-jsoup-bundle'
+include 'bundles/dn-mail-bundle'
+include 'bundles/dn-mysql-bundle'
+include 'bundles/dn-pgsql-bundle'
+include 'bundles/dn-sql-bundle'
+include 'bundles/dn-sqlite-bundle'
+include 'bundles/dn-systemtray-bundle'
+include 'bundles/dn-zip-bundle'
+include 'stubs/dn-jphp-stub'
+include 'stubs/dn-php-stub'
+-> Detecting bundle 'bundles/dn-firebirdsql-bundle' ...
+-> Detecting bundle 'bundles/dn-game2d-bundle' ...
+-> Detecting bundle 'bundles/dn-hotkey-bundle' ...
+-> Detecting bundle 'bundles/dn-httpclient-bundle' ...
+-> Detecting bundle 'bundles/dn-jfoenix-bundle' ...
+-> Detecting bundle 'bundles/dn-jsoup-bundle' ...
+-> Detecting bundle 'bundles/dn-mail-bundle' ...
+-> Detecting bundle 'bundles/dn-mysql-bundle' ...
+-> Detecting bundle 'bundles/dn-pgsql-bundle' ...
+-> Detecting bundle 'bundles/dn-sql-bundle' ...
+-> Detecting bundle 'bundles/dn-sqlite-bundle' ...
+-> Detecting bundle 'bundles/dn-systemtray-bundle' ...
+-> Detecting bundle 'bundles/dn-zip-bundle' ...
+:develnext-lexer:compileJava UP-TO-DATE
+:develnext-lexer:processResources UP-TO-DATE
+:develnext-lexer:classes UP-TO-DATE
+:develnext-lexer:jar UP-TO-DATE
+.\gradlew.bat : C:\FXEStudio\develnext-designer\src\main\java\net\yetihafen\javafx\customcaption\internal\CustomizedSta
+ge.java:126: error: cannot find symbol
+At C:\Users\svetl\AppData\Local\Temp\ps-script-6216ef8f-fff6-495a-99ec-57ec58d33c6e.ps1:83 char:18
++ ... \FXEStudio; .\gradlew.bat :develnext-designer:compileJava --console=p ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\FXEStudio\de...not find symbol:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                User32.INSTANCE.ClientToScreen(hWnd, clientOrigin);
+                               ^
+  symbol:   method ClientToScreen(HWND,POINT)
+  location: variable INSTANCE of type User32
+C:\FXEStudio\develnext-designer\src\main\java\net\yetihafen\javafx\customcaption\internal\NativeUtilities.java:139: err
+or: cannot find symbol
+        User32.INSTANCE.ClientToScreen(hWnd, origin);
+                       ^
+  symbol:   method ClientToScreen(HWND,POINT)
+  location: variable INSTANCE of type User32
+C:\FXEStudio\develnext-designer\src\main\java\net\yetihafen\javafx\customcaption\internal\NativeUtilities.java:156: err
+or: cannot find symbol
+        User32.INSTANCE.ClientToScreen(hWnd, clientOrigin);
+                       ^
+  symbol:   method ClientToScreen(HWND,POINT)
+  location: variable INSTANCE of type User32
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+3 errors
+:develnext-designer:compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':develnext-designer:compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 6.207 secs

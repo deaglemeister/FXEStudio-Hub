@@ -1,0 +1,6 @@
+<element extends="ButtonBaseFormElement">
+    <properties group="style" title="Стиль" sort="100">
+        <property code="-fx-background-radius" name="Радиус закругления" editor="float" css="1" />
+        <property code="-fx-border-radius" name="Радиус границы" editor="float" css="1" />
+    </properties>
+</element>

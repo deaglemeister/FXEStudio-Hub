@@ -1,0 +1,30 @@
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+project.version = '1.0'
+
+dependencies {
+    compile project(':fxe-process-core')
+    compile "org.develnext.jphp:jphp-core:$jphpVersion"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java', '../develnext-designer/src/main/java/org/fxe'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'org.fxe.analyzer.FxeAnalyzerMain')
+    }
+    archiveName = 'fxe-analyzer.jar'
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

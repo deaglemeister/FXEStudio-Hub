@@ -1,0 +1,5 @@
+<element extends="ButtonBaseFormElement">
+    <properties group="style" title="Стиль" sort="100">
+        <property code="borderRadius" name="Радиус закругления" editor="float" defaultValue="6" />
+    </properties>
+</element>

@@ -1,0 +1,2737 @@
+﻿@import url("intellij-darcula-vars.css");
+
+.root {
+    -fx-font-family: "Segoe UI", "JetBrains Sans", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: fxe-surface-editor;
+}
+
+.flat-button { -fx-background-color: fxe-surface-panel; -fx-text-fill: fxe-text-primary; }
+.flat-button:hover { -fx-background-color: fxe-surface-hover; }
+
+.btn-link {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-underline: false;
+    -fx-text-fill: fxe-text-link;
+}
+.btn-link:hover {
+    -fx-underline: true;
+}
+
+/* icons .. */
+.icon-flat-edit { -fx-graphic: url("/.data/img/icons/flatEdit16.png"); }
+.icon-flat-delete { -fx-graphic: url("/.data/img/icons/flatDelete16.png"); }
+.icon-flat-gallery { -fx-graphic: url("/.data/img/icons/flatGallery16.png"); }
+.icon-flat-refresh { -fx-graphic: url("/.data/img/icons/flatRefresh16.png"); }
+.icon-flat-account { -fx-graphic: url("/.data/img/icons/account16.png"); }
+.icon-flat-search { -fx-graphic: url("/.data/img/icons/flatSearch16.png"); }
+
+.icon-exit { -fx-graphic: url("/.data/img/icons/exit16.png"); }
+.icon-exit32 { -fx-graphic: url("/.data/img/icons/exit32.png"); }
+
+.icon-ok { -fx-graphic: url("/.data/img/icons/ok16.png"); }
+.icon-save { -fx-graphic: url("/.data/img/icons/save16.png"); }
+.icon-ok32 { -fx-graphic: url("/.data/img/icons/ok32.png"); }
+
+.icon-run { -fx-graphic: url("/.data/img/icons/run16.png"); }
+
+.icon-plus { -fx-graphic: url("/.data/img/icons/plus16.png"); }
+.icon-add { -fx-graphic: url("/.data/img/icons/add16.png"); }
+.icon-delete { -fx-graphic: url("/.data/img/icons/delete16.png"); }
+.icon-clear { -fx-graphic: url("/.data/img/icons/clear16.png"); }
+
+.icon-copy { -fx-graphic: url("/.data/img/icons/copy16.png"); }
+.icon-edit { -fx-graphic: url("/.data/img/icons/edit16.png"); }
+.icon-settings { -fx-graphic: url("/.data/img/icons/settings16.png"); }
+.icon-blocks { -fx-graphic: url("/.data/img/icons/blocks16.png"); }
+.icon-vk { -fx-graphic: url("/.data/img/icons/vk16.png"); }
+.icon-login { -fx-graphic: url("/.data/img/icons/login16.png"); }
+.icon-green-document { -fx-graphic: url("/.data/img/icons/greenDocument16.png"); }
+.icon-red-document { -fx-graphic: url("/.data/img/icons/redDocument16.png"); }
+.icon-rabbit-food { -fx-graphic: url("/.data/img/icons/rabbitFood16.png"); }
+.icon-download-ext { -fx-graphic: url("/.data/img/icons/downloadExt16.png"); }
+.icon-youtube { -fx-graphic: url("/.data/img/icons/youtube16.png"); }
+.icon-convert { -fx-graphic: url("/.data/img/icons/convert16.png"); }
+.icon-trash { -fx-graphic: url("/.data/img/icons/trash16.png"); }
+.icon-trash2 { -fx-graphic: url("/.data/img/icons/trash16.gif"); }
+.icon-php { -fx-graphic: url("/.data/img/icons/phpFile16.png"); }
+.icon-share { -fx-graphic: url("/.data/img/icons/share16.png"); }
+.icon-share-ex { -fx-graphic: url("/.data/img/icons/shareEx16.png"); }
+.icon-upload { -fx-graphic: url("/.data/img/icons/upload16.png"); }
+.icon-library { -fx-graphic: url("/.data/img/icons/library16.png"); }
+.icon-square { -fx-graphic: url("/.data/img/icons/square16.png"); }
+.icon-control-panel { -fx-graphic: url("/.data/img/icons/controlPanel16.png"); }
+
+.icon-refresh { -fx-graphic: url("/.data/img/icons/refresh16.png"); }
+.icon-refresh32 { -fx-graphic: url("/.data/img/icons/refresh32.png"); }
+
+.icon-open { -fx-graphic: url("/.data/img/icons/open16.png"); }
+.icon-open32 { -fx-graphic: url("/.data/img/icons/open32.png"); }
+
+.icon-new { -fx-graphic: url("/.data/img/icons/new16.png"); }
+.icon-new32 { -fx-graphic: url("/.data/img/icons/new32.png"); }
+
+.button { -fx-cursor: hand; }
+
+.dn-add-tab-button {
+}
+
+.list-view .list-cell:filled:selected:focused, .list-view .list-cell:filled:selected {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+    -fx-cursor: hand;
+}
+
+.list-view.dn-simple-list:filled:selected:focused, .list-view.dn-simple-list .list-cell:filled:selected {
+    -fx-background-color: fxe-surface-editor;
+    -fx-text-fill: fxe-text-primary;
+    -fx-cursor: default;
+}
+
+.list-view.dn-simple-list .list-cell:odd {
+    -fx-cell-hover-color: fxe-surface-hover;
+    -fx-background-color: fxe-surface-editor;
+}
+.tab-pane {
+    -fx-open-tab-animation: NONE; -fx-close-tab-animation: NONE;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-padding: 0 0.20em 0 0.20em;
+}
+
+.context-menu,
+.fxe-context-menu {
+    -fx-background-color: fxe-surface-popup;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 6 4;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 12, 0, 0, 4);
+}
+
+.context-menu .menu-item,
+.fxe-context-menu .menu-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+    -fx-padding: 6 12;
+}
+
+.context-menu .menu-item .label,
+.fxe-context-menu .menu-item .label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+    -fx-padding: 0 4 0 0;
+}
+
+.context-menu .menu-item:focused,
+.context-menu .menu-item:hover,
+.fxe-context-menu .menu-item:focused,
+.fxe-context-menu .menu-item:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+}
+
+.context-menu .menu-item:focused .label,
+.context-menu .menu-item:hover .label,
+.fxe-context-menu .menu-item:focused .label,
+.fxe-context-menu .menu-item:hover .label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.context-menu .separator,
+.fxe-context-menu .separator {
+    -fx-padding: 4 8;
+}
+
+.context-menu .separator .line,
+.fxe-context-menu .separator .line {
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0;
+}
+
+.context-menu .custom-menu-item,
+.fxe-context-menu .custom-menu-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+    -fx-padding: 4 8;
+}
+
+/* Вложенные подменю «Добавить» и т.п. */
+.context-menu .context-menu {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6 4;
+}
+
+.small-checkbox { -fx-label-padding: 0.0em 0.0em 0.0em 0.0em; }
+.small-checkbox .mark { -fx-padding: 0.26em; -fx-background-radius: 0, 0, 0, 0; }
+
+.dn-list-item { -fx-border-color: fxe-border; -fx-cursor: hand; -fx-background-color: fxe-surface-panel; -fx-text-fill: fxe-text-primary; }
+.dn-list-item:hover { -fx-border-color: fxe-accent; }
+
+.dn-list-menu { -fx-background-insets: 0; -fx-focus-color: fxe-surface-input; -fx-faint-focus-color: fxe-surface-input; -fx-background-color: fxe-surface-panel; }
+
+.dn-list-menu-title { -fx-font-weight: bold; -fx-padding: 0; -fx-text-fill: fxe-text-primary; }
+.dn-list-menu-description { -fx-text-fill: fxe-text-secondary; }
+.dn-list-menu-count { -fx-background-color: fxe-surface-hover; -fx-text-fill: fxe-text-primary; -fx-font-weight: bold; -fx-padding: 2px 5px; -fx-background-radius: 3px; }
+
+.flow-list-view { -fx-background-color: fxe-surface-editor; -fx-border-width: 1; -fx-border-color: fxe-border; }
+.flow-list-view .list-cell { -fx-cursor: hand; -fx-border-width: 1px; -fx-border-color: transparent; -fx-background-color: fxe-surface-editor; -fx-text-fill: fxe-text-primary; }
+.flow-list-view .list-cell.selected { -fx-background-color: fxe-selection; -fx-text-fill: fxe-text-on-selection; }
+.flow-list-view .list-cell.hovered { -fx-border-color: fxe-border; -fx-background-color: fxe-surface-hover; }
+.flow-list-view .list-cell.dragged { -fx-border-color: fxe-error-border; -fx-border-style: dotted; }
+
+.dn-list-hint { -fx-text-fill: fxe-text-secondary; -fx-font-style: italic; -fx-font-size: 1.6em; -fx-padding: 20px; }
+
+.dn-title { -fx-font-style: italic; -fx-font-size: 1.6em; -fx-padding: 20px; -fx-text-fill: fxe-text-primary; }
+
+.dn-simple-toggle-button:hover { -fx-background-color: fxe-selection; -fx-border-color: fxe-accent; }
+.dn-simple-toggle-button:selected { -fx-background-color: fxe-surface-hover; -fx-border-color: fxe-border; -fx-text-fill: fxe-text-primary; }
+.dn-simple-toggle-button, .dn-simple-button { -fx-background-color: fxe-surface-panel; -fx-border-color: fxe-border; -fx-border-width: 1px; -fx-text-fill: fxe-text-primary; }
+.dn-simple-button { -fx-border-radius: 3px; }
+
+.dn-console-list {
+    -fx-font: 14px "Consolas";
+    -fx-line-spacing: 30px;
+}
+
+.dn-autocomplete {
+    -fx-border-width: 1px;
+    -fx-border-color: fxe-border;
+    -fx-background-color: fxe-surface-popup;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 12, 0, 0, 3);
+}
+
+.dn-autocomplete .list-cell {
+    -fx-background-color: fxe-surface-popup;
+    -fx-text-fill: fxe-ac-default;
+    -fx-font: 13px "JetBrains Mono", "Consolas", monospace;
+    -fx-padding: 2px 8px 2px 6px;
+}
+
+.dn-autocomplete .list-cell:filled:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.dn-autocomplete .list-cell:filled:selected,
+.dn-autocomplete .list-cell:filled:selected:focused,
+.dn-autocomplete .list-cell:filled:selected:hover {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+}
+
+.dn-autocomplete-description {
+    -fx-font: 13px "JetBrains Mono", "Consolas", monospace;
+    -fx-background-color: fxe-surface-popup;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.dn-autocomplete-description .title {
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-text-fill: fxe-text-link;
+}
+.dn-autocomplete-description .description {
+    -fx-text-fill: fxe-ac-variable;
+}
+
+.dn-autocomplete-description .content .label {
+    -fx-font-family: "JetBrains Mono", "Consolas", monospace;
+    -fx-font-style: normal;
+    -fx-text-fill: fxe-text-secondary;
+}
+
+.dn-tooltip-error {
+    -fx-background-color: fxe-error-bg;
+    -fx-text-fill: fxe-error-text;
+}
+/* IntelliJ-style Find/Replace bar */
+.fxe-find-bar {
+    -fx-border-width: 1px;
+    -fx-border-color: fxe-border;
+    -fx-background-color: fxe-surface-popup;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 14, 0, 0, 3);
+}
+
+.fxe-find-input {
+    -fx-background-color: fxe-surface-input;
+    -fx-background-radius: 3px;
+    -fx-border-color: fxe-surface-input;
+    -fx-border-radius: 3px;
+    -fx-text-fill: fxe-text-editor;
+    -fx-prompt-text-fill: fxe-text-secondary;
+    -fx-font: 13px "JetBrains Mono", "Consolas", monospace;
+    -fx-padding: 3px 6px;
+    -fx-pref-width: 220px;
+}
+
+.fxe-find-input:focused {
+    -fx-border-color: fxe-accent;
+}
+
+.fxe-find-counter {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font: 12px "JetBrains Mono", "Consolas", monospace;
+    -fx-padding: 0 6px;
+    -fx-min-width: 78px;
+}
+
+.fxe-find-toggle {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font: 11px "JetBrains Mono", "Consolas", monospace;
+    -fx-padding: 1px 4px;
+}
+
+.fxe-find-toggle:selected {
+    -fx-text-fill: fxe-text-link;
+    -fx-font-weight: bold;
+}
+
+.fxe-find-icon-button,
+.fxe-find-text-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: fxe-text-primary;
+    -fx-padding: 3px 7px;
+    -fx-cursor: hand;
+    -fx-background-radius: 3px;
+    -fx-font: 12px "JetBrains Mono", "Consolas", monospace;
+}
+
+.fxe-find-icon-button:hover,
+.fxe-find-text-button:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-find-text-button {
+    -fx-background-color: fxe-surface-input;
+}
+
+.fxe-find-text-button:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+.fxe-find-bar-overlay {
+    -fx-translate-y: 6px;
+}
+
+/* Command palette (F1) — IntelliJ Search Everywhere */
+.fxe-command-palette {
+    -fx-background-color: fxe-surface-popup;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 12, 0, 0, 4);
+}
+
+.fxe-command-palette-input {
+    -fx-background-color: fxe-surface-input;
+    -fx-text-fill: fxe-text-primary;
+    -fx-prompt-text-fill: fxe-text-secondary;
+    -fx-border-color: transparent;
+    -fx-padding: 10px 12px;
+    -fx-font-size: 14px;
+}
+
+.fxe-command-palette-list {
+    -fx-background-color: fxe-surface-popup;
+    -fx-control-inner-background: fxe-surface-popup;
+}
+
+.fxe-command-palette-list .list-cell {
+    -fx-background-color: fxe-surface-popup;
+    -fx-text-fill: fxe-text-primary;
+    -fx-padding: 6px 12px;
+}
+
+.fxe-command-palette-list .list-cell:filled:selected,
+.fxe-command-palette-list .list-cell:filled:selected:focused {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+}
+
+.fxe-command-palette-list .list-cell:filled:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+/* Minimap */
+.fxe-minimap {
+    -fx-background-color: fxe-surface-minimap;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 0 1px;
+    -fx-min-width: 72px;
+    -fx-pref-width: 72px;
+    -fx-max-width: 72px;
+}
+
+/* Editor context menu — наследует глобальный .context-menu */
+.fxe-editor-context-menu {
+    -fx-background-color: fxe-surface-popup;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 6 4;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 12, 0, 0, 4);
+}
+
+.fxe-editor-context-menu .menu-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+    -fx-padding: 6 12;
+}
+
+.fxe-editor-context-menu .menu-item .label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+}
+
+.fxe-editor-context-menu .menu-item:focused,
+.fxe-editor-context-menu .menu-item:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+}
+
+.fxe-editor-context-menu .separator {
+    -fx-padding: 4 8;
+}
+
+.fxe-editor-context-menu .separator .line {
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0;
+}
+
+/* Status bar — карточка как у дерева проекта */
+#statusPane,
+.fxe-status-shell {
+    -fx-background-color: transparent;
+    -fx-padding: 8 8 8 8;
+    -fx-min-height: 54;
+    -fx-pref-height: 54;
+    -fx-max-height: 54;
+}
+
+.fxe-status-card {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-min-height: 38;
+    -fx-pref-height: 38;
+    -fx-max-height: 38;
+    -fx-padding: 0 18 0 24;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+/* Нижняя консоль — карточка как у дерева */
+.fxe-console-shell {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 8 0;
+}
+
+.fxe-console-card {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.fxe-console-tab-host {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.fxe-console-embed {
+    -fx-background-color: transparent;
+    -fx-min-height: 120;
+    -fx-max-height: infinity;
+}
+
+.fxe-console-tab-host > .fxe-console-embed {
+    -fx-min-height: 120;
+}
+
+.fxe-console-embed > .vbox {
+    -fx-fill-width: true;
+    -fx-alignment: top-left;
+}
+
+.fxe-console-run-footer {
+    -fx-padding: 4 8 8 8;
+    -fx-min-height: 32;
+    -fx-pref-height: 32;
+    -fx-max-height: 32;
+    -fx-alignment: center-left;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+}
+
+.fxe-console-run-footer .check-box {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.fxe-console-embed .text-area,
+.fxe-console-log-area {
+    -fx-background-color: #16181d;
+    -fx-control-inner-background: #16181d;
+    -fx-text-fill: #d4d4d4;
+    -fx-border-width: 0;
+    -fx-background-radius: 0 0 6 6;
+    -fx-border-radius: 0 0 6 6;
+    -fx-highlight-fill: derive(#3b82f6, 20%);
+    -fx-highlight-text-fill: white;
+}
+
+.fxe-form-console-tabs {
+    -fx-background-color: transparent;
+    -fx-tab-min-height: 28;
+    -fx-tab-max-height: 28;
+    -fx-tab-min-width: 0;
+}
+
+.fxe-form-console-tabs > .tab-header-area {
+    -fx-padding: 6 36 0 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-form-console-tabs > .tab-header-area > .headers-region {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.fxe-form-console-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.fxe-form-console-tabs > .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.fxe-log-console {
+    -fx-background-color: #16181d;
+    -fx-padding: 0;
+}
+
+.fxe-log-console.fxe-code-editor {
+    -fx-background-color: #16181d;
+}
+
+.fxe-log-console .fxe-code-editor-pane {
+    -fx-background-color: #16181d;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-log-console .fxe-code-editor-scroll,
+.fxe-log-console .scroll-pane {
+    -fx-background-color: #16181d;
+    -fx-background-radius: 0 0 8 8;
+    -fx-padding: 0;
+}
+
+.fxe-log-console .syntax-text-area.fxe-log-console-area {
+    -fx-font-family: "Consolas", "JetBrains Mono", monospace;
+    -fx-font-size: 12px;
+}
+
+.fxe-log-console .syntax-text-area.fxe-log-console-area .gutter {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0 6 0 4;
+}
+
+.fxe-log-console .syntax-text-area.fxe-log-console-area .gutter .lineno {
+    -fx-text-fill: #f0f0f0;
+    -fx-background-color: transparent;
+    -fx-font-size: 11px;
+}
+
+.fxe-log-console .syntax-text-area.fxe-log-console-area .gutter .note {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.fxe-log-console .fxe-code-editor-toolbar {
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+    -fx-managed: false;
+    -fx-visible: false;
+}
+
+.fxe-console-embed {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-form-console-tabs > .tab-header-area .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6 6 0 0;
+    -fx-padding: 4 12 4 12;
+}
+
+.fxe-form-console-tabs > .tab-header-area .tab:selected {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-width: 0;
+}
+
+.fxe-form-console-tabs > .tab-header-area .tab:selected .tab-label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-weight: bold;
+}
+
+.fxe-console-close {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 2 8;
+    -fx-font-size: 12;
+    -fx-cursor: hand;
+}
+
+.fxe-console-close:hover {
+    -fx-background-color: derive(fxe-surface-card, -8%);
+    -fx-background-radius: 4;
+}
+
+.fxe-status-pane .label,
+.fxe-status-card .label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-padding: 0 0 1 0;
+}
+
+.fxe-status-pane .fxe-status-primary,
+.fxe-status-card .fxe-status-primary {
+    -fx-font-weight: 600;
+    -fx-min-width: 140;
+}
+
+.fxe-status-pane .fxe-status-muted,
+.fxe-status-card .fxe-status-muted {
+    -fx-text-fill: fxe-text-secondary;
+}
+
+/* CSS autocomplete popup */
+.fxe-css-complete {
+    -fx-background-color: fxe-surface-popup;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-padding: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 12, 0, 0, 4);
+}
+
+.fxe-css-complete-list {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: fxe-surface-popup;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.fxe-css-complete-list .list-cell {
+    -fx-background-color: fxe-surface-popup;
+    -fx-text-fill: fxe-text-primary;
+    -fx-padding: 2px 8px;
+    -fx-graphic-text-gap: 8px;
+}
+
+.fxe-css-complete-list .list-cell:filled:selected,
+.fxe-css-complete-list .list-cell:filled:selected:focused {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+}
+
+.fxe-css-complete-list .list-cell:filled:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-css-complete-item-label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.dn-autocomplete.fxe-monaco-complete {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.account-menu {
+    -fx-padding: 5px;
+}
+
+.account-menu-item {
+    -fx-padding: 4px 5px;
+    -fx-cursor: hand;;
+}
+
+.point-marker {
+    -fx-border-color: red;
+}
+
+.tab-pane.dn-style
+{
+    -fx-tab-min-width: 120px;
+}
+
+.tab-pane.dn-style > .tab-header-area {
+    -fx-padding: 0 8 0 8;
+}
+
+.tab-pane.dn-style .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane.dn-style .tab-content-area {
+    -fx-border-width: 1px;
+    -fx-border-color: fxe-border;
+    -fx-background-color: fxe-surface-editor;
+}
+
+.list-view.hide-hor-scroll .scroll-bar:horizontal .increment-arrow,
+.list-view.hide-hor-scroll .scroll-bar:horizontal .decrement-arrow,
+.list-view.hide-hor-scroll .scroll-bar:horizontal .increment-button,
+.list-view.hide-hor-scroll .scroll-bar:horizontal .decrement-button {
+    -fx-padding: 0;
+}
+
+.dn-web {
+    -fx-background-color: fxe-surface-editor;
+}
+
+.scroll-pane.dn-web > .viewport {
+    -fx-background-color: transparent;
+}
+
+.fxe-find-row {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.doc-entry {
+    -fx-padding: 5px 10px;
+    -fx-background-color: fxe-surface-panel;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: fxe-border;
+}
+
+.doc-entry .description {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+    -fx-font-style: italic !important;
+}
+
+.media-view {
+    -fx-border-color: #2b3436;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-background-color: #1c67b1;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * TabPane                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+/* IntelliJ-style flat tabs — единая полоска 3px */
+.dn-file-tab-pane {
+    -fx-tab-min-height: 32px;
+    -fx-tab-max-height: 32px;
+    -fx-tab-min-width: 48px;
+    -fx-tab-max-width: 200px;
+    -fx-background-color: transparent;
+}
+
+.dn-file-tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: fxe-surface-card;
+    -fx-border-width: 0;
+    -fx-padding: 0 8 0 8;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region {
+    -fx-spacing: 4;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-alignment: center-left;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: center-left;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+    -fx-graphic-text-gap: 6;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-padding: 0 4 0 4;
+    -fx-alignment: center-left;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container {
+    -fx-alignment: center-left;
+    -fx-spacing: 6;
+    -fx-padding: 0 6 0 6;
+    -fx-border-width: 0;
+    -fx-node-orientation: left-to-right;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab,
+.tab-pane > .tab-header-area > .headers-region > .tab,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab,
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 2 2 2 2;
+    -fx-border-width: 0;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:hover,
+.tab-pane > .tab-header-area > .headers-region > .tab:hover,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:hover,
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 2 2 2 2;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected,
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected:hover,
+.tab-pane > .tab-header-area > .headers-region > .tab:selected,
+.tab-pane > .tab-header-area > .headers-region > .tab:selected:hover,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:selected,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:selected:hover,
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected,
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 2 2 2 2;
+    -fx-border-width: 0;
+}
+
+/* Полоса файловых табов workspace — карточка как у дерева проекта */
+.fxe-workspace-tabs.dn-file-tab-pane {
+    -fx-tab-min-width: 80px;
+    -fx-tab-max-width: 320px;
+    -fx-tab-min-height: 36px;
+    -fx-tab-max-height: 36px;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area {
+    -fx-padding: 0;
+    -fx-min-height: 40px;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region {
+    -fx-alignment: center-left;
+    -fx-padding: 4 4 0 4;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-background-radius: 8 8 0 0;
+    -fx-background-insets: 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-border-insets: 0;
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+    -fx-padding: 0 6 0 6;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6 6 0 0;
+    -fx-border-width: 0;
+    -fx-padding: 0 2 0 2;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected,
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected:hover {
+    -fx-background-color: fxe-surface-card;
+    -fx-border-width: 0;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-weight: bold;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-text-fill: fxe-text-secondary;
+}
+
+/* Крестик — только на активной вкладке, кликабельный */
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    -fx-opacity: 0;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button {
+    -fx-opacity: 1;
+    -fx-min-width: 13;
+    -fx-pref-width: 13;
+    -fx-max-width: 13;
+    -fx-min-height: 13;
+    -fx-pref-height: 13;
+    -fx-max-height: 13;
+    -fx-padding: 0;
+    -fx-margin: 0 0 0 4;
+    -fx-background-color: #6f737a;
+    -fx-background-radius: 2;
+    -fx-scale-shape: true;
+    -fx-effect: null;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-close-button:hover {
+    -fx-background-color: #ced0d6;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab#fxeWorkspaceAddTab > .tab-container > .tab-close-button {
+    -fx-opacity: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-header-area > .headers-region > .tab#fxeWorkspaceAddTab {
+    -fx-min-width: 28px;
+    -fx-pref-width: 28px;
+    -fx-max-width: 28px;
+    -fx-padding: 0;
+}
+
+.fxe-workspace-add-tab-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 6;
+    -fx-padding: 3;
+    -fx-min-width: 24;
+    -fx-pref-width: 24;
+    -fx-max-width: 24;
+    -fx-min-height: 24;
+    -fx-pref-height: 24;
+    -fx-max-height: 24;
+}
+
+.fxe-workspace-add-tab-btn:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-color: transparent;
+}
+
+.fxe-workspace-tabs.dn-file-tab-pane > .tab-content-area {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-radius: 0 0 8 8;
+    -fx-padding: 0 0 8 0;
+}
+
+/* Внутри workspace — без двойных рамок у FormEditor */
+.fxe-workspace-tabs .fxe-editor-view-tabs > .tab-content-area,
+.fxe-workspace-tabs .fxe-editor-view-tabs > .tab-header-area > .tab-header-background {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-workspace-tabs .fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-workspace-tabs .scroll-pane.dn-mosaic-background {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-workspace-tabs .scroll-pane.dn-mosaic-background > .viewport {
+    -fx-background-radius: 0;
+}
+
+.fxe-workspace-pane > .fxe-workspace-tabs.dn-file-tab-pane,
+.anchor-pane.fxe-workspace-pane > .tab-pane.fxe-workspace-tabs {
+    -fx-padding: 0;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.dn-file-tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
+.dn-file-tab-pane > .tab-content-area {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-width: 0;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button {
+    -fx-background-color: #6f737a;
+    -fx-scale-shape: true;
+    -fx-effect: null;
+    -fx-background-radius: 2;
+    -fx-min-width: 13;
+    -fx-min-height: 13;
+    -fx-pref-width: 13;
+    -fx-pref-height: 13;
+    -fx-max-width: 13;
+    -fx-max-height: 13;
+    -fx-padding: 0;
+    -fx-margin: 0 0 0 6;
+}
+
+.dn-file-tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-close-button:hover {
+    -fx-background-color: #ced0d6;
+}
+
+.dn-file-tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-background-insets: 0;
+    -fx-padding: 4px;
+    -fx-background-radius: 3px;
+}
+
+.dn-file-tab-pane.floating > .tab-header-area > .tab-header-background {
+    -fx-background-color: fxe-surface-raised;
+}
+
+.dn-file-tab-pane.floating > .tab-content-area {
+    -fx-background-color: fxe-surface-base;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+}
+
+/* Обычные tab-pane + FormEditor «Дизайн / Исходный код» */
+.fxe-editor-view-tabs {
+    -fx-tab-min-height: 32px;
+    -fx-tab-max-height: 32px;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background,
+.fxe-editor-view-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: fxe-surface-card;
+    -fx-border-width: 0;
+    -fx-padding: 0 8 0 8;
+}
+
+.tab-pane > .tab-header-area > .headers-region,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region {
+    -fx-spacing: 4;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab > .tab-container {
+    -fx-alignment: CENTER;
+    -fx-spacing: 4;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab {
+    -fx-padding: 0 10 0 10;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab > .tab-container {
+    -fx-padding: 8 6 6 6;
+    -fx-border-width: 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:selected > .tab-container {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 8 6 6 6;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-alignment: CENTER;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label,
+.fxe-editor-view-tabs > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.tab-pane > .tab-content-area,
+.fxe-editor-view-tabs > .tab-content-area {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-width: 0;
+}
+
+
+.scroll-pane.dn-mosaic-background {
+    -fx-background-color: fxe-surface-code;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 0;
+}
+
+.scroll-pane.dn-mosaic-background > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+}
+
+.FormEditor {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+/* =========================================================================
+ * Стандартные JavaFX-контролы — IntelliJ Darcula
+ * ========================================================================= */
+
+.label, .text, .check-box, .radio-button, .toggle-button, .menu-button {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.text-field, .text-area, .password-field, .combo-box-base {
+    -fx-background-color: fxe-surface-input;
+    -fx-text-fill: fxe-text-editor;
+    -fx-prompt-text-fill: fxe-text-muted;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.text-field:hover, .text-area:hover, .password-field:hover, .combo-box-base:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-color: fxe-border-strong;
+}
+
+.text-field:focused, .text-area:focused, .password-field:focused {
+    -fx-border-color: fxe-accent;
+}
+
+.tree-view, .list-view, .table-view, .scroll-pane, .split-pane, .tab-pane {
+    -fx-background-color: fxe-surface-editor;
+    -fx-control-inner-background: fxe-surface-editor;
+}
+
+.tree-cell, .table-row-cell, .table-cell {
+    -fx-background-color: fxe-surface-editor;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.tree-cell:filled:selected, .tree-cell:filled:selected:focused,
+.table-row-cell:filled:selected, .table-row-cell:filled:selected:focused {
+    -fx-background-color: fxe-selection;
+    -fx-text-fill: fxe-text-on-selection;
+}
+
+.tree-cell:filled:hover, .table-row-cell:filled:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.menu-bar {
+    -fx-background-color: fxe-surface-titlebar;
+}
+
+.caption .button {
+    -fx-pref-height: 34px;
+    -fx-min-height: 34px;
+    -fx-max-height: 34px;
+    -fx-pref-width: 46px;
+    -fx-min-width: 46px;
+    -fx-max-width: 46px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.caption .button:hover,
+.caption .button:pressed,
+.caption .button:focused,
+.caption .button:armed {
+    -fx-border-width: 0 !important;
+    -fx-border-color: transparent !important;
+    -fx-background-radius: 0;
+}
+
+.caption {
+    -fx-min-height: 34px;
+    -fx-pref-height: 34px;
+    -fx-max-height: 34px;
+    -fx-max-width: 138px;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.fxe-main-titlebar {
+    -fx-background-color: fxe-surface-titlebar;
+    -fx-padding: 0 138px 0 12;
+    -fx-min-height: 40;
+    -fx-pref-height: 40;
+    -fx-max-height: 40;
+    -fx-alignment: center-left;
+    -fx-max-width: infinity;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-main-titlebar-tools {
+    -fx-spacing: 4;
+    -fx-alignment: center-right;
+    -fx-padding: 0 4 0 6;
+    -fx-max-height: 40;
+}
+
+.fxe-main-titlebar-tools .button,
+.fxe-main-titlebar-tools .flat-button,
+.fxe-titlebar-tool-btn {
+    -fx-min-height: 28;
+    -fx-pref-height: 28;
+    -fx-max-height: 28;
+    -fx-min-width: 28;
+    -fx-pref-width: 28;
+    -fx-max-width: 28;
+    -fx-padding: 3;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.fxe-main-titlebar-tools .button:hover,
+.fxe-main-titlebar-tools .flat-button:hover,
+.fxe-titlebar-tool-btn:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-color: transparent;
+}
+
+.fxe-main-titlebar-tools .button:disabled,
+.fxe-main-titlebar-tools .flat-button:disabled,
+.fxe-titlebar-tool-btn:disabled {
+    -fx-opacity: 0.35;
+    -fx-border-color: transparent;
+}
+
+.fxe-main-titlebar-tools .separator {
+    -fx-padding: 4 2;
+}
+
+.fxe-main-titlebar .menu-bar .menu {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+    -fx-padding: 3 8;
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+    -fx-alignment: center-left;
+    -fx-effect: null;
+}
+
+.fxe-main-titlebar .menu-bar .menu:hover,
+.fxe-main-titlebar .menu-bar .menu:showing,
+.fxe-main-titlebar .menu-bar .menu:focused {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-padding: 4 10;
+    -fx-effect: null;
+}
+
+.fxe-main-titlebar .menu-bar .menu .label {
+    -fx-padding: 0;
+}
+
+.fxe-main-titlebar .menu-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+}
+
+.fxe-main-titlebar .menu-bar .context-menu,
+.menu-bar .menu .context-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 12, 0, 0, 4);
+}
+
+.fxe-main-menu-button {
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+    -fx-min-width: 26;
+    -fx-pref-width: 26;
+    -fx-max-width: 26;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-border-width: 0;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 14px;
+}
+
+.fxe-main-menu-button:hover,
+.fxe-main-menu-button:showing {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-project-tabs-bar {
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+    -fx-padding: 0 8 0 0;
+    -fx-min-height: 40;
+    -fx-pref-height: 40;
+    -fx-max-height: 40;
+}
+
+.fxe-project-tab {
+    -fx-alignment: center-left;
+    -fx-spacing: 6;
+    -fx-min-height: 26;
+    -fx-pref-height: 26;
+    -fx-max-height: 26;
+    -fx-min-width: 100;
+    -fx-padding: 0 10 0 12;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.fxe-project-tab:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-project-tab-label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+    -fx-padding: 0;
+}
+
+.fxe-project-tab-selected {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-project-tab-selected .fxe-project-tab-label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.fxe-project-tab-close {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-height: 18;
+    -fx-pref-height: 18;
+    -fx-max-height: 18;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+
+.fxe-project-tab-selected .fxe-project-tab-close {
+    -fx-min-width: 18;
+    -fx-pref-width: 18;
+    -fx-max-width: 18;
+    -fx-opacity: 1;
+}
+
+.fxe-project-tab-close:hover {
+    -fx-background-color: fxe-surface-overlay;
+}
+
+.fxe-project-tab-add {
+    -fx-min-height: 26;
+    -fx-pref-height: 26;
+    -fx-max-height: 26;
+    -fx-min-width: 26;
+    -fx-pref-width: 26;
+    -fx-max-width: 26;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-width: 0;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.fxe-project-tab-add:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-main-window-title {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.fxe-main-logo {
+    -fx-opacity: 1;
+    -fx-padding: 0;
+}
+
+.menu-bar .menu .label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.menu-bar .menu:hover, .menu-bar .menu:showing {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.tool-bar {
+    -fx-background-color: fxe-surface-panel;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-padding: 0 3;
+}
+
+#fxeWorkspaceConsoleSplit > .split-pane-divider,
+.fxe-console-workspace-split > .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-padding: 4 0 4 0;
+}
+
+.scroll-bar .track {
+    -fx-background-color: fxe-surface-editor;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 4px;
+}
+
+.titled-pane > .title {
+    -fx-background-color: fxe-surface-panel;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.titled-pane > .content {
+    -fx-background-color: fxe-surface-editor;
+    -fx-border-color: fxe-border;
+}
+
+.button, .toggle-button {
+    -fx-background-color: fxe-surface-panel;
+    -fx-text-fill: fxe-text-primary;
+    -fx-border-color: fxe-border;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.button:hover, .toggle-button:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 5;
+}
+
+.tooltip {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-text-fill: fxe-text-primary;
+    -fx-border-color: fxe-border;
+    -fx-border-width: 1px;
+}
+
+/* Перекрытие светлых стилей dn-app-framework */
+.combo-box > .list-cell:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-insets: 0;
+}
+
+.combo-box-popup > .list-view {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-border-color: fxe-border;
+    -fx-translate-y: -2;
+}
+
+.hyperlink, .hyperlink:hover, .hyperlink:visited {
+    -fx-text-fill: fxe-text-link;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: fxe-surface-base;
+}
+
+.anchor-pane, .border-pane, .grid-pane, .stack-pane, .vbox, .hbox {
+    -fx-background-color: fxe-surface-base;
+}
+
+.fxe-workspace-host,
+.fxe-workspace-split,
+.fxe-editor-split,
+.anchor-pane.fxe-workspace-pane,
+.fxe-workspace-split > .split-pane-divider,
+.fxe-editor-split > .split-pane-divider {
+    -fx-background-color: fxe-surface-canvas;
+}
+
+#contentVBox {
+    -fx-background-color: fxe-surface-canvas;
+}
+
+.fxe-workspace-host {
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.fxe-workspace-split {
+    -fx-padding: 8;
+}
+
+.fxe-workspace-split > .split-pane-divider,
+.fxe-editor-split > .split-pane-divider {
+    -fx-padding: 0 4;
+}
+
+/* CodeEditor — тёмная область редактора */
+.fxe-code-editor {
+    -fx-background-color: fxe-surface-editor;
+}
+
+.fxe-code-editor-toolbar {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-code-editor-pane {
+    -fx-background-color: fxe-surface-editor;
+}
+
+.fxe-code-editor-readonly-bar {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+}
+
+.fxe-workspace-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 8 0;
+}
+
+.fxe-editor-left-wrap,
+.anchor-pane.fxe-panel-host {
+    -fx-background-color: fxe-surface-canvas;
+    -fx-border-width: 0;
+}
+
+.fxe-editor-left-wrap.fxe-panel-host {
+    -fx-padding: 8 0 8 8;
+}
+
+.fxe-editor-left-scroll {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-editor-left-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Карточки панелей — дерево, свойства, sidebar */
+.fxe-panel-shell,
+.fxe-form-sidebar-shell {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 8 8;
+}
+
+.fxe-panel-card,
+.fxe-form-sidebar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 0;
+}
+
+.fxe-panel-header {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0 12;
+    -fx-min-height: 32;
+    -fx-pref-height: 32;
+    -fx-max-height: 32;
+}
+
+.fxe-panel-title {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.fxe-panel-header-action {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-min-width: 22;
+    -fx-pref-width: 22;
+    -fx-max-width: 22;
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+    -fx-padding: 0;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.fxe-panel-header-action:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-panel-card > .tree-view,
+.fxe-panel-tree {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 0 0 8 8;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 6 6 8 6;
+}
+
+.fxe-panel-card .tree-cell {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-padding: 2 6 2 4;
+}
+
+.fxe-panel-card .tree-cell:filled:hover {
+    -fx-background-color: fxe-prop-row-hover;
+    -fx-background-radius: 6;
+}
+
+.fxe-panel-card .tree-cell:filled:selected,
+.fxe-panel-card .tree-cell:filled:selected:focused {
+    -fx-background-color: fxe-selection;
+    -fx-background-radius: 6;
+}
+
+.fxe-tree-indent-guide {
+    -fx-background-color: fxe-tree-line;
+}
+
+/* ProjectEditor — левая навигация и карточки настроек */
+.fxe-project-nav-shell {
+    -fx-padding: 8 8 8 8;
+}
+
+.fxe-project-nav-host {
+    -fx-background-color: transparent;
+}
+
+.fxe-project-nav-card {
+    -fx-fill-width: true;
+}
+
+.fxe-project-nav-card > .list-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 4 0 6 0;
+}
+
+.fxe-project-nav-menu {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-project-nav-menu .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 2 6 2 10;
+    -fx-background-insets: 0 6 0 0;
+}
+
+.fxe-project-nav-menu .list-cell:filled:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+}
+
+.fxe-project-nav-menu .list-cell:filled:selected {
+    -fx-background-color: derive(fxe-accent, -88%);
+    -fx-background-radius: 6;
+    -fx-border-color: fxe-accent;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-insets: 0;
+    -fx-padding: 2 6 2 7;
+}
+
+.fxe-project-nav-menu .list-cell .hbox {
+    -fx-padding: 4 0 4 0;
+}
+
+.fxe-project-nav-menu .dn-list-menu-title {
+    -fx-font-size: 12px;
+}
+
+.fxe-project-nav-menu .dn-list-menu-description {
+    -fx-font-size: 11px;
+}
+
+.fxe-project-nav-menu .dn-list-menu-count {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 10;
+    -fx-min-width: 22;
+    -fx-alignment: center;
+    -fx-font-size: 11px;
+}
+
+.fxe-project-content-host {
+    -fx-background-color: fxe-surface-canvas;
+}
+
+.fxe-project-settings-scroll {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-project-settings-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.fxe-project-settings {
+    -fx-padding: 12 20 20 12;
+    -fx-background-color: transparent;
+}
+
+.fxe-project-section-title {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 0 2;
+}
+
+.fxe-project-settings-card {
+    -fx-background-color: #1a1d24;
+    -fx-background-radius: 10;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 0;
+}
+
+.fxe-project-settings-card-title {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 16 10 16;
+}
+
+.fxe-project-settings-card-body {
+    -fx-padding: 14 16 16 16;
+}
+
+.fxe-project-main-info-body {
+    -fx-alignment: TOP_LEFT;
+}
+
+.fxe-project-field-label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 11px;
+}
+
+.fxe-project-input-row {
+    -fx-alignment: center-left;
+    -fx-spacing: 0;
+}
+
+.fxe-project-field-input {
+    -fx-background-color: #12151a;
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-font-size: 13px;
+    -fx-text-fill: fxe-text-primary;
+    -fx-pref-height: 36;
+    -fx-min-height: 36;
+    -fx-padding: 0 10;
+}
+
+.fxe-project-field-icon-btn {
+    -fx-background-color: #12151a;
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 1 0 1 1;
+    -fx-background-radius: 6 0 0 6;
+    -fx-border-radius: 6 0 0 6;
+    -fx-min-width: 36;
+    -fx-pref-width: 36;
+    -fx-min-height: 36;
+    -fx-pref-height: 36;
+    -fx-padding: 0;
+}
+
+.fxe-project-name-input {
+    -fx-background-radius: 0 6 6 0;
+    -fx-border-radius: 0 6 6 0;
+    -fx-border-width: 1 1 1 0;
+    -fx-font-weight: bold;
+}
+
+.fxe-project-path-input {
+    -fx-border-width: 1;
+}
+
+.fxe-project-path-btn {
+    -fx-min-width: 36;
+    -fx-pref-width: 36;
+    -fx-max-width: 36;
+    -fx-min-height: 36;
+    -fx-pref-height: 36;
+    -fx-max-height: 36;
+    -fx-padding: 0;
+    -fx-background-color: #12151a;
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+.fxe-project-sync-box {
+    -fx-background-color: #12151a;
+    -fx-background-radius: 8;
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 14 16;
+    -fx-min-width: 280;
+    -fx-pref-width: 320;
+    -fx-max-width: 360;
+}
+
+.fxe-project-splash-preview {
+    -fx-background-color: transparent;
+    -fx-border-color: #3a4050;
+    -fx-border-width: 1;
+    -fx-border-style: segments(6, 6);
+    -fx-border-radius: 8;
+    -fx-min-width: 140;
+    -fx-pref-width: 160;
+    -fx-max-width: 200;
+    -fx-min-height: 120;
+    -fx-pref-height: 120;
+    -fx-alignment: center;
+}
+
+.fxe-project-splash-preview-icon {
+    -fx-opacity: 0.35;
+    -fx-graphic: url("/.data/img/icons/flatGallery16.png");
+}
+
+.fxe-project-muted-label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.fxe-project-combo {
+    -fx-background-color: #12151a;
+    -fx-border-color: #2a2f3a;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-pref-height: 36;
+    -fx-min-height: 36;
+}
+
+.fxe-project-sync-box .anchor-pane,
+.fxe-project-sync-box .vbox,
+.fxe-project-sync-box .hbox {
+    -fx-background-color: transparent;
+}
+
+.fxe-project-sync-box .label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 13px;
+}
+
+.fxe-project-sync-box #title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.fxe-project-sync-box #loginButton {
+    -fx-background-color: fxe-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-font-size: 13px;
+    -fx-padding: 8 18;
+}
+
+.fxe-project-sync-box #loginButton:hover {
+    -fx-background-color: fxe-accent-hover;
+}
+
+.fxe-project-sync-box #registerLink {
+    -fx-text-fill: fxe-accent;
+    -fx-font-size: 13px;
+}
+
+.fxe-project-settings-card .check-box {
+    -fx-font-size: 12px;
+}
+
+.fxe-project-settings-card .check-box:selected .mark {
+    -fx-background-color: fxe-accent;
+}
+
+.fxe-project-settings-card .check-box .box {
+    -fx-background-color: #12151a;
+    -fx-border-color: #3a4050;
+}
+
+.fxe-project-settings-card .combo-box-base,
+.fxe-project-settings-card .text-field {
+    -fx-font-size: 12px;
+}
+
+.fxe-project-settings-card .button {
+    -fx-font-size: 12px;
+}
+
+.menu-item:focused,
+.menu-item:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 6;
+    -fx-background-insets: 1 4 1 4;
+}
+
+.menu-item .label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.check-box .box, .radio-button .radio {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-border-color: fxe-border;
+}
+
+.separator .line {
+    -fx-border-color: fxe-border-subtle;
+}
+
+/* =========================================================================
+ * FormEditor — левая панель, свойства, табы
+ * ========================================================================= */
+
+.fxe-form-sidebar-shell > .vbox {
+    -fx-background-color: transparent;
+}
+
+.fxe-form-sidebar-header {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 8 8 4 8;
+}
+
+.fxe-form-sidebar-content {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 0 0 8 8;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.fxe-form-sidebar-menu-btn {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 4 6;
+    -fx-background-radius: 4;
+}
+
+.fxe-form-sidebar-menu-btn:hover {
+    -fx-background-color: #373b40;
+}
+
+.fxe-form-object-selector {
+    -fx-background-color: fxe-prop-control-bg;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+    -fx-padding: 4 8 4 8;
+}
+
+.fxe-form-object-selector:hover {
+    -fx-border-color: fxe-border-strong;
+}
+
+.fxe-form-sidebar-tabs {
+    -fx-tab-min-width: 64px;
+    -fx-tab-min-height: 32px;
+    -fx-tab-max-height: 32px;
+    -fx-open-tab-animation: NONE;
+    -fx-close-tab-animation: NONE;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area {
+    -fx-padding: 0 8;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region {
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-spacing: 4;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-background-radius: 8 8 0 0;
+    -fx-background-insets: 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab {
+    -fx-padding: 0 6 0 6;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab > .tab-container {
+    -fx-alignment: CENTER;
+    -fx-spacing: 4;
+    -fx-padding: 6 0 1 0;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected > .tab-container {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-weight: normal;
+}
+
+.fxe-form-sidebar-tabs > .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab .focus-indicator {
+    -fx-border-width: 0;
+}
+
+.fxe-form-sidebar .scroll-pane.fxe-form-scroll {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-hbar-policy: never;
+}
+
+.fxe-form-sidebar .scroll-pane.fxe-form-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.fxe-form-sidebar-tab-hint {
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab .fxe-form-sidebar-tab-hint .label {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected .fxe-form-sidebar-tab-hint .label {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.fxe-form-sidebar-tab-hint-badge {
+    -fx-text-fill: fxe-tab-active;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.fxe-form-sidebar-tabs > .tab-header-area > .headers-region > .tab:selected .fxe-form-sidebar-tab-hint-badge {
+    -fx-text-fill: fxe-tab-active;
+}
+
+/* Таблица свойств формы */
+.fxe-property-table {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-size: 11px;
+    -fx-table-cell-border-color: fxe-border-subtle;
+}
+
+.fxe-property-table:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.fxe-property-table .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.fxe-property-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 4;
+}
+
+.fxe-property-table .table-row-cell:filled:hover {
+    -fx-background-color: fxe-prop-row-hover;
+    -fx-background-radius: 4;
+}
+
+.fxe-property-table .table-row-cell:filled:selected {
+    -fx-background-color: fxe-selection;
+}
+
+.fxe-property-table .table-cell {
+    -fx-text-fill: fxe-text-primary;
+    -fx-border-color: transparent;
+    -fx-padding: 2 6 2 6;
+}
+
+.fxe-property-name-cell,
+.fxe-property-table .table-cell:first-child {
+    -fx-text-fill: fxe-prop-label;
+}
+
+.fxe-property-table .text-field,
+.fxe-property-table .combo-box-base,
+.fxe-property-table .choice-box {
+    -fx-background-color: fxe-prop-control-bg;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-font-size: 11px;
+}
+
+.fxe-property-table .hbox {
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+    -fx-padding: 0 2 0 0;
+}
+
+.fxe-property-table .button {
+    -fx-min-width: 22;
+    -fx-pref-width: 22;
+    -fx-max-width: 22;
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+    -fx-padding: 0 2;
+}
+
+.fxe-property-expand-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 2 4;
+    -fx-cursor: hand;
+    -fx-opacity: 0.55;
+}
+
+.fxe-property-expand-btn:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 4;
+    -fx-opacity: 1;
+}
+
+.fxe-property-table .choice-box,
+.fxe-property-table .combo-box-base {
+    -fx-padding: 0 6 0 6;
+    -fx-min-height: 24;
+    -fx-pref-height: 24;
+    -fx-max-height: 24;
+}
+
+.fxe-property-table .choice-box > .label,
+.fxe-property-table .combo-box-base .list-cell {
+    -fx-padding: 0 6 0 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 11px;
+}
+
+.fxe-property-table .slider {
+    -fx-padding: 0 4 0 4;
+}
+
+.fxe-property-table .spinner {
+    -fx-padding: 0 2 0 0;
+}
+
+.fxe-property-table .spinner .increment-arrow-button,
+.fxe-property-table .spinner .decrement-arrow-button {
+    -fx-padding: 2 4 2 4;
+}
+
+.fxe-property-table .text-field {
+    -fx-min-width: 40;
+}
+
+.fxe-property-name-cell {
+    -fx-text-fill: fxe-text-secondary;
+}
+
+.fxe-property-group > .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 8 6 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+}
+
+.fxe-form-sidebar .fxe-property-group {
+    -fx-padding: 10 8 0 8;
+}
+
+.fxe-form-sidebar .fxe-property-group > .title {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-text-fill: fxe-text-primary;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-padding: 8 10 8 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.fxe-form-sidebar .fxe-property-group > .content {
+    -fx-background-color: fxe-prop-section-bg;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-radius: 0 0 8 8;
+    -fx-padding: 6 6 8 6;
+}
+
+.fxe-form-sidebar .fxe-property-table .table-row-cell:filled {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-background-insets: 2 4 2 4;
+    -fx-background-radius: 6;
+}
+
+.fxe-form-sidebar .fxe-property-table .table-row-cell:filled:hover {
+    -fx-background-color: fxe-prop-row-hover;
+}
+
+.fxe-form-sidebar .fxe-property-table .table-row-cell:filled:selected {
+    -fx-background-color: fxe-selection;
+}
+
+.fxe-form-sidebar .fxe-property-table .text-field,
+.fxe-form-sidebar .fxe-property-table .combo-box-base,
+.fxe-form-sidebar .fxe-property-table .choice-box {
+    -fx-background-color: fxe-prop-control-bg;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-min-height: 22;
+    -fx-pref-height: 22;
+    -fx-max-height: 22;
+    -fx-font-size: 12px;
+}
+
+.fxe-property-group > .title > .arrow-button {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-property-group > .content {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.fxe-property-group-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 8 5 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.fxe-property-module-field {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-text-fill: fxe-orange-accent;
+}
+
+.fxe-property-id-field {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-text-fill: fxe-text-link;
+}
+
+.scroll-pane.fxe-form-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* =========================================================================
+ * Toast-уведомления
+ * ========================================================================= */
+
+.fxe-toast-host {
+    -fx-background-color: transparent;
+}
+
+.fxe-toast-host > * {
+    -fx-background-color: transparent;
+}
+
+.fxe-toast {
+    -fx-background-color: fxe-surface-overlay;
+    -fx-background-radius: 10;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 16, 0, 0, 4);
+    -fx-min-width: 280;
+    -fx-max-width: 400;
+    -fx-cursor: hand;
+}
+
+.fxe-toast-icon {
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14;
+    -fx-min-width: 28;
+    -fx-pref-width: 28;
+    -fx-min-height: 28;
+    -fx-pref-height: 28;
+}
+
+.fxe-toast-icon-error {
+    -fx-background-color: fxe-danger;
+    -fx-text-fill: #FFFFFF;
+}
+
+.fxe-toast-icon-warning {
+    -fx-background-color: fxe-warning;
+    -fx-text-fill: fxe-text-inverse;
+}
+
+.fxe-toast-icon-success {
+    -fx-background-color: fxe-success;
+    -fx-text-fill: fxe-text-inverse;
+}
+
+.fxe-toast-icon-info {
+    -fx-background-color: fxe-info;
+    -fx-text-fill: #FFFFFF;
+}
+
+.fxe-toast-title {
+    -fx-text-fill: fxe-text-on-selection;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.fxe-toast-title-solo {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 13px;
+}
+
+.fxe-toast-message {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+}
+
+.fxe-toast-actions {
+    -fx-padding: 4 0 0 0;
+}
+
+.fxe-toast-action-btn {
+    -fx-background-color: fxe-surface-base;
+    -fx-border-color: fxe-border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 12px;
+    -fx-padding: 4 12;
+    -fx-cursor: hand;
+}
+
+.fxe-toast-action-btn:hover {
+    -fx-background-color: fxe-surface-hover;
+}
+
+.fxe-toast-actions .hyperlink {
+    -fx-text-fill: fxe-text-link;
+    -fx-font-size: 12px;
+    -fx-border-width: 0;
+    -fx-underline: false;
+}
+
+.fxe-toast-actions .hyperlink:hover {
+    -fx-underline: true;
+}
+
+/* --- Error dialog (FXE Studio) --- */
+
+.fxe-error-dialog-window {
+    -fx-background-color: fxe-surface-window;
+}
+
+.fxe-error-dialog {
+    -fx-background-color: fxe-surface-window;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 0 0 0;
+}
+
+.fxe-error-dialog-header {
+    -fx-background-color: fxe-surface-section;
+    -fx-padding: 18 20 16 20;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-error-dialog-icon {
+    -fx-min-width: 36;
+    -fx-pref-width: 36;
+    -fx-min-height: 36;
+    -fx-pref-height: 36;
+    -fx-background-color: fxe-error-text;
+    -fx-background-radius: 18;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.fxe-error-dialog-heading {
+    -fx-text-fill: fxe-text-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.fxe-error-dialog-summary {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 13px;
+}
+
+.fxe-error-dialog-details {
+    -fx-background-color: fxe-surface-code;
+    -fx-padding: 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-error-dialog-details > .viewport {
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-error-dialog-details-text {
+    -fx-control-inner-background: fxe-surface-code;
+    -fx-background-color: fxe-surface-code;
+    -fx-text-fill: fxe-text-primary;
+    -fx-highlight-fill: fxe-selection;
+    -fx-highlight-text-fill: fxe-text-primary;
+    -fx-padding: 12 14 12 14;
+}
+
+.fxe-error-dialog-footer {
+    -fx-background-color: fxe-surface-window;
+    -fx-padding: 14 20 16 20;
+}
+
+/* --- IDE Logging tab --- */
+
+.fxe-log-view {
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-log-toolbar {
+    -fx-background-color: fxe-surface-section;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 0 1 0;
+}
+
+.fxe-log-list {
+    -fx-background-color: fxe-surface-code;
+    -fx-control-inner-background: fxe-surface-code;
+    -fx-border-width: 0;
+}
+
+.fxe-log-list .list-cell {
+    -fx-background-color: fxe-surface-code;
+    -fx-padding: 1 10 1 10;
+}
+
+.fxe-log-list .list-cell:selected {
+    -fx-background-color: fxe-selection;
+}
+
+.fxe-log-text {
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-log-text .styled-text-area {
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-log-text .content {
+    -fx-background-color: fxe-surface-code;
+}
+
+.fxe-log-text .text {
+    -fx-fill: #94a3b8;
+}
+
+.fxe-log-text .selection {
+    -fx-fill: #2563eb;
+}
+
+.fxe-error-dialog-btn-primary {
+    -fx-background-color: fxe-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.fxe-error-dialog-btn-primary:hover {
+    -fx-background-color: fxe-accent-hover;
+}
+
+.fxe-error-dialog-btn-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: fxe-text-secondary;
+    -fx-border-color: fxe-border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.fxe-error-dialog-btn-danger:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.fxe-error-dialog-btn-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: fxe-text-link;
+    -fx-border-width: 0;
+    -fx-padding: 8 4 8 4;
+    -fx-cursor: hand;
+}
+
+
+/* Палитра компонентов FormEditor */
+.fxe-component-palette-shell {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.fxe-component-palette-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+    -fx-hbar-policy: never;
+}
+
+.fxe-component-palette-header {
+    -fx-spacing: 8;
+}
+
+.fxe-component-palette-mode,
+.fxe-component-palette-search {
+    -fx-max-width: infinity;
+    -fx-min-height: 28;
+    -fx-pref-height: 28;
+    -fx-background-color: fxe-prop-control-bg;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8 4 8;
+}
+
+.fxe-component-palette-mode > .list-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 2 8 2 8;
+}
+
+.fxe-component-palette-mode .combo-box-base {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.fxe-component-palette-group {
+    -fx-padding: 0 0 8 0;
+}
+
+.fxe-component-palette-group > .title {
+    -fx-background-color: fxe-surface-section-header;
+    -fx-text-fill: fxe-text-primary;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-padding: 8 10 8 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.fxe-component-palette-group > .content {
+    -fx-background-color: fxe-prop-section-bg;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-radius: 0 0 8 8;
+    -fx-padding: 6 8 8 8;
+}
+
+.fxe-component-palette-item,
+.fxe-component-palette .dn-simple-toggle-button {
+    -fx-background-color: fxe-prop-control-bg;
+    -fx-border-color: fxe-prop-control-border;
+    -fx-text-fill: fxe-text-primary;
+    -fx-padding: 4 8 4 8;
+    -fx-min-height: 26;
+    -fx-pref-height: 26;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-content-display: LEFT;
+    -fx-text-overrun: CLIP;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.fxe-component-palette .dn-simple-toggle-button:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-color: fxe-accent;
+}
+
+.fxe-component-palette .dn-simple-toggle-button:selected {
+    -fx-background-color: fxe-selection;
+    -fx-border-color: fxe-accent;
+    -fx-text-fill: fxe-text-primary;
+}
+
+
+.fxe-source-preview {
+    -fx-background-color: fxe-surface-base;
+}
+
+.fxe-source-preview-footer {
+    -fx-background-color: fxe-surface-card;
+    -fx-background-radius: 8;
+    -fx-border-color: fxe-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12 8 12;
+    -fx-alignment: center-left;
+}
+
+.fxe-source-preview-btn {
+    -fx-background-color: fxe-surface-panel;
+    -fx-border-color: fxe-border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: fxe-text-primary;
+}
+
+.fxe-source-preview-btn:hover {
+    -fx-background-color: fxe-surface-hover;
+    -fx-border-color: fxe-accent;
+}
+
+.fxe-source-preview-footer .button:first-child {
+    -fx-background-color: fxe-accent;
+    -fx-text-fill: white;
+    -fx-border-color: fxe-accent;
+}
+
+.fxe-source-preview-footer .button:first-child:hover {
+    -fx-background-color: fxe-accent-hover;
+}
+
+.fxe-error-dialog-btn-ghost:hover {
+    -fx-underline: true;
+}

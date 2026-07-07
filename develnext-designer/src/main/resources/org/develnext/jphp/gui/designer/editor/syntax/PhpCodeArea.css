@@ -1,0 +1,172 @@
+/* FXE Studio — IntelliJ IDEA Darcula (PHP editor) */
+
+.syntax-text-area.fxe-monaco-editor {
+    -fx-background-color: fxe-surface-editor;
+    -fx-background-fill: fxe-surface-editor;
+    -fx-cursor: text;
+    -fx-highlight-fill: fxe-selection;
+    -fx-highlight-text-fill: fxe-text-editor;
+}
+
+.syntax-text-area.fxe-monaco-editor .paragraph-box:has-caret {
+    -fx-background-color: fxe-surface-line-highlight;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.syntax-text-area.fxe-monaco-editor .paragraph-box.folded {
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    visibility: hidden;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .fold-toggle {
+    -fx-text-fill: fxe-text-secondary;
+    -fx-font-size: 9px;
+    -fx-padding: 0 2 0 0;
+    -fx-cursor: hand;
+    -fx-min-width: 12px;
+    -fx-alignment: center;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .fold-toggle.empty {
+    -fx-opacity: 0;
+    -fx-cursor: default;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .fold-toggle:hover {
+    -fx-text-fill: fxe-text-primary;
+}
+
+.syntax-text-area.fxe-monaco-editor .text {
+    -fx-fill: fxe-text-editor;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter {
+    -fx-border-color: fxe-border-subtle;
+    -fx-background-color: fxe-surface-gutter;
+    -fx-border-width: 0 1px 0 0;
+    -fx-padding: 0 6 0 4;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .lineno {
+    -fx-text-fill: fxe-text-lineno;
+    -fx-font-size: 13px;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .note.error {
+    -fx-background-color: transparent;
+    -fx-graphic: null;
+    -fx-opacity: 0;
+}
+
+.syntax-text-area.fxe-monaco-editor .caret {
+    -fx-stroke: fxe-caret;
+    -fx-stroke-width: 2px;
+}
+
+/* Syntax tokens — Darcula */
+.syntax-text-area.fxe-monaco-editor .text.keyword {
+    -fx-fill: fxe-syntax-keyword;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.type {
+    -fx-fill: fxe-syntax-class;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.control,
+.syntax-text-area.fxe-monaco-editor .text.operator {
+    -fx-fill: fxe-syntax-operator;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.comment {
+    -fx-fill: fxe-syntax-comment;
+    -fx-font-style: italic;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.phpdoc {
+    -fx-fill: fxe-syntax-doc;
+    -fx-font-style: italic;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.string {
+    -fx-fill: fxe-syntax-string;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.number {
+    -fx-fill: fxe-syntax-number;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.variable {
+    -fx-fill: fxe-syntax-variable;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.selector {
+    -fx-fill: fxe-syntax-function;
+    -fx-font-weight: bold;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.label {
+    -fx-fill: fxe-text-editor;
+}
+
+/* Diagnostics */
+.syntax-text-area.fxe-monaco-editor .text.syntax-error {
+    -fx-underline: true;
+    -fx-stroke: fxe-error-border;
+    -fx-stroke-width: 1.6px;
+    -fx-fill: fxe-error-text;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.syntax-warning {
+    -fx-underline: true;
+    -fx-stroke: fxe-warning-border;
+    -fx-stroke-width: 1.6px;
+    -fx-fill: fxe-warning-text;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.occurrence {
+    -fx-underline: true;
+    -fx-stroke: derive(fxe-text-primary, 50%);
+    -fx-stroke-width: 1.2px;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.occurrence-current {
+    -fx-underline: true;
+    -fx-stroke: fxe-text-primary;
+    -fx-stroke-width: 1.4px;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.bracket-match {
+    -fx-fill: fxe-syntax-annotation;
+    -fx-underline: true;
+    -fx-stroke: fxe-syntax-annotation;
+    -fx-stroke-width: 1.8px;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.find-match {
+    -fx-fill: fxe-syntax-class;
+    -fx-underline: true;
+    -fx-stroke: fxe-syntax-class;
+    -fx-stroke-width: 1.8px;
+}
+
+.syntax-text-area.fxe-monaco-editor .scroll-bar:vertical .thumb {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 4px;
+}
+
+.syntax-text-area.fxe-monaco-editor .scroll-bar:vertical .track {
+    -fx-background-color: fxe-surface-editor;
+}
+
+.inline-color-swatch {
+    -fx-border-color: fxe-border;
+}
+
+.inline-color-swatch:hover {
+    -fx-border-color: fxe-text-primary;
+}

@@ -1,0 +1,75 @@
+/* FXE Studio — JavaScript editor (Darcula) */
+
+.syntax-text-area.fxe-monaco-editor {
+    -fx-background-color: fxe-surface-editor;
+    -fx-background-fill: fxe-surface-editor;
+    -fx-cursor: text;
+    -fx-highlight-fill: fxe-selection;
+    -fx-highlight-text-fill: fxe-text-editor;
+}
+
+.syntax-text-area.fxe-monaco-editor .paragraph-box:has-caret {
+    -fx-background-color: fxe-surface-line-highlight;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.syntax-text-area.fxe-monaco-editor .text {
+    -fx-fill: fxe-text-editor;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter {
+    -fx-border-color: fxe-border-subtle;
+    -fx-background-color: fxe-surface-gutter;
+    -fx-border-width: 0 1px 0 0;
+    -fx-padding: 0 6 0 4;
+}
+
+.syntax-text-area.fxe-monaco-editor .gutter .lineno {
+    -fx-text-fill: fxe-text-lineno;
+    -fx-font-size: 13px;
+}
+
+.syntax-text-area.fxe-monaco-editor .caret {
+    -fx-stroke: fxe-caret;
+    -fx-stroke-width: 2px;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.keyword {
+    -fx-fill: fxe-syntax-keyword;
+    -fx-font-weight: bold;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.operator {
+    -fx-fill: fxe-syntax-operator;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.comment {
+    -fx-fill: fxe-syntax-comment;
+    -fx-font-style: italic;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.control {
+    -fx-fill: fxe-syntax-operator;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.string {
+    -fx-fill: fxe-syntax-string;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.number {
+    -fx-fill: fxe-syntax-number;
+}
+
+.syntax-text-area.fxe-monaco-editor .text.identifier {
+    -fx-fill: fxe-text-editor;
+}
+
+.syntax-text-area.fxe-monaco-editor .scroll-bar:vertical .thumb {
+    -fx-background-color: fxe-surface-hover;
+    -fx-background-radius: 4px;
+}
+
+.syntax-text-area.fxe-monaco-editor .scroll-bar:vertical .track {
+    -fx-background-color: fxe-surface-editor;
+}

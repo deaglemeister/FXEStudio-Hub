@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="titleLabel" text="..." wrapText="true">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label id="hintLabel" text="Будут обновлены следующие места:" textFill="#555555" />
+            <TextArea id="previewArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" spacing="8.0">
+               <children>
+                  <Button id="applyButton" defaultButton="true" mnemonicParsing="false" text="Переименовать всё" />
+                  <Button id="cancelButton" cancelButton="true" mnemonicParsing="false" text="Отмена" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

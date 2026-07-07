@@ -1,0 +1,636 @@
+<?php
+namespace ide\project\behaviours;
+
+use develnext\lexer\inspector\PHPInspector;
+use Error;
+use ide\commands\tree\TreeCreateExtensionFileMenuCommand;
+use ide\formats\PhpCodeFormat;
+use ide\Logger;
+use ide\project\AbstractProjectBehaviour;
+use ide\project\behaviours\php\TreeCreatePhpClassMenuCommand;
+use ide\project\behaviours\php\TreeCreatePhpFileMenuCommand;
+use ide\project\behaviours\php\TreeCreatePhpStructureMenuCommand;
+use ide\project\control\CommonProjectControlPane;
+use ide\project\Project;
+use ide\project\ProjectFile;
+use ide\project\TreeIconResolver;
+use ide\utils\FileUtils;
+use php\compress\ZipFile;
+use php\framework\FrameworkPackageLoader;
+use php\gui\layout\UXHBox;
+use php\gui\layout\UXVBox;
+use php\gui\UXCheckbox;
+use php\gui\UXComboBox;
+use php\gui\UXLabel;
+use php\io\File;
+use php\io\FileStream;
+use php\io\IOException;
+use php\io\Stream;
+use php\lang\Environment;
+use php\lang\Module;
+use php\lang\Package;
+use php\lang\Thread;
+use php\lang\ThreadPool;
+use php\lib\arr;
+use php\lib\fs;
+use php\lib\str;
+use php\net\URL;
+
+/**
+ * Class PhpProjectBehaviour
+ * @package ide\project\behaviours
+ */
+class PhpProjectBehaviour extends AbstractProjectBehaviour
+{
+    const OPT_COMPILE_BYTE_CODE = 'compileByteCode';
+    const OPT_IMPORT_TYPE_CODE = 'importType';
+
+    const GENERATED_DIRECTORY = 'src_generated';
+
+    private static $importTypes = [
+        'simple' => 'Имена классов (use namespace\\ClassName)',
+        'package' => 'Имена пакетов (use package)'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $globalUseImports = [];
+
+    /**
+     * @var UXVBox
+     */
+    protected $uiSettings;
+
+    /**
+     * @var UXCheckbox
+     */
+    protected $uiByteCodeCheckbox;
+
+    /**
+     * @var PHPInspector
+     */
+    protected $inspector;
+
+    /**
+     * @var Package
+     */
+    protected $projectPackage;
+
+    /**
+     * @var ThreadPool
+     */
+    protected $inspectorThreadPool;
+
+    /**
+     * @var UXComboBox
+     */
+    protected $uiImportTypesSelect;
+
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return self::PRIORITY_CORE;
+    }
+
+    /**
+     * @return PHPInspector
+     */
+    public function getInspector()
+    {
+        return $this->inspector;
+    }
+
+    /**
+     * ...
+     */
+    public function inject()
+    {
+        $this->inspectorThreadPool = ThreadPool::createSingle();
+        $this->inspector = new PHPInspector();
+
+        $this->project->registerInspector('php', $this->inspector);
+
+        $this->project->on('close', [$this, 'doClose']);
+        $this->project->on('open', [$this, 'doOpen']);
+        $this->project->on('save', [$this, 'doSave']);
+        $this->project->on('preCompile', [$this, 'doPreCompile']);
+        $this->project->on('compile', [$this, 'doCompile']);
+
+        $this->project->on('makeSettings', [$this, 'doMakeSettings']);
+        $this->project->on('updateSettings', [$this, 'doUpdateSettings']);
+
+        $this->project->registerFormat(new PhpCodeFormat());
+
+        $this->registerTreeMenu();
+    }
+
+    public function getImportType()
+    {
+        return $this->getIdeConfigValue(self::OPT_IMPORT_TYPE_CODE, 'simple');
+    }
+
+    public function setImportType($value)
+    {
+        $this->setIdeConfigValue(self::OPT_IMPORT_TYPE_CODE, $value);
+    }
+
+    protected function getProjectPackage()
+    {
+        $package = ['classes' => [], 'functions' => [], 'constants' => []];
+
+        $dirs = [];
+
+        if ($this->project->getSrcDirectory() !== null) {
+            $dirs[] = $this->project->getSrcFile('');
+        }
+
+        if ($this->project->getSrcGeneratedDirectory() !== null) {
+            $dirs[] = $this->project->getSrcFile('', true);
+        }
+
+        foreach ($dirs as $directory) {
+            fs::scan($directory, function ($filename) use ($directory, &$package) {
+                if (fs::ext($filename) == 'php') {
+                    $classname = FileUtils::relativePath($directory, $filename);
+
+                    if ($classname[0] == '.') {
+                        return;
+                    }
+
+                    $classname = fs::pathNoExt($classname);
+                    $classname = str::replace($classname, '/', '\\');
+                    $package['classes'][] = $classname;
+                }
+            });
+        }
+
+        return $package;
+    }
+
+    protected function registerTreeMenu()
+    {
+        $tree = $this->project->getTree();
+
+        $tree->registerAddMenuCommand(new TreeCreatePhpFileMenuCommand($tree));
+        $tree->registerAddMenuCommand(new TreeCreatePhpClassMenuCommand($tree));
+        $tree->registerAddMenuCommand(new TreeCreatePhpStructureMenuCommand($tree, 'PHP Интерфейс', 'interface', TreeIconResolver::loadIcon('interface')));
+        $tree->registerAddMenuCommand(new TreeCreatePhpStructureMenuCommand($tree, 'Trait Класс', 'trait', TreeIconResolver::loadIcon('trait')));
+        $tree->registerAddMenuCommand(new TreeCreatePhpStructureMenuCommand($tree, 'Abstract Класс', 'abstract', TreeIconResolver::loadIcon('abstractClass')));
+        $tree->registerAddMenuCommand(new TreeCreatePhpStructureMenuCommand($tree, 'Final Класс', 'final', TreeIconResolver::loadIcon('class'), 'F10'));
+
+        $tree->registerAddMenuSeparator();
+        $tree->registerAddMenuCommand(new TreeCreateExtensionFileMenuCommand($tree, 'INI Файл', 'ini', TreeIconResolver::loadIcon('properties')));
+        $tree->registerAddMenuCommand(new TreeCreateExtensionFileMenuCommand($tree, 'Json Файл', 'json', TreeIconResolver::loadIcon('json'), "{}\n"));
+        $tree->registerAddMenuCommand(new TreeCreateExtensionFileMenuCommand($tree, 'CSS Файл', 'css', TreeIconResolver::loadIcon('css')));
+    }
+
+    protected function refreshInspector()
+    {
+        if ($this->inspector) {
+            $this->inspector->setExtensions(['php']);
+
+            (new Thread(function () {
+                $package = $this->getProjectPackage();
+
+                $this->inspector->putPackage($this->project->getPackageName(), $package);
+
+                $options = [
+                    'defaultPackages' => [$this->project->getPackageName()]
+                ];
+
+                $this->project->loadDirectoryForInspector($this->project->getSrcFile(""), $options);
+
+                if ($this->project->getSrcGeneratedDirectory() != null) {
+                    $this->project->loadDirectoryForInspector($this->project->getSrcFile("", true), $options);
+                }
+            }))->start();
+        }
+    }
+
+    public function doClose()
+    {
+        $this->inspectorThreadPool->shutdown();
+        //$this->inspector->free();
+
+        $this->uiSettings = null;
+        $this->uiByteCodeCheckbox = null;
+        $this->globalUseImports = null;
+        $this->uiImportTypesSelect = null;
+    }
+
+    public function doOpen()
+    {
+        $tree = $this->project->getTree();
+        $tree->addIgnoreExtensions([
+            'source', 'sourcemap'
+        ]);
+
+        $tree->addIgnorePaths([
+            self::GENERATED_DIRECTORY
+        ]);
+
+
+        $this->project->eachSrcFile(function (ProjectFile $file) {
+            if (str::endsWith($file, '.php.source')) {
+                FileUtils::copyFileAsync($file, fs::pathNoExt($file));
+                fs::delete($file);
+            }
+        });
+
+        $this->project->clearIdeCache('bytecode');
+
+        $this->refreshInspector();
+    }
+
+    public function doSave()
+    {
+        if ($this->uiSettings) {
+            $this->setIdeConfigValue(self::OPT_COMPILE_BYTE_CODE, $this->uiByteCodeCheckbox->selected);
+            $this->setImportType(arr::keys(static::$importTypes)[$this->uiImportTypesSelect->selectedIndex]);
+        }
+
+        $this->refreshInspector();
+    }
+
+    public function doPreCompile($env, callable $log = null)
+    {
+        $directories = [$this->project->getSrcFile(""), $this->project->getSrcFile("", true)];
+
+        $cacheIgnore = [];
+
+        foreach ($directories as $directory) {
+            fs::scan($directory, function ($filename) use ($directory, $log, &$cacheIgnore) {
+                $name = FileUtils::relativePath($directory, $filename);
+
+                if (fs::ext($name) == 'php') {
+                    $cacheIgnore[] = $name;
+
+                    $file = 'bytecode/' . fs::pathNoExt($name) . '.phb';
+
+                    $this->project->clearIdeCache($file);
+                }
+            });
+        }
+
+        FileUtils::put($this->project->getIdeCacheFile('bytecode/.cacheignore'), str::join($cacheIgnore, "\n"));
+
+        fs::scan($this->project->getSrcFile(''), function ($filename) {
+            if (fs::ext($filename) == 'phb') {
+                fs::delete($filename);
+            }
+        });
+
+        if ($this->inspector) {
+            $packageName = $this->project->getPackageName();
+
+            $file = $this->project->getSrcFile(".packages/$packageName.pkg", true);
+            fs::ensureParent($file);
+            fs::delete($file);
+
+            $fs = new FileStream($file, 'w+');
+
+            $package = $this->getProjectPackage();
+
+            try {
+                $fs->write("[classes]\n");
+
+                foreach ((array)$package['classes'] as $type) {
+                    if ($type) {
+                        $fs->write($type . "\n");
+                    }
+                }
+            } finally {
+                $fs->close();
+            }
+        }
+
+        if ($gui = GuiFrameworkProjectBehaviour::get()) {
+            $useByteCode = Project::ENV_PROD == $env;
+
+            $dirs = [];
+
+            if ($bundle = BundleProjectBehaviour::get()) {
+                foreach ($bundle->fetchAllBundles($env) as $one) {
+                    $dirs[] = $one->getProjectVendorDirectory() . '/.inc';
+                }
+            }
+
+            $gui->saveBootstrapScript($dirs, $useByteCode && $this->isByteCodeEnabled());
+        }
+    }
+
+    public function isByteCodeEnabled() {
+        return $this->getIdeConfigValue(self::OPT_COMPILE_BYTE_CODE, true);
+    }
+
+    public function setByteCodeEnabled($value) {
+        return $this->setIdeConfigValue(self::OPT_COMPILE_BYTE_CODE, $value);
+    }
+
+    protected function collectZipLibraries()
+    {
+        $result = [];
+
+        foreach ($this->project->getModules() as $module) {
+            switch ($module->getType()) {
+                case 'zipfile':
+                case 'jarfile':
+                    if (!$module->isProvided()) {
+                        $result[] = fs::abs($module->getId());
+                    }
+
+                    break;
+            }
+        }
+
+        return $result;
+    }
+
+    public function doCompile($env, callable $log = null)
+    {
+        $useByteCode = Project::ENV_PROD == $env;
+
+        if ($useByteCode && $this->isByteCodeEnabled()) {
+            $scope = new Environment(null, Environment::HOT_RELOAD);
+            $scope->importClass(FileUtils::class);
+
+            $zipLibraries = $this->collectZipLibraries();
+
+            $generatedDirectory = $this->project->getSrcFile('', true);
+            $dirs = [$generatedDirectory, $this->project->getSrcFile('')];
+
+            $includedFiles = [];
+
+            if ($bundle = BundleProjectBehaviour::get()) {
+                foreach ($bundle->fetchAllBundles($env) as $one) {
+                    $dirs[] = $one->getProjectVendorDirectory();
+                }
+            }
+
+            // Add packages -------------------------------
+            foreach ($dirs as $dir) {
+                fs::scan("$dir/.packages", function ($filename) use ($scope) {
+                    $ext = fs::ext($filename);
+
+                    if ($ext == 'pkg') {
+                        $package = FrameworkPackageLoader::makeFrom($filename);
+                        $scope->setPackage(fs::nameNoExt($filename), $package);
+                    }
+                }, 1);
+            }
+
+            foreach ($zipLibraries as $library) {
+                $zip = new ZipFile($library);
+                foreach ($zip->statAll() as $stat) {
+                    $name = $stat['name'];
+
+                    if (str::startsWith($name, '.packages/') && fs::ext($name) == 'pkg') {
+                        $zip->read($stat['name'], function (array $stat, Stream $stream) use ($name, $scope) {
+                            $package = FrameworkPackageLoader::makeFrom($stream);
+                            $scope->setPackage(fs::nameNoExt($name), $package);
+                        });
+                    }
+                }
+            }
+            // ----------------------------------------------
+
+            $scope->execute(function () use ($zipLibraries, $generatedDirectory, $dirs, &$includedFiles) {
+                ob_implicit_flush(true);
+
+                spl_autoload_register(function ($name) use ($zipLibraries, $generatedDirectory, $dirs, &$includedFiles) {
+                    echo("Try class '$name' auto load\n");
+
+                    foreach ($dirs as $dir) {
+                        $filename = "$dir/$name.php";
+
+                        if (fs::exists($filename)) {
+                            echo "Find class '$name' in ", $filename, "\n";
+
+                            $compiled = new File($generatedDirectory, $name . ".phb");
+                            fs::ensureParent($compiled);
+
+                            $includedFiles[FileUtils::hashName($filename)] = true;
+
+                            $fileStream = new FileStream($filename);
+                            $module = new Module($fileStream, false, true);
+                            $module->dump($compiled, true);
+                            $fileStream->close();
+                            return;
+                        }
+                    }
+                    foreach ($zipLibraries as $file) {
+                        if (!fs::exists($file)) {
+                            echo "SKIP $file, is not exists.\n";
+                            continue;
+                        }
+
+                        try {
+                            $name = str::replace($name, '\\', '/');
+
+                            $url = new URL("jar:file:///$file!/$name.php");
+
+                            $conn = $url->openConnection();
+                            $stream = $conn->getInputStream();
+
+                            $module = new Module($stream, false);
+                            $module->call();
+
+                            $stream->close();
+
+                            echo "Find class '$name' in ", $file, "\n";
+
+                            $compiled = new File($generatedDirectory, $name . ".phb");
+
+                            fs::ensureParent($compiled);
+
+                            $module->dump($compiled, true);
+
+                            return;
+                        } catch (IOException $e) {
+                            echo "[ERROR] {$e->getMessage()}\n";
+                            // nop.
+                        }
+                    }
+                });
+            });
+
+            foreach ($dirs as $i => $dir) {
+                fs::scan($dir, function ($filename) use ($log, $scope, $i, $useByteCode, $generatedDirectory, $dir, &$includedFiles) {
+                    $relativePath = FileUtils::relativePath($dir, $filename);
+
+                    if ($i == 1) { // ignore src files if they exist in src_generated dir.
+                        if (fs::exists($this->project->getSrcFile($relativePath, true))) {
+                            return;
+                        }
+                    }
+
+                    if (str::endsWith($filename, '.php')) {
+                        if ($includedFiles[FileUtils::hashName($filename)]) {
+                            return;
+                        }
+
+                        $filename = fs::normalize($filename);
+
+                        if ($log) {
+                            $log(":compile $filename");
+                        }
+
+                        $compiledFile = new File($generatedDirectory, '/' . fs::pathNoExt($relativePath) . '.phb');
+
+                        if ($compiledFile->getParentFile() && !$compiledFile->getParentFile()->isDirectory()) {
+                            $compiledFile->getParentFile()->mkdirs();
+                        }
+
+                        $includedFiles[FileUtils::hashName($filename)] = true;
+                        $scope->execute(function () use ($filename, $compiledFile) {
+                            $fileStream = new FileStream($filename);
+                            $module = new Module($fileStream, false, true);
+                            $stream = new FileStream($compiledFile, 'w+');
+                            $module->dump($stream, true);
+                            $stream->close();
+                            $fileStream->close();
+                        });
+                    }
+                });
+            }
+
+            fs::scan($generatedDirectory, function ($filename) use ($log, $scope, $useByteCode, &$includedFiles) {
+                if (fs::ext($filename) == 'php') {
+                    if ($includedFiles[FileUtils::hashName($filename)]) {
+                        return;
+                    }
+
+                    $filename = fs::normalize($filename);
+
+                    if ($log) $log(":compile-gen $filename");
+
+                    $compiledFile = fs::pathNoExt($filename) . '.phb';
+
+                    $includedFiles[FileUtils::hashName($filename)] = true;
+
+                    $scope->execute(function () use ($filename, $compiledFile) {
+                        $stream = new FileStream($compiledFile, 'w+');
+                        $fileStream = new FileStream($filename);
+                        $module = new Module($fileStream, false, true);
+                        $module->dump($stream);
+                        $stream->close();
+                        $fileStream->close();
+                    });
+
+                    if (!fs::delete($filename)) {
+                        $log("[WARNING]: Failed to delete file $filename");
+                    }
+                }
+            });
+
+            foreach ($zipLibraries as $library) {
+                if (!fs::exists($library)) {
+                    continue;
+                }
+
+                $jar = new ZipFile($library);
+
+                foreach ($jar->statAll() as $stat) {
+                    list($name) = [$stat['name']];
+
+                    if (str::startsWith($name, 'JPHP-INF/')) {
+                        continue;
+                    }
+
+                    if (fs::ext($name) == 'php') {
+                        $compiled = new File($generatedDirectory, '/' . fs::pathNoExt($name) . ".phb");
+
+                        if (!$compiled->exists()) {
+                            if ($compiled->getParentFile() && !$compiled->getParentFile()->isDirectory()) {
+                                $compiled->getParentFile()->mkdirs();
+                            }
+
+                            $jar->read($name, function ($_, Stream $stream) use ($name, $compiled, $log, $scope) {
+                                $className = fs::pathNoExt($name);
+                                $className = str::replace($className, '/', '\\');
+
+                                try {
+                                    $done = $scope->execute(function () use ($stream, $compiled, $className, $log) {
+                                        if (!class_exists($className, false)) {
+                                            try {
+                                                $module = new Module($stream, false);
+                                                $module->dump($compiled, true);
+                                                return true;
+                                            } catch (Error $e) {
+                                                if ($log) {
+                                                    $log("[ERROR] Unable to compile '{$className}', {$e->getMessage()}, on line {$e->getLine()}");
+                                                    return false;
+                                                }
+                                            }
+                                        }
+
+                                        return false;
+                                    });
+
+                                    if ($log && $done) {
+                                        $log(":compile {$name}");
+                                    }
+                                } finally {
+                                    $stream->close();
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function doUpdateSettings(CommonProjectControlPane $editor = null)
+    {
+        if ($this->uiSettings) {
+            $this->uiByteCodeCheckbox->selected = $this->getIdeConfigValue(self::OPT_COMPILE_BYTE_CODE, true);
+            $this->uiImportTypesSelect->value   = static::$importTypes[$this->getImportType()];
+        }
+    }
+
+    public function doMakeSettings(CommonProjectControlPane $editor)
+    {
+        $title = new UXLabel('Исходный PHP код');
+
+        $this->uiByteCodeCheckbox = $byteCodeCheckbox = new UXCheckbox('Компилировать в байткод (+ защита от декомпиляции)');
+        $this->uiByteCodeCheckbox->on('mouseUp', [$this, 'doSave']);
+        $byteCodeCheckbox->tooltipText = 'Компиляция будет происходить только во время итоговой сборки проекта.';
+
+        $importTitle = new UXLabel('Метод импортирования классов');
+        $importTitle->classes->add('fxe-project-field-label');
+        $importTypeSelect = new UXComboBox(static::$importTypes);
+        $importTypeSelect->classes->add('fxe-project-combo');
+
+        $importTypeSelect->on('action', function () {
+            uiLater(function () {
+                $this->setImportType(arr::keys(static::$importTypes)[$this->uiImportTypesSelect->selectedIndex]);
+            });
+        });
+
+        $this->uiImportTypesSelect = $importTypeSelect;
+        $importTypeSelect->maxWidth = 9999;
+        UXHBox::setHgrow($importTypeSelect, 'ALWAYS');
+
+        $left = new UXVBox([$importTitle, $importTypeSelect], 6);
+        $left->fillWidth = true;
+        UXHBox::setHgrow($left, 'ALWAYS');
+
+        $right = new UXVBox([$byteCodeCheckbox]);
+        $right->alignment = 'BOTTOM_RIGHT';
+        $right->fillHeight = true;
+
+        $row = new UXHBox([$left, $right]);
+        $row->spacing = 24;
+        $row->alignment = 'TOP_LEFT';
+        $row->fillHeight = false;
+
+        $ui = new UXVBox([$title, $row], 0);
+        $this->uiSettings = $ui;
+
+        $editor->addSettingsPane($ui);
+    }
+}
